@@ -1,0 +1,9 @@
+*.gguf
+build/
+.gradle/
+.idea/
+bin/
+obj/
+*.bak
+venv/
+postgres_data/

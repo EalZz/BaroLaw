@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+<!-- 시스템 공통 스크립트들 --> 
+<script type="text/javascript" src="/CSP/js/csp0.js"></script>
+<script type="text/javascript" src="/CSP/js/cookie.js"></script>
+<script type="text/javascript" src="/CSP/js/makePCookie.js"></script>
+<script type="text/javascript" src="/CSP/js/resize.js"></script>
+<script type="text/javascript" src="/CSP/js/quick.js"></script>
+<script type="text/javascript" src="/CSP/js/login.js?v250924"></script>
+<script type="text/javascript" src="/CSP/js/common.js"></script>
+<script type="text/javascript" src="/CSP/js/topsearch.js"></script>
+<script type="text/javascript"  src="/CSP/js/anymag/magnifier.js"></script>
+<script type="text/javascript" src="/CSP/js/menu.js"></script>
+<script type="text/javascript" src="/CSP/js/searchEngi.js"></script>
+<script type="text/javascript" src="/CSP/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/CSP/js/jquery.selectBox_new.js"></script>
+<script type="text/javascript" src="/CSP/js/glip0.js"></script>
+<script type="text/javascript" src="/CSP/js/klaw.js"></script>
+<script type="text/javascript" src="/CSP/js/ZeroClipboard.js"></script>
+<script type="text/javascript" src="/CSP/js/topMenu.js"></script>
+<script type="text/javascript" src="/CSP/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="/CSP/js/kakao.min.js"></script>
+<script type="text/javascript" src="/CSP/js/sns.js"></script>
+<script type="text/javascript" src="/CSP/js/base64.js?v250906"></script>
+<script type="text/javascript" src="/CSP/js/simpleAuth.js"></script>
+<link rel="stylesheet" type="text/css" href="/CSP/css/style.css?v251125" />
+
+<link rel="stylesheet" type="text/css" href="/CSP/css/lnb.css?v230728" />
+
+<link rel="stylesheet" type="text/css" href="/CSP/css/style_JSY.css" />
+<link rel="stylesheet" type="text/css" href="/CSP/css/search.css" />
+
+<link rel="stylesheet" type="text/css" href="/CSP/css/common.css?v251017" />
+
+<link rel="stylesheet" type="text/css" href="/CSP/css/easyCard.css" />
+<link rel="stylesheet" type="text/css" href="/CSP/css/main.css?v230728" />
+<link rel="stylesheet" type="text/css" href="/CSP/css/index.css?v230728">
+<link rel="stylesheet" type="text/css" href="/CSP/css/privacy.css?v250906">
+<style type="text/css">
+    .arrow_box2 {position:relative;background: #fff;border: 1px solid #2c55ad;}
+    .arrow_box2:after, .arrow_box2:before {bottom: 100%;border: solid transparent;content: " ";height: 0;width: 0;position: absolute;/*pointer-events: none;*/}
+    .arrow_box2:after {border-color: rgba(255, 255, 255, 0);border-bottom-color: #fff;border-width: 5px;left: 80%;margin-left: -5px;}
+    .arrow_box2:before {border-color: rgba(44, 85, 173, 0);border-bottom-color: #2c55ad;border-width: 6px;left: 80%;margin-left: -6px;}
+</style>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+// 2013.07.19 Jung-Seok.YI :: SESSION
+var userValue = "null";
+var userNmVal = "null";
+var naviMenu = "null";
+
+var nowZoom = 100;  // Default Page Size
+var maxZoom = 200;  // Max Page Size
+var minZoom = 80;   // Min Page Size
+    $(document).ready(function(){
+        getMyFind();
+
+        $('a.modal').click(function(e) {
+            e.preventDefault();
+            var id = $(this).attr('href');
+            var maskHeight = $(document).height();
+            var maskWidth = $(window).width();
+
+            if("#pop_retrieve" == id){
+                // iFrame Action 변경
+                parent.$("#pop_csm").attr("src", "CsmTopRetrieveLst.laf").submit();
+           
+                $('#mask').css({'width':maskWidth,'height':maskHeight});
+                $('#mask').fadeIn(500);
+                $('#mask').fadeTo(500,0.8);
+                var winH = $(window).height();
+                var winW = $(window).width();
+                $(id).css('top',  winH/2-$(id).height()/2 + $(document).scrollTop());
+                $(id).css('left', winW/2-$(id).width()/2);
+                $(id).fadeIn(500);              
+            }else if("#pop_movie" == id){
+                // iFrame Action 변경
+                parent.$("#pop_ucc").attr("src", "UccRetrieve01.laf?uccNo="+ document.getElementById("selectIdx").value +"&amp;topMenu=serviceUl4").submit();
+                
+                $('#mask').css({'width':maskWidth,'height':maskHeight});
+                $('#mask').fadeIn(500);
+                $('#mask').fadeTo(500,0.8);
+                var winH = $(window).height();
+                var winW = $(window).width();
+                var vTop = winH/2-$(id).height()/2 + $(document).scrollTop();
+                if (vTop < 0){vTop=0};
+                $(id).css('top',  vTop);
+                $(id).css('left', winW/2-$(id).width()/2);
+                $(id).fadeIn(500);
+            }
+        });
+    
+        //모달팝업창 닫기
+        $('.window .tit button').click(function (e) {
+            e.preventDefault();
+            $('#mask').hide();
+            $('.window').hide();
+            parent.document.getElementById("pop_ucc").src = ""; //safari에서 경우 닫기해도 동영상이 남아 있어서 조치함.
+        });
+        //if mask is clicked
+        $('#mask').click(function () {
+            $(this).hide();
+            $('.window').hide();
+            parent.document.getElementById("pop_ucc").src = "";   //safari에서 경우 닫기해도 동영상이 남아 있어서 조치함.
+        });
+        
+        //주제별 선택 아이콘 변경
+        var astValue = $("#solomonAstValue").attr('value');
+        var astTitle = $(".ast_"+astValue).attr('title');
+        
+        $(".ast_"+astValue).attr('class',"ast_"+astValue+"_on");
+        
+        if('' != astValue){
+            $("#ast_"+astValue).focus();
+        } 
+    });
+
+    //ESC event 
+    $(document).keydown(function(event){ 
+    if ( event.keyCode == 27 ) { 
+        $('.window .tit button').click();
+    }
+    });
+    
+    function keyHandler(event) {
+        
+        isStarted = true;
+        
+        autoLi = $("#listpop").children("ul").children("li");
+        liIndex = $("#listpop").children("ul").children(".on").index();
+        
+        if(event.keyCode==40 && resultDataArray != null){
+            
+            mvNextItem(); 
+        } else if(event.keyCode==38 && resultDataArray != null){ 
+            
+            mvPrevItem(); 
+        } else if(event.keyCode==13) {
+            
+            if( resultDataArray == null ) {
+                
+                return false;
+            }
+            if( currItemIdx >= 0 ) {
+                
+                go_srch(resultDataArray[currItemIdx]);
+            }
+        } else {
+            
+            currItemIdx = -1;
+        }
+    }
+    
+    function goMenu(m){
+        var url = "";
+        if(m == "1"){
+            url = "http://www.easylaw.go.kr/CSP/About01.laf?topMenu=introUl1";
+        }else if(m == "2"){
+            url = "http://www.easylaw.go.kr/CSP/CsmSortRetrieveLst.laf?sortType=easy";
+        }else if(m == "3"){
+            url = "http://www.easylaw.go.kr/CSP/OnhunqueansLstRetrieve.laf";
+        }else if(m == "4"){
+            url = "http://www.easylaw.go.kr/CSP/SolomonRetrieveLst.laf?topMenu=serviceUl6";
+        }else if(m == "5"){
+            url = "http://www.easylaw.go.kr/CSP/NtcRetrieveLst.laf?topMenu=openUl1";
+        }
+        location.href = url;
+    }
+    
+    function goLogin(){
+        location.href = "https://www.easylaw.go.kr/CSP/Login.laf?topMenu=memberUl2";
+    }
+    
+    function goRetrieveCnt(isCnt){
+        var valCnt = document.getElementById("retrieve_cnt");
+        if(null != valCnt){
+            valCnt.innerText = isCnt;
+        }
+    }
+    
+    function goMyPage(){
+        location.href = "https://www.easylaw.go.kr/CSP/MyBookmarkPortDataLst.laf?topMenu=mypageUl1&arg=";
+    }
+    
+    function delCookie(){
+        setCookie('myCsmSortRetrieve',"",365);
+        setCookie('myCsmSortRetrieveCnt',"0",365);
+        goRetrieveCnt(0);
+        alert("내가 찾은 맞춤결과가 삭제되었습니다.");
+        location.href = "/CSP/Main.laf";
+    }
+    
+    function delCookie2(){
+        setCookie('myFind',"",365);
+        setCookie('myInfoNumber',"0",365);
+        alert("내가 찾은 법령정보가 삭제되었습니다.");
+        location.href = "/CSP/Main.laf";
+    }
+  
+    function ReSearchTop(){
+        var sInput = document.srchForm.search_input.value;
+        sInput = sInput.replace(/</gi,"&lt;");
+        sInput = sInput.replace(/>/gi,"&gt;");
+        sInput = sInput.replace(/\(/gi,"");
+        var url ="/CSP/UnScRlt.laf?search_put="+encodeURIComponent(sInput);
+        location.href = url;
+    }
+    
+    function reSearch() {
+        document.getElementById("search_put").value = document.getElementById("s_put").value;
+        var sInput = document.getElementById("search_put").value;
+        sInput = sInput.replace(/</gi,"&lt;");
+        sInput = sInput.replace(/>/gi,"&gt;");
+        sInput = sInput.replace(/\(/gi,"");
+        document.f1.action = "/CSP/UnScRlt.laf?search_put="+encodeURIComponent(sInput);
+        document.f1.submit();
+    }
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+    //전체메뉴 이벤트
+    $( document ).ready(function() {
+        $(".allMenu").click(function(){
+            $("#allMenu").css("display", "block");
+            $(".bg_cover").css("display", "block");
+        });
+        $(".btn").click(function(){
+            $("#allMenu").css("display", "none");
+            $(".bg_cover").css("display", "none");

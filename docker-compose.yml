@@ -1,0 +1,133 @@
+services:
+  ollama-server:
+    image: ollama/ollama
+    container_name: ollama-server
+    restart: always
+    volumes:
+      - ollama_storage:/root/.ollama
+      - ./models:/app/models
+    ports:
+      - "11434:11434"
+    networks:
+      - voice-net
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: user_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+    networks:
+      - voice-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user -d voice_db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  voice-backend:
+    build: ./backend
+    image: ealz/voice-backend:v6
+    container_name: voice-backend
+    restart: always
+    environment:
+      - OLLAMA_HOST=ollama-server
+      - DATABASE_URL=postgresql://user:password@db:5432/user_db
+      - KNOWLEDGE_DB_URL=postgresql://user:password@db:5432/knowledge_db
+      - PYTHONIOENCODING=utf-8
+      - LANG=C.UTF-8
+    volumes:
+      - ./backend:/app # 소스 코드 변경 시 재빌드 없이 즉시 반영
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+    depends_on:
+      ollama-server:
+        condition: service_started
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    networks:
+      - voice-net
+
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "18888:8080"
+    restart: unless-stopped
+    networks:
+      - voice-net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    user: "0"
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
+    networks:
+      - voice-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    networks:
+      - voice-net
+
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter
+    container_name: postgres-exporter
+    environment:
+      - DATA_SOURCE_NAME=postgresql://user:password@db:5432/user_db?sslmode=disable
+    ports:
+      - "9187:9187"
+    restart: unless-stopped
+    networks:
+      - voice-net
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: always
+    ports:
+      - "5050:8080"
+    networks:
+      - voice-net
+
+volumes:
+  ollama_storage:
+  postgres_data:
+
+
+networks:
+  voice-net:
+    driver: bridge
