@@ -44,6 +44,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalDensity
 import java.util.UUID
+import android.provider.Settings
+import dev.jeziellago.compose.markdowntext.MarkdownText
+import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 
 // --- Enums ---
 enum class ActiveScreen {
@@ -74,10 +84,12 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     private var currentSessionId by mutableStateOf("")
     
     // UI states
-    private var loadingJob: Job? = null
+    private val loadingJobs = mutableMapOf<String, Job>()
     private var isListening by mutableStateOf(false)
-    private var isAutoVoiceEnabled by mutableStateOf(true)
+    private var isAutoVoiceEnabled by mutableStateOf(false)
     private var activeScreen by mutableStateOf(ActiveScreen.Chat)
+    private var showDeleteDialog by mutableStateOf(false)
+    private var sessionToDelete by mutableStateOf<ChatSession?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -86,8 +98,25 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
         window.statusBarColor = android.graphics.Color.TRANSPARENT
         window.navigationBarColor = android.graphics.Color.TRANSPARENT
         
-        if (sessions.isEmpty()) {
-            createNewSession()
+        // UI가 렌더링될 때 빈 세션 에러가 나지 않도록 일단 빈 세션 1개 생성 (제외: 이제 메인 가이드가 기본)
+        // if (sessions.isEmpty()) {
+        //     createNewSession()
+        // }
+
+        val androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+        lifecycleScope.launch {
+            try {
+                val savedSessions = streamManager.fetchSessions(androidId)
+                if (savedSessions.isNotEmpty()) {
+                    sessions.clear()
+                    sessions.addAll(savedSessions)
+                    // 앱 실행 시에는 가장 최근 세션을 바로 로드하지 않고 메인 화면(빈 세션 아이디)을 유지하거나 선택 가능
+                    // currentSessionId = savedSessions.first().id
+                    // loadHistory(currentSessionId)
+                }
+            } catch (e: Exception) {
+                // 에러 무시
+            }
         }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
@@ -109,7 +138,47 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             ) {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
-                val currentSession = sessions.find { it.id == currentSessionId } ?: sessions[0]
+                // sessions가 비어있거나 currentSessionId가 없는 경우 가상의 빈 세션 반환 (메인 가이드용)
+                val currentSession = sessions.find { it.id == currentSessionId } ?: ChatSession(id = "", title = "메인 가이드")
+
+                if (showDeleteDialog && sessionToDelete != null) {
+                    AlertDialog(
+                        onDismissRequest = { 
+                            showDeleteDialog = false
+                            sessionToDelete = null
+                        },
+                        title = { Text("대화방 삭제", color = Color.White) },
+                        text = { Text("이 대화방을 삭제하시겠습니까?\n삭제된 내용은 복구할 수 없습니다.", color = Color.White) },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                sessionToDelete?.let { session ->
+                                    scope.launch {
+                                        val success = streamManager.deleteSession(session.id)
+                                        if (success) {
+                                            sessions.remove(session)
+                                            if (currentSessionId == session.id) {
+                                                currentSessionId = ""
+                                            }
+                                        }
+                                    }
+                                }
+                                showDeleteDialog = false
+                                sessionToDelete = null
+                            }) {
+                                Text("삭제", color = Color.Red)
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { 
+                                showDeleteDialog = false
+                                sessionToDelete = null
+                            }) {
+                                Text("취소", color = Color.White)
+                            }
+                        },
+                        containerColor = Color(0xFF1E1E1E)
+                    )
+                }
 
                 if (activeScreen == ActiveScreen.Chat) {
                     ModalNavigationDrawer(
@@ -139,27 +208,50 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                                     style = MaterialTheme.typography.labelSmall,
                                     color = Color.Gray
                                 )
-                                
                                 LazyColumn(modifier = Modifier.weight(1f)) {
-                                    items(sessions.reversed()) { session ->
+                                    items(sessions) { session -> // 정렬은 백엔드에서 이미 updated_at 기준 내림차순으로 줌
                                         NavigationDrawerItem(
                                             label = { 
-                                                Text(
-                                                    if(session.title.isEmpty()) "새 대화" else session.title, 
-                                                    color = Color.White,
-                                                    maxLines = 1
-                                                ) 
+                                                Row(
+                                                    modifier = Modifier.fillMaxWidth(),
+                                                    verticalAlignment = Alignment.CenterVertically,
+                                                    horizontalArrangement = Arrangement.SpaceBetween
+                                                ) {
+                                                    Text(
+                                                        if(session.title.isEmpty()) "새 대화" else session.title, 
+                                                        color = Color.White,
+                                                        maxLines = 1,
+                                                        modifier = Modifier.weight(1f)
+                                                    )
+                                                    
+                                                    IconButton(
+                                                        onClick = { 
+                                                            sessionToDelete = session
+                                                            showDeleteDialog = true
+                                                        },
+                                                        modifier = Modifier.size(24.dp)
+                                                    ) {
+                                                        Icon(
+                                                            imageVector = Icons.Default.Delete,
+                                                            contentDescription = "Delete",
+                                                            tint = Color.Gray,
+                                                            modifier = Modifier.size(16.dp)
+                                                        )
+                                                    }
+                                                }
                                             },
                                             selected = session.id == currentSessionId,
                                             onClick = {
                                                 currentSessionId = session.id
+                                                loadHistory(session.id)
                                                 scope.launch { drawerState.close() }
                                             },
                                             icon = { Icon(Icons.Default.ChatBubbleOutline, contentDescription = null, tint = Color.Gray) },
                                             colors = NavigationDrawerItemDefaults.colors(
                                                 selectedContainerColor = Color(0xFF2C2C34),
                                                 unselectedContainerColor = Color.Transparent
-                                            )
+                                            ),
+                                            modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                                         )
                                     }
                                 }
@@ -185,7 +277,10 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                             isListening = isListening,
                             onSendMessage = { text -> sendMessage(text) },
                             onVoiceClick = { toggleVoiceRecognition() },
-                            onMenuClick = { scope.launch { drawerState.open() } },
+                            onMenuClick = { 
+                                refreshSessionTitles()
+                                scope.launch { drawerState.open() } 
+                            },
                             onPlayVoice = { text -> speak(text) }
                         )
                     }
@@ -201,9 +296,46 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun createNewSession() {
-        val newSession = ChatSession(title = "")
-        sessions.add(newSession)
-        currentSessionId = newSession.id
+        // 이제 단순히 currentSessionId를 비워서 메인 화면으로 돌아가게 함
+        currentSessionId = ""
+    }
+
+    private fun refreshSessionTitles() {
+        val androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+        lifecycleScope.launch {
+            try {
+                val updatedSessions = streamManager.fetchSessions(androidId)
+                updatedSessions.forEach { updated ->
+                    val index = sessions.indexOfFirst { it.id == updated.id }
+                    if (index != -1) {
+                        val existing = sessions[index]
+                        if (existing.title != updated.title && updated.title.isNotEmpty()) {
+                            sessions[index] = existing.copy(title = updated.title)
+                        }
+                    } else {
+                        // 만약 로컬에 없는 완전히 새로운 세션이 서버에 생겼을 경우 (이론상 방어 코드)
+                        sessions.add(updated)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun loadHistory(sessionId: String) {
+        lifecycleScope.launch {
+            try {
+                val history = streamManager.fetchHistory(sessionId)
+                val session = sessions.find { it.id == sessionId }
+                if (session != null) {
+                    session.messages.clear()
+                    session.messages.addAll(history)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun setupSpeechRecognizer() {
@@ -238,7 +370,15 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun sendMessage(text: String) {
-        val session = sessions.find { it.id == currentSessionId } ?: return
+        // [지연 생성] 현재 선택된 세션이 없거나 세션이 비어있는 경우 새로 생성
+        if (currentSessionId.isEmpty()) {
+            val newSession = ChatSession(id = UUID.randomUUID().toString(), title = text.take(15) + "...")
+            sessions.add(0, newSession) // 최상단에 추가
+            currentSessionId = newSession.id
+        }
+        
+        val activeSessionId = currentSessionId // !!핵심!! 현재 세션 ID 캡처
+        val session = sessions.find { it.id == activeSessionId } ?: return
         
         if (session.messages.isEmpty()) {
             val title = if (text.length > 20) text.take(17) + "..." else text
@@ -246,73 +386,81 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             if (idx != -1) sessions[idx] = session.copy(title = title)
         }
 
-        addMessage(text, isUser = true)
-        addMessage("Thinking", isUser = false)
-        startLoadingAnimation()
+        addMessage(activeSessionId, text, isUser = true)
+        val aiMsgId = addMessage(activeSessionId, "Thinking", isUser = false)
+        startLoadingAnimation(activeSessionId, aiMsgId)
 
         var fullResponse = ""
 
         lifecycleScope.launch {
             try {
-                streamManager.fetchChatStream(text, null, null).collect { response ->
-                    if (loadingJob != null) stopLoadingAnimation()
+                streamManager.fetchChatStream(text, activeSessionId, null, null).collect { response ->
+                    val token = response.token
+                    if (token.isNotEmpty()) {
+                        stopLoadingAnimation(aiMsgId) // 실제 텍스트가 올 때만 멈춤
 
-                    val currentSession = sessions.find { it.id == currentSessionId } ?: return@collect
-                    val lastIndex = currentSession.messages.size - 1
-                    if (lastIndex < 0) return@collect
-
-                    if (response.token.isNotEmpty()) {
-                        val currentMessage = currentSession.messages[lastIndex]
-                        val newContent = if (currentMessage.content.contains("Thinking")) {
-                            response.token
-                        } else {
-                            currentMessage.content + response.token
+                        val targetSession = sessions.find { it.id == activeSessionId } ?: return@collect
+                        val msgIndex = targetSession.messages.indexOfFirst { it.id == aiMsgId }
+                        if (msgIndex >= 0) {
+                            val msg = targetSession.messages[msgIndex]
+                            val newContent = if (msg.content.contains("Thinking")) token else msg.content + token
+                            targetSession.messages[msgIndex] = msg.copy(content = newContent)
+                            fullResponse += token
                         }
-                        currentSession.messages[lastIndex] = currentMessage.copy(content = newContent)
-                        fullResponse += response.token
                     }
 
                     if (response.isDone) {
+                        stopLoadingAnimation(aiMsgId)
                         if (fullResponse.isNotBlank() && isAutoVoiceEnabled) {
                             speak(fullResponse)
+                        }
+                        
+                        // [자동 갱신] 스트리밍 답변이 끝났다면, 서버의 요약도 끝났을 확률이 높으므로 즉시 제목 동기화
+                        lifecycleScope.launch {
+                            delay(2000) // 혹시 모를 짧은 스트리밍 대비 서버 DB Commit 대기
+                            refreshSessionTitles()
                         }
                     }
                 }
             } catch (e: Exception) {
-                stopLoadingAnimation()
-                val currentSession = sessions.find { it.id == currentSessionId } ?: return@launch
-                val lastIndex = currentSession.messages.size - 1
-                if (lastIndex >= 0) {
-                    currentSession.messages[lastIndex] = currentSession.messages[lastIndex].copy(content = "에러: ${e.message}")
+                stopLoadingAnimation(aiMsgId)
+                val targetSession = sessions.find { it.id == activeSessionId } ?: return@launch
+                val msgIndex = targetSession.messages.indexOfFirst { it.id == aiMsgId }
+                if (msgIndex >= 0) {
+                    val currentMsg = targetSession.messages[msgIndex]
+                    targetSession.messages[msgIndex] = currentMsg.copy(content = "오류 발생: ${e.localizedMessage}")
                 }
             }
         }
     }
 
-    private fun addMessage(text: String, isUser: Boolean) {
-        val session = sessions.find { it.id == currentSessionId } ?: return
-        session.messages.add(ChatMessage(content = text, isUser = isUser))
+    private fun addMessage(sessionId: String, text: String, isUser: Boolean): String {
+        val session = sessions.find { it.id == sessionId } ?: return ""
+        val newMsg = ChatMessage(content = text, isUser = isUser)
+        session.messages.add(newMsg)
+        return newMsg.id
     }
 
-    private fun startLoadingAnimation() {
-        loadingJob = lifecycleScope.launch {
+    private fun startLoadingAnimation(targetSessionId: String, msgId: String) {
+        val job = lifecycleScope.launch {
             var dotCount = 1
             while (isActive) {
                 val dots = ".".repeat(dotCount)
-                val currentSession = sessions.find { it.id == currentSessionId } ?: break
-                val lastIndex = currentSession.messages.size - 1
-                if (lastIndex >= 0 && !currentSession.messages[lastIndex].isUser && currentSession.messages[lastIndex].content.contains("Thinking")) {
-                    currentSession.messages[lastIndex] = currentSession.messages[lastIndex].copy(content = "Thinking$dots")
+                val targetSession = sessions.find { it.id == targetSessionId } ?: break
+                val msgIndex = targetSession.messages.indexOfFirst { it.id == msgId }
+                if (msgIndex >= 0 && !targetSession.messages[msgIndex].isUser && targetSession.messages[msgIndex].content.contains("Thinking")) {
+                    targetSession.messages[msgIndex] = targetSession.messages[msgIndex].copy(content = "Thinking$dots")
                 }
                 dotCount = if (dotCount >= 3) 1 else dotCount + 1
                 delay(500)
             }
         }
+        loadingJobs[msgId] = job
     }
 
-    private fun stopLoadingAnimation() {
-        loadingJob?.cancel()
-        loadingJob = null
+    private fun stopLoadingAnimation(msgId: String) {
+        loadingJobs[msgId]?.cancel()
+        loadingJobs.remove(msgId)
     }
 
     override fun onInit(status: Int) {
@@ -329,6 +477,16 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
         if (::speechRecognizer.isInitialized) speechRecognizer.destroy()
         super.onDestroy()
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (activeScreen == ActiveScreen.Settings) {
+            activeScreen = ActiveScreen.Chat
+        } else {
+            // 앱 종료 대신 백그라운드로 보냄
+            moveTaskToBack(true)
+        }
+    }
 }
 
 @Composable
@@ -343,6 +501,7 @@ fun ChatScreen(
     val messages = currentSession.messages
     var textState by remember { mutableStateOf(TextFieldValue("")) }
     val listState = rememberLazyListState()
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(messages.size) {
         if (messages.isNotEmpty()) {
@@ -413,7 +572,13 @@ fun ChatScreen(
             }
         }
     ) { innerPadding ->
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = { focusManager.clearFocus() })
+                }
+        ) {
             if (messages.isEmpty()) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -424,6 +589,12 @@ fun ChatScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(text = "무엇을 도와드릴까요?", style = MaterialTheme.typography.headlineMedium, color = Color.White)
                     Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "새로운 주제의 상담은 '새 채팅'에서 시작하시는 것이 가장 정확합니다.",
+                        style = MaterialTheme.typography.bodyMedium, color = Color(0xFF64B5F6), // 가시성 높은 파란색 톤
+                        textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 32.dp)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = "본 챗봇의 내용은 참고용이며, 정확한 판단은 법률 전문가와의 상담을 권장합니다.",
                         style = MaterialTheme.typography.bodySmall, color = Color.Gray,
@@ -541,6 +712,8 @@ fun ChatBubble(message: ChatMessage, onPlayVoice: (String) -> Unit) {
     val isThinking = !isUser && message.content.startsWith("Thinking")
     val bubbleColor = if (isUser) Color(0xFF2F2F2F) else Color.Transparent
     val shape = if (isUser) RoundedCornerShape(20.dp, 20.dp, 4.dp, 20.dp) else RoundedCornerShape(0.dp)
+    val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
 
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
@@ -568,14 +741,67 @@ fun ChatBubble(message: ChatMessage, onPlayVoice: (String) -> Unit) {
                     .background(bubbleColor)
                     .padding(horizontal = if (isUser) 16.dp else 0.dp, vertical = if (isUser) 12.dp else 4.dp)
             ) {
-                Text(text = message.content, color = if (isThinking) Color.Gray else Color.White, style = MaterialTheme.typography.bodyLarge)
+                SelectionContainer {
+                    if (isUser) {
+                        Text(text = message.content, color = if (isThinking) Color.Gray else Color.White, style = MaterialTheme.typography.bodyLarge)
+                    } else {
+                        val parts = message.content.split("\n\n---[LEGAL_BASIS]---\n").toMutableList()
+                        // 혹시 과거의 \n\n---\n 포맷이 남아있을 경우를 대비
+                        if (parts.size == 1) {
+                            parts.clear()
+                            parts.addAll(message.content.split("\n\n---\n"))
+                        }
+                        
+                        if (parts.size > 1 && !isThinking) {
+                            Column {
+                                MarkdownText(
+                                    markdown = parts[0],
+                                    color = Color.White,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    isTextSelectable = true
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                HorizontalDivider(color = Color.DarkGray)
+                                Spacer(modifier = Modifier.height(8.dp))
+                                MarkdownText(
+                                    markdown = parts.drop(1).joinToString("\n\n---[LEGAL_BASIS]---\n").replace("\n\n---\n", ""),
+                                    color = Color.Gray,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    isTextSelectable = true
+                                )
+                            }
+                        } else {
+                            MarkdownText(
+                                markdown = message.content,
+                                color = if (isThinking) Color.Gray else Color.White,
+                                style = MaterialTheme.typography.bodyLarge,
+                                isTextSelectable = true
+                            )
+                        }
+                    }
+                }
             }
-            if (!isUser && !isThinking) {
-                IconButton(
-                    onClick = { onPlayVoice(message.content) },
-                    modifier = Modifier.size(32.dp).padding(top = 4.dp)
+            if (!isThinking) {
+                Row(
+                    modifier = Modifier.padding(top = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(Icons.Default.PlayArrow, contentDescription = "Play", tint = Color.Gray, modifier = Modifier.size(16.dp))
+                    IconButton(
+                        onClick = {
+                            clipboardManager.setText(AnnotatedString(message.content))
+                            Toast.makeText(context, "텍스트가 복사되었습니다.", Toast.LENGTH_SHORT).show()
+                        },
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(Icons.Default.ContentCopy, contentDescription = "Copy", tint = Color.Gray, modifier = Modifier.size(16.dp))
+                    }
+                    IconButton(
+                        onClick = { onPlayVoice(message.content) },
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(Icons.Default.VolumeUp, contentDescription = "Play", tint = Color.Gray, modifier = Modifier.size(18.dp))
+                    }
                 }
             }
         }

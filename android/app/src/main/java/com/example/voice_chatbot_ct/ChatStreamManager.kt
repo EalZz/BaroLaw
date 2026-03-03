@@ -11,10 +11,12 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import org.json.JSONArray
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 import android.content.Context
 import android.provider.Settings
+import kotlinx.coroutines.withContext
 
 class ChatStreamManager(private val context: Context) {
     private val client = OkHttpClient.Builder()
@@ -26,13 +28,13 @@ class ChatStreamManager(private val context: Context) {
     private val BASE_URL = "https://welcome-chipmunk-organic.ngrok-free.app"
 
     // 함수의 반환 타입을 Flow로 명시하고, 내부에서 suspend 기능을 사용합니다.
-    fun fetchChatStream(userText: String, lat: Double? = null, lon: Double? = null): Flow<StreamResponse> = flow {
+    fun fetchChatStream(userText: String, sessionId: String, lat: Double? = null, lon: Double? = null): Flow<StreamResponse> = flow {
         val json = JSONObject().put("text", userText).toString()
         val requestBody = json.toRequestBody("application/json".toMediaType())
         val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         val encodedText = URLEncoder.encode(userText, "UTF-8")
 
-        var finalUrl = "$BASE_URL/chat-stream?text=$encodedText&uid=$androidId&client_type=app"
+        var finalUrl = "$BASE_URL/chat-stream?text=$encodedText&uid=$androidId&session_id=$sessionId&client_type=app"
 
         if (lat != null && lon != null) {
             finalUrl += "&lat=$lat&lon=$lon"
@@ -77,6 +79,60 @@ class ChatStreamManager(private val context: Context) {
             }
         }
     }.flowOn(Dispatchers.IO) // 이 부분이 핵심: 네트워크 작업은 전용 스레드에서 수행
+
+    suspend fun fetchSessions(uid: String): List<ChatSession> {
+        return withContext(Dispatchers.IO) {
+            val request = Request.Builder()
+                .url("$BASE_URL/sessions/$uid")
+                .addHeader("ngrok-skip-browser-warning", "true")
+                .build()
+            
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) return@withContext emptyList()
+                val jsonArray = JSONArray(response.body?.string() ?: "[]")
+                val list = mutableListOf<ChatSession>()
+                for (i in 0 until jsonArray.length()) {
+                    val obj = jsonArray.getJSONObject(i)
+                    list.add(ChatSession(id = obj.getString("id"), title = obj.getString("title")))
+                }
+                list
+            }
+        }
+    }
+
+    suspend fun fetchHistory(sessionId: String): List<ChatMessage> {
+        return withContext(Dispatchers.IO) {
+            val request = Request.Builder()
+                .url("$BASE_URL/sessions/$sessionId/history")
+                .addHeader("ngrok-skip-browser-warning", "true")
+                .build()
+            
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) return@withContext emptyList()
+                val jsonArray = JSONArray(response.body?.string() ?: "[]")
+                val list = mutableListOf<ChatMessage>()
+                for (i in 0 until jsonArray.length()) {
+                    val obj = jsonArray.getJSONObject(i)
+                    list.add(ChatMessage(content = obj.getString("content"), isUser = obj.getBoolean("isUser")))
+                }
+                list
+            }
+        }
+    }
+
+    suspend fun deleteSession(sessionId: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            val request = Request.Builder()
+                .url("$BASE_URL/sessions/$sessionId")
+                .delete()
+                .addHeader("ngrok-skip-browser-warning", "true")
+                .build()
+            
+            client.newCall(request).execute().use { response ->
+                response.isSuccessful
+            }
+        }
+    }
 }
 
 data class StreamResponse(
