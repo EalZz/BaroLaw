@@ -67,6 +67,7 @@ services:
       - LANG=C.UTF-8
     volumes:
       - ./backend:/app # 소스 코드 변경 시 재빌드 없이 즉시 반영
+      - ./hf_cache:/root/.cache/huggingface # 리랭커/임베딩 모델 캐시 저장소 (재다운로드 방지)
     deploy:
       resources:
         reservations:
@@ -140,8 +141,11 @@ services:
 
 volumes:
   ollama_storage:
+    external: true
+    name: voice-chatbot-toy_ollama_storage
   postgres_data:
-
+    external: true
+    name: voice-chatbot-toy_postgres_data
 
 networks:
   voice-net:

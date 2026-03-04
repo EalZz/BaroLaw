@@ -13,7 +13,7 @@ LLM 프롬프트에 삽입할 컨텍스트를 생성하는 RAG 모듈.
 import os
 import logging
 import psycopg2
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, CrossEncoder
 
 logger = logging.getLogger("RAG")
 
@@ -21,9 +21,10 @@ logger = logging.getLogger("RAG")
 # 설정값
 # ================================================
 MODEL_NAME = "jhgan/ko-sroberta-multitask"
-SIMILARITY_THRESHOLD = 0.30  # 법령/QA 검색 감도 상향 조정 (0.45 -> 0.3)
-STATUTE_TOP_K = 2            # 법령 조문 최대 검색 수
-QA_TOP_K = 1                 # Q&A 최대 검색 수
+RERANKER_NAME = "Dongjin-kr/ko-reranker"
+FETCH_K = 10                 # 1차 저인망 검색 후보 수 (법령 10건, QA 10건)
+FINAL_TOP_K = 3              # 최종 선발 컨텍스트 수
+MIN_RERANK_SCORE = 0.0       # 거짓 정보(환각) 차단을 위한 최소 리랭크 점수
 CONTENT_MAX_LEN = 300        # 법령 조문 최대 길이 (토큰 절약)
 ANSWER_MAX_LEN = 400         # Q&A 답변 최대 길이
 
@@ -52,6 +53,18 @@ def get_model() -> SentenceTransformer:
         logger.info(f"RAG: 임베딩 모델 로딩 완료. (Device: {device})")
     return _model
 
+_reranker: CrossEncoder = None
+
+def get_reranker() -> CrossEncoder:
+    global _reranker
+    if _reranker is None:
+        logger.info(f"RAG: 리랭커 모델 로딩 중... ({RERANKER_NAME})")
+        import torch
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        _reranker = CrossEncoder(RERANKER_NAME, max_length=512, device=device)
+        logger.info(f"RAG: 리랭커 모델 로딩 완료. (Device: {device})")
+    return _reranker
+
 
 # ================================================
 # 핵심 검색 함수
@@ -75,48 +88,104 @@ def search_relevant_context(query: str) -> dict:
         conn = psycopg2.connect(_KNOWLEDGE_DB_URL)
         cur = conn.cursor()
 
-        # 1. 법령 조문 검색 (Top 2, 유사도 ≥ 0.6)
+        candidates = []
+
+        # 1. 1차 저인망 검색 (법령 Top 10)
         cur.execute("""
-            SELECT id, law_name, article, content,
-                   1 - (embedding <=> %s::vector) AS similarity
+            SELECT id, law_name, article, content
             FROM statutes
-            WHERE 1 - (embedding <=> %s::vector) >= %s
             ORDER BY embedding <=> %s::vector
             LIMIT %s;
-        """, (query_vector, query_vector, SIMILARITY_THRESHOLD, query_vector, STATUTE_TOP_K))
+        """, (query_vector, FETCH_K))
 
         for row in cur.fetchall():
-            results["statutes"].append({
+            candidates.append({
+                "type": "statute",
                 "id": row[0],
                 "law_name": row[1],
                 "article": row[2],
-                "content": row[3][:CONTENT_MAX_LEN],
-                "similarity": round(row[4], 3)
+                "content": row[3][:CONTENT_MAX_LEN]
             })
 
-        # 2. 생활법률 Q&A 검색 (Top 1, 유사도 ≥ 0.6)
+        # 2. 1차 저인망 검색 (Q&A Top 10)
         cur.execute("""
-            SELECT id, question, answer,
-                   1 - (embedding <=> %s::vector) AS similarity
+            SELECT id, question, answer
             FROM official_qa
-            WHERE 1 - (embedding <=> %s::vector) >= %s
             ORDER BY embedding <=> %s::vector
             LIMIT %s;
-        """, (query_vector, query_vector, SIMILARITY_THRESHOLD, query_vector, QA_TOP_K))
+        """, (query_vector, FETCH_K))
 
         for row in cur.fetchall():
-            results["qa"].append({
+            candidates.append({
+                "type": "qa",
                 "id": row[0],
                 "question": row[1],
-                "answer": row[2][:ANSWER_MAX_LEN],
-                "similarity": round(row[3], 3)
+                "answer": row[2][:ANSWER_MAX_LEN]
             })
 
         cur.close()
         conn.close()
 
+        if not candidates:
+            return results
+
+        # 3. 리랭킹 수행 (Ko-Reranker)
+        reranker = get_reranker()
+        pairs = []
+        for c in candidates:
+            if c["type"] == "statute":
+                text = f"{c['law_name']} {c['article']} {c['content']}"
+            else:
+                text = f"Q: {c['question']} A: {c['answer']}"
+            pairs.append([query, text])
+            
+        scores = reranker.predict(pairs)
+        
+        for i, c in enumerate(candidates):
+            c["score"] = float(scores[i])
+            
+        # 4. 법적 근거 보장형 통합 선발 (Top-3)
+        candidates.sort(key=lambda x: x["score"], reverse=True)
+        final_selection = []
+        
+        # 조건 1: 가장 점수가 높은 법령 1개 무조건 선발
+        best_statute = next((c for c in candidates if c["type"] == "statute"), None)
+        if best_statute:
+            final_selection.append(best_statute)
+            candidates.remove(best_statute)
+            
+        # 조건 2: 남은 후보 중 최고 득점자 2개 추가 (단, 점수가 0을 초과할 때만)
+        for c in candidates:
+            if len(final_selection) >= FINAL_TOP_K:
+                break
+            if c["score"] > MIN_RERANK_SCORE:
+                final_selection.append(c)
+
+        # 5. 최종 결과를 기존 형식으로 분배
+        logger.info("=== RAG 리랭킹 최종 선발 결과 (Top 3) ===")
+        for i, c in enumerate(final_selection):
+            title = f"{c['law_name']} {c['article']}" if c['type'] == 'statute' else f"Q: {c['question']}"
+            logger.info(f"[{i+1}위] 점수: {c['score']:.4f} | 타입: {c['type'].upper():<7} | 제목: {title[:40]}...")
+
+        for c in final_selection:
+            if c["type"] == "statute":
+                results["statutes"].append({
+                    "id": c["id"],
+                    "law_name": c["law_name"],
+                    "article": c["article"],
+                    "content": c["content"],
+                    "similarity": round(c["score"], 3)
+                })
+            else:
+                results["qa"].append({
+                    "id": c["id"],
+                    "question": c["question"],
+                    "answer": c["answer"],
+                    "similarity": round(c["score"], 3)
+                })
+
         total = len(results["statutes"]) + len(results["qa"])
-        logger.info(f"RAG 검색 완료: 법령 {len(results['statutes'])}건, Q&A {len(results['qa'])}건 (총 {total}건)")
+        logger.info(f"RAG 검색 완료: 1차(20건) -> 리랭킹 -> 최종 {total}건 발탁 (법령 {len(results['statutes'])}, QA {len(results['qa'])})")
 
     except Exception as e:
         logger.error(f"RAG 검색 오류: {e}")

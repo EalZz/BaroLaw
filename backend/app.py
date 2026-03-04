@@ -13,7 +13,7 @@ from sqlalchemy import desc
 import asyncio
 
 # RAG 및 데이터베이스 모듈 임포트
-from rag import search_relevant_context, build_rag_context, get_first_referenced_id, get_model
+from rag import search_relevant_context, build_rag_context, get_first_referenced_id, get_model, get_reranker
 from database import (
     SessionUser, get_or_create_profile, create_chat_session, 
     save_chat_message, ChatSession, ChatMessage, get_user_sessions, get_session_history
@@ -44,7 +44,8 @@ async def startup_event():
     logger.info("--- [STARTUP] 가동 준비 완료 ---")
     from database import Base, user_engine
     Base.metadata.create_all(bind=user_engine)
-    get_model()
+    get_model()    # 임베딩 모델 사전 적재
+    get_reranker() # Ko-Reranker 모델 사전 적재
 
 # ------------------------------------------------------------
 # [세션 및 히스토리 API]
@@ -125,14 +126,14 @@ def prepare_chat_context(uid: str, user_text: str, session_id: str = None):
 
 async def update_session_title_in_background(session_id: str, text: str):
     import uuid
-    # [부하 분산] 메인 LLM 답변 스트리밍이 어느 정도 진행된 후 요약을 시작하도록 5초 지연
-    await asyncio.sleep(5)
+    # [부하 분산] 메인 LLM이 답변(스트리밍)을 충분히 끝마칠 수 있도록 15초 지연 후 시작
+    await asyncio.sleep(15)
     logger.info(f"--- [Title Summary] Task Started for SID: {session_id} ---")
     prompt = f"다음 사용자의 질문을 분석하여 2~3단어의 명사형 제목으로 요약해. 다른 수식어 없이 딱 제목만 말해.\n\n질문: {text}"
     try:
         logger.info(f"--- [Title Summary] Requesting Ollama... ---")
-        # [타임아웃 연장] 스트리밍 중 응답 지연을 대비하여 타임아웃 60초로 넉넉하게 연장
-        async with httpx.AsyncClient(timeout=60.0) as client:
+        # [타임아웃 대폭 연장] 긴 답변을 생성하고 있는 중에 큐(Queue)에 대기할 수 있으므로, 120초 여유 부여
+        async with httpx.AsyncClient(timeout=120.0) as client:
             resp = await client.post(OLLAMA_CHAT_URL, json={
                 "model": MODEL_NAME,
                 "messages": [{"role": "user", "content": prompt}],
