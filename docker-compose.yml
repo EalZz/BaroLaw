@@ -18,6 +18,21 @@ services:
               count: 1
               capabilities: [ gpu ]
 
+  # [자동화] 컨테이너 시작 시 gemma2 모델 자동 다운로드
+  ollama-pull-model:
+    image: ollama/ollama
+    container_name: ollama-pull-model
+    volumes:
+      - ollama_storage:/root/.ollama
+    networks:
+      - voice-net
+    environment:
+      - OLLAMA_HOST=ollama-server:11434
+    entrypoint: /bin/sh
+    command: -c "sleep 5; ollama pull gemma2"
+    depends_on:
+      - ollama-server
+
   db:
     image: pgvector/pgvector:pg16
     container_name: postgres-db
@@ -41,7 +56,7 @@ services:
 
   voice-backend:
     build: ./backend
-    image: ealz/voice-backend:v6
+    image: ealz/voice-backend:v7
     container_name: voice-backend
     restart: always
     environment:
