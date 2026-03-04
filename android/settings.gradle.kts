@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "voice-chatbot-cloud"
+rootProject.name = "BaroLaw"
 include(":app")
  

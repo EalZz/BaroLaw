@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.voice_chatbot_ct"
+    namespace = "com.example.barolaw"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.voice_chatbot_ct"
+        applicationId = "com.example.barolaw"
         minSdk = 33
         targetSdk = 34
         versionCode = 1
