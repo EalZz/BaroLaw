@@ -25,7 +25,7 @@ RERANKER_NAME = "Dongjin-kr/ko-reranker"
 FETCH_K = 10                 # 1차 저인망 검색 후보 수 (법령 10건, QA 10건)
 FINAL_TOP_K = 3              # 최종 선발 컨텍스트 수
 MIN_RERANK_SCORE = 0.0       # 거짓 정보(환각) 차단을 위한 최소 리랭크 점수
-CONTENT_MAX_LEN = 300        # 법령 조문 최대 길이 (토큰 절약)
+CONTENT_MAX_LEN = 1500        # 법령 조문 최대 길이 (토큰 절약)
 ANSWER_MAX_LEN = 400         # Q&A 답변 최대 길이
 
 _KNOWLEDGE_DB_URL = os.getenv(

@@ -172,92 +172,114 @@ async def update_session_title_in_background(session_id: str, text: str):
         logger.error(traceback.format_exc())
 
 async def generate_ai_stream(request: Request, uid: str, user_text: str, current_time: str, session_id: str = None):
-    # [백엔드 병목 해결] 시간이 오래 걸리는 DB 및 RAG 처리를 비동기 스레드 풀에서 실행합니다.
-    ctx = await asyncio.to_thread(prepare_chat_context, uid, user_text, session_id)
-    real_session_id = ctx["session_id"]
-    rag_results = ctx["rag_results"]
-    
-    if ctx.get("is_new_session"):
-        asyncio.create_task(update_session_title_in_background(real_session_id, user_text))
+    try:
+        # [백엔드 병목 해결] 시간이 오래 걸리는 DB 및 RAG 처리를 비동기 스레드 풀에서 실행합니다.
+        ctx = await asyncio.to_thread(prepare_chat_context, uid, user_text, session_id)
+        real_session_id = ctx["session_id"]
+        rag_results = ctx["rag_results"]
         
-    # [핵심] 법적 근거 섹션 미리 구성 (마크다운)
-    legal_basis_content = ""
-    if rag_results["statutes"]:
-        legal_basis_content = (
-            "\n\n---[LEGAL_BASIS]---\n"
-            "⚖️ **법적 근거 및 참고 문헌**\n" + 
-            "\n".join([f"- {s['law_name']} {s['article']}" for s in rag_results["statutes"]])
-        )
-    elif rag_results["qa"]:
-        legal_basis_content = (
-            "\n\n---[LEGAL_BASIS]---\n"
-            "📌 **참고 자료**\n- 국가 법령 정보 및 생활법률 상담 가이드라인"
-        )
-
-    # 프롬프트 구성 (환각 제어 및 이모지/마크다운 활용)
-    system_msg = (
-        "너는 서민들의 어려움을 해결해 주는 상냥하고 친절한 법률 상담 AI야. 시작할 때 자기소개는 하지 말고 반드시 '해요체'(~해요, ~하세요)를 사용해."
-
-        "[상담 원칙]"
-        "1. 🎯 상황 파악보다 '행동 요령' 선제 제시 (스무고개 금지): 사용자가 피해 사실을 언급하면, 구체적인 정황을 꼬치꼬치 되묻지 마. 정보가 부족하더라도 질문으로만 답변을 끝내지 말고, \"만약 ~한 상황이라면 이렇게 하세요\"처럼 예상되는 상황을 전제로 즉각적인 행동 요령(증거 수집, 신고 방법 등)을 먼저 상세히 안내해."
-        "2. 📍 상황 파악 및 객관성 유지: 제공된 [참고 법률 정보]는 사용자의 사연이 아니니, 사용자가 말하지 않은 사연을 지어내어 판단하지 마. 정보가 부족하면 자연스럽게 되묻되, 무관한 정황까지 꼬치꼬치 묻지는 마."
-        "3. 🛠️ 단계적이고 현실적인 해결책: 단계적인 해결 방법이 필요하면 1단계, 2단계 등 순차적인 행동 요령(신고 방법, 준비물 등)을 상세히 설명해. 단, 대한민국의 일반적인 상식(예: 블랙박스 확보, 비상등 점등 등)에 기반하여 현실적으로 불가능한 행동(예: 개인이 신호등 조작)은 절대 제안하지 마."
-        "4. ✨ 가독성 극대화: 상황별 조치 단계나 소제목에는 반드시 마크다운 헤딩(### )과 적절한 이모지를 사용하여 크고 진하게 보이도록 구분해. 헤딩 기호(###) 앞뒤에 별표(**)를 붙이는 등 마크다운 문법을 절대 섞어 쓰지 마. (올바른 예: ### 🚨 1단계) 부가 설명은 쉽게 풀어 써. (이모지 남발 금지)"
-        "5. 🚫 중복 및 전문 용어 노출 금지: 답변 본문 안에는 '법적 근거', '관련 법령', '제O조' 등의 문구를 직접 나열하지 마. 시스템이 답변 끝에 알아서 붙일 거야."
-
-        f"{ctx['rag_context']}\n\n"
-        f"[현재 시각]: {current_time}"
-    )
-    
-    messages = [{"role": "system", "content": system_msg}]
-    for msg in ctx["past_msgs"]:
-        messages.append({"role": "user" if msg["role"] == "user" else "assistant", "content": msg["content"]})
-    messages.append({"role": "user", "content": user_text})
-
-    logger.info(f"--- [AI 요청] SID: {real_session_id} ---")
-
-    full_resp = ""
-    async with httpx.AsyncClient(timeout=180.0) as client:
-        async with client.stream("POST", OLLAMA_CHAT_URL, json={
-            "model": MODEL_NAME, "messages": messages, "stream": True,
-            "options": {"temperature": 0.3}
-        }) as response:
+        if ctx.get("is_new_session"):
+            asyncio.create_task(update_session_title_in_background(real_session_id, user_text))
             
-            async for line in response.aiter_lines():
-                if await request.is_disconnected():
-                    break
+        # [핵심] 법적 근거 섹션 및 상세 데이터 구성
+        legal_basis_content = ""
+        legal_details_content = ""
+        
+        if rag_results["statutes"]:
+            # 1. 화면에 표시될 텍스트 리스트
+            legal_basis_content = (
+                "\n\n---[LEGAL_BASIS]---\n"
+                "⚖️ **법적 근거 및 참고 문헌**\n" + 
+                "\n".join([f"- {s['law_name']} {s['article']}" for s in rag_results["statutes"]])
+            )
+            
+            # 2. 클릭 시 보여줄 상세 데이터 (JSON)
+            details = [
+                {
+                    "title": f"{s['law_name']} {s['article']}", 
+                    "content": s.get('content', '상세 내용이 없습니다.')
+                } for s in rag_results["statutes"]
+            ]
+            legal_details_content = f"\n---[LEGAL_DETAILS]---\n{json.dumps(details, ensure_ascii=False)}"
+        elif rag_results["qa"]:
+            legal_basis_content = (
+                "\n\n---[LEGAL_BASIS]---\n"
+                "📌 **참고 자료**\n- 국가 법령 정보 및 생활법률 상담 가이드라인"
+            )
 
-                if line:
-                    try:
-                        chunk = json.loads(line)
-                        token = chunk.get("message", {}).get("content", "")
-                        
-                        if token:
-                            full_resp += token
-                            sys.stdout.write(token)
-                            sys.stdout.flush()
-                            yield f"data: {json.dumps({'message': token, 'done': False}, ensure_ascii=False)}\n\n"
+        # 프롬프트 구성 (환각 제어 및 이모지/마크다운 활용)
+        system_msg = (
+            "너는 서민들의 어려움을 해결해 주는 상냥하고 친절한 법률 상담 AI야. 시작할 때 자기소개는 하지 말고 반드시 '해요체'(~해요, ~하세요)를 사용해."
 
-                        if chunk.get("done"):
-                            # [핵심] 법적 근거를 서버에서 스타일링하여 강제 추가 (중복 방지를 위해 AI는 본문 생략 지시됨)
-                            if legal_basis_content:
-                                yield f"data: {json.dumps({'message': legal_basis_content, 'done': False}, ensure_ascii=False)}\n\n"
-                                full_resp += legal_basis_content
-                                print(legal_basis_content)
+            "[상담 원칙]"
+            "1. 🎯 상황 파악보다 '행동 요령' 선제 제시 (스무고개 금지): 사용자가 피해 사실을 언급하면, 구체적인 정황을 꼬치꼬치 되묻지 마. 정보가 부족하더라도 질문으로만 답변을 끝내지 말고, \"만약 ~한 상황이라면 이렇게 하세요\"처럼 예상되는 상황을 전제로 즉각적인 행동 요령(증거 수집, 신고 방법 등)을 먼저 상세히 안내해."
+            "2. 📍 상황 파악 및 객관성 유지: 제공된 [참고 법률 정보]는 사용자의 사연이 아니니, 사용자가 말하지 않은 사연을 지어내어 판단하지 마. 정보가 부족하면 자연스럽게 되묻되, 무관한 정황까지 꼬치꼬치 묻지는 마."
+            "3. 🛠️ 단계적이고 현실적인 해결책: 단계적인 해결 방법이 필요하면 1단계, 2단계 등 순차적인 행동 요령(신고 방법, 준비물 등)을 상세히 설명해. 단, 대한민국의 일반적인 상식(예: 블랙박스 확보, 비상등 점등 등)에 기반하여 현실적으로 불가능한 행동(예: 개인이 신호등 조작)은 절대 제안하지 마."
+            "4. ✨ 가독성 극대화: 상황별 조치 단계나 소제목에는 반드시 마크다운 헤딩(### )과 적절한 이모지를 사용하여 크고 진하게 보이도록 구분해. 헤딩 기호(###) 앞뒤에 별표(**)를 붙이는 등 마크다운 문법을 절대 섞어 쓰지 마. (올바른 예: ### 🚨 1단계) 부가 설명은 쉽게 풀어 써. (이모지 남발 금지)"
+            "5. 🚫 중복 및 전문 용어 노출 금지: 답변 본문 안에는 '법적 근거', '관련 법령', '제O조' 등의 문구를 직접 나열하지 마. 시스템이 답변 끝에 알아서 붙일 거야."
 
-                            def _save_answer():
-                                db = SessionUser()
-                                try:
-                                    save_chat_message(db, real_session_id, role="ai", content=full_resp, ref_type=ctx["ref_type"], ref_id=ctx["ref_id"])
-                                finally:
-                                    db.close()
-                            await asyncio.to_thread(_save_answer)
+            f"{ctx['rag_context']}\n\n"
+            f"[현재 시각]: {current_time}"
+        )
+        
+        messages = [{"role": "system", "content": system_msg}]
+        for msg in ctx["past_msgs"]:
+            messages.append({"role": "user" if msg["role"] == "user" else "assistant", "content": msg["content"]})
+        messages.append({"role": "user", "content": user_text})
+
+        logger.info(f"--- [AI 요청] SID: {real_session_id} ---")
+
+        full_resp = ""
+        async with httpx.AsyncClient(timeout=180.0) as client:
+            async with client.stream("POST", OLLAMA_CHAT_URL, json={
+                "model": MODEL_NAME, "messages": messages, "stream": True,
+                "options": {"temperature": 0.3}
+            }) as response:
+                
+                async for line in response.aiter_lines():
+                    if await request.is_disconnected():
+                        break
+
+                    if line:
+                        try:
+                            chunk = json.loads(line)
+                            token = chunk.get("message", {}).get("content", "")
                             
-                            logger.info("\n--- [완성] 답변 저장 완료 ---")
-                            yield f"data: {json.dumps({'message': '', 'done': True}, ensure_ascii=False)}\n\n"
-                            break
-                    except:
-                        continue
+                            if token:
+                                full_resp += token
+                                sys.stdout.write(token)
+                                sys.stdout.flush()
+                                yield f"data: {json.dumps({'message': token, 'done': False}, ensure_ascii=False)}\n\n"
+
+                            if chunk.get("done"):
+                                # [순서 원복] 답변 종료 후 법률 정보 전송
+                                if legal_basis_content:
+                                    basis_data = json.dumps({'message': legal_basis_content, 'done': False}, ensure_ascii=False)
+                                    yield f"data: {basis_data}\n\n"
+                                    
+                                    if legal_details_content:
+                                        details_data = json.dumps({'message': legal_details_content, 'done': False}, ensure_ascii=False)
+                                        yield f"data: {details_data}\n\n"
+                                    
+                                    full_resp += (legal_basis_content + legal_details_content)
+
+                                def _save_answer():
+                                    db = SessionUser()
+                                    try:
+                                        save_chat_message(db, real_session_id, role="ai", content=full_resp, ref_type=ctx["ref_type"], ref_id=ctx["ref_id"])
+                                    finally:
+                                        db.close()
+                                await asyncio.to_thread(_save_answer)
+                                
+                                logger.info("\n--- [완성] 답변 저장 완료 ---")
+                                yield f"data: {json.dumps({'message': '', 'done': True}, ensure_ascii=False)}\n\n"
+                                break
+                        except Exception as e:
+                            logger.error(f"Error in stream loop: {e}")
+                            continue
+    except Exception as e:
+        logger.error(f"Fatal error in generate_ai_stream: {e}")
+
 
 @app.get("/chat-stream")
 async def chat_stream(request: Request, text: str, uid: str, session_id: str = None):

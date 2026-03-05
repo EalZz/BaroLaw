@@ -61,10 +61,13 @@ enum class ActiveScreen {
 }
 
 // --- Data Models ---
+data class LawDetail(val title: String, val content: String)
+
 data class ChatMessage(
     val content: String, 
     val isUser: Boolean, 
-    val id: String = UUID.randomUUID().toString()
+    val id: String = UUID.randomUUID().toString(),
+    val lawDetails: List<LawDetail> = emptyList() // 상세 조문 데이터 추가
 )
 
 data class ChatSession(
@@ -77,9 +80,7 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var tts: TextToSpeech
     private lateinit var speechRecognizer: SpeechRecognizer
-    private val streamManager = ChatStreamManager(this)
-
-    // Sessions state
+    private var selectedLawDetails by mutableStateOf<List<LawDetail>?>(null) // 팝업용 상태 (여러 조문 동시 표시)
     private val sessions = mutableStateListOf<ChatSession>()
     private var currentSessionId by mutableStateOf("")
     
@@ -138,8 +139,10 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             ) {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
-                // sessions가 비어있거나 currentSessionId가 없는 경우 가상의 빈 세션 반환 (메인 가이드용)
                 val currentSession = sessions.find { it.id == currentSessionId } ?: ChatSession(id = "", title = "메인 가이드")
+
+                // 전체 화면을 Box로 감싸 오버레이 레이어를 구성합니다.
+                Box(modifier = Modifier.fillMaxSize()) {
 
                 if (showDeleteDialog && sessionToDelete != null) {
                     AlertDialog(
@@ -281,7 +284,8 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                                 refreshSessionTitles()
                                 scope.launch { drawerState.open() } 
                             },
-                            onPlayVoice = { text -> speak(text) }
+                            onPlayVoice = { text -> speak(text) },
+                            onLawClick = { details -> selectedLawDetails = details }
                         )
                     }
                 } else {
@@ -291,6 +295,92 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                         onBack = { activeScreen = ActiveScreen.Chat }
                     )
                 }
+
+                // --- 상세 조문 팝업 오버레이 (Z-Index 최상단) ---
+                AnimatedVisibility(
+                    visible = selectedLawDetails != null,
+                    enter = fadeIn() + expandVertically(),
+                    exit = fadeOut() + shrinkVertically()
+                ) {
+                    selectedLawDetails?.let { details ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.Black.copy(alpha = 0.7f))
+                                .pointerInput(Unit) {
+                                    detectTapGestures { selectedLawDetails = null }
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth(0.9f)
+                                    .fillMaxHeight(0.7f)
+                                    .padding(16.dp)
+                                    .pointerInput(Unit) { detectTapGestures { /* 팝업 내부 터치는 무시 */ } },
+                                shape = RoundedCornerShape(28.dp),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1A1A)), // 남색 톤 제거, 완전한 무채색 다크그레이
+                                elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
+                            ) {
+                                Column(modifier = Modifier.padding(24.dp)) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            text = "⚖️ 상세 법적 근거",
+                                            style = MaterialTheme.typography.titleLarge,
+                                            color = Color.White
+                                        )
+                                        IconButton(onClick = { selectedLawDetails = null }) {
+                                            Icon(Icons.Default.Close, contentDescription = "Close", tint = Color.Gray)
+                                        }
+                                    }
+                                    
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    
+                                    LazyColumn(
+                                        modifier = Modifier.weight(1f),
+                                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                                    ) {
+                                        items(details) { detail ->
+                                            Column {
+                                                Text(
+                                                    text = detail.title,
+                                                    style = MaterialTheme.typography.titleMedium,
+                                                    color = Color.White // 파란색에서 흰색(무채색)으로 변경
+                                                )
+                                                Spacer(modifier = Modifier.height(8.dp))
+                                                SelectionContainer {
+                                                    Text(
+                                                        text = detail.content,
+                                                        style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 24.sp),
+                                                        color = Color.LightGray // 본문은 연한 회색으로 가독성 확보
+                                                    )
+                                                }
+                                                if (details.indexOf(detail) < details.size - 1) {
+                                                    Spacer(modifier = Modifier.height(16.dp))
+                                                    HorizontalDivider(color = Color.DarkGray)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = "팝업 밖을 누르면 닫힙니다.",
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = Color.DarkGray,
+                                        modifier = Modifier.fillMaxWidth(),
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            } // Box end
             }
         }
     }
@@ -391,21 +481,46 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
         startLoadingAnimation(activeSessionId, aiMsgId)
 
         var fullResponse = ""
+        val currentLawDetails = mutableListOf<LawDetail>()
 
         lifecycleScope.launch {
             try {
                 streamManager.fetchChatStream(text, activeSessionId, null, null).collect { response ->
                     val token = response.token
                     if (token.isNotEmpty()) {
-                        stopLoadingAnimation(aiMsgId) // 실제 텍스트가 올 때만 멈춤
+                        stopLoadingAnimation(aiMsgId) // 법적 근거가 먼저 오더라도 로딩 애니메이션 종료
 
                         val targetSession = sessions.find { it.id == activeSessionId } ?: return@collect
                         val msgIndex = targetSession.messages.indexOfFirst { it.id == aiMsgId }
                         if (msgIndex >= 0) {
                             val msg = targetSession.messages[msgIndex]
+
                             val newContent = if (msg.content.contains("Thinking")) token else msg.content + token
-                            targetSession.messages[msgIndex] = msg.copy(content = newContent)
                             fullResponse += token
+
+                            // [보강] 단일 토큰(token)이 아닌, 지금까지 쌓인 전체 응답(fullResponse)에서 JSON 추출 시도
+                            // 이렇게 해야 데이터가 쪼개져 들어와도 마지막엔 온전하게 파싱됩니다.
+                            if (fullResponse.contains("---[LEGAL_DETAILS]---")) {
+                                try {
+                                    val extracted = fullResponse.substringAfter("---[LEGAL_DETAILS]---", "")
+                                    val startIndex = extracted.indexOf('[')
+                                    val endIndex = extracted.lastIndexOf(']')
+                                    if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+                                        val cleanJson = extracted.substring(startIndex, endIndex + 1)
+                                        val jsonArray = org.json.JSONArray(cleanJson)
+                                        currentLawDetails.clear()
+                                        for (i in 0 until jsonArray.length()) {
+                                            val obj = jsonArray.getJSONObject(i)
+                                            currentLawDetails.add(LawDetail(obj.optString("title").trim(), obj.optString("content").trim()))
+                                        }
+                                    }
+                                } catch (e: Exception) { /* 파싱 중(데이터 미완성)일 때는 무시 */ }
+                            }
+
+                            targetSession.messages[msgIndex] = msg.copy(
+                                content = newContent,
+                                lawDetails = currentLawDetails.toList()
+                            )
                         }
                     }
 
@@ -413,6 +528,32 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                         stopLoadingAnimation(aiMsgId)
                         if (fullResponse.isNotBlank() && isAutoVoiceEnabled) {
                             speak(fullResponse)
+                        }
+                        
+                        // [최종 확정] 스트리밍이 완전히 끝났을 때, 한 번 더 상세 정보를 파싱하여 누락 방지
+                        if (fullResponse.contains("---[LEGAL_DETAILS]---")) {
+                             try {
+                                val extracted = fullResponse.substringAfter("---[LEGAL_DETAILS]---", "")
+                                val startIndex = extracted.indexOf('[')
+                                val endIndex = extracted.lastIndexOf(']')
+                                if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+                                    val cleanJson = extracted.substring(startIndex, endIndex + 1)
+                                    val jsonArray = org.json.JSONArray(cleanJson)
+                                    val finalDetails = mutableListOf<LawDetail>()
+                                    for (i in 0 until jsonArray.length()) {
+                                        val obj = jsonArray.getJSONObject(i)
+                                        finalDetails.add(LawDetail(obj.optString("title").trim(), obj.optString("content").trim()))
+                                    }
+                                    
+                                    val targetSession = sessions.find { it.id == activeSessionId }
+                                    val msgIndex = targetSession?.messages?.indexOfFirst { it.id == aiMsgId } ?: -1
+                                    if (msgIndex >= 0) {
+                                        targetSession!!.messages[msgIndex] = targetSession.messages[msgIndex].copy(
+                                            lawDetails = finalDetails.toList()
+                                        )
+                                    }
+                                }
+                            } catch (e: Exception) { e.printStackTrace() }
                         }
                         
                         // [자동 갱신] 스트리밍 답변이 끝났다면, 서버의 요약도 끝났을 확률이 높으므로 즉시 제목 동기화
@@ -496,7 +637,8 @@ fun ChatScreen(
     onSendMessage: (String) -> Unit,
     onVoiceClick: () -> Unit,
     onMenuClick: () -> Unit,
-    onPlayVoice: (String) -> Unit
+    onPlayVoice: (String) -> Unit,
+    onLawClick: (List<LawDetail>) -> Unit
 ) {
     val messages = currentSession.messages
     var textState by remember { mutableStateOf(TextFieldValue("")) }
@@ -613,7 +755,7 @@ fun ChatScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(messages, key = { it.id }) { message ->
-                        ChatBubble(message, onPlayVoice)
+                        ChatBubble(message, onPlayVoice, onLawClick)
                     }
                 }
             }
@@ -707,13 +849,73 @@ fun SettingsScreen(
 }
 
 @Composable
-fun ChatBubble(message: ChatMessage, onPlayVoice: (String) -> Unit) {
+fun ChatBubble(
+    message: ChatMessage, 
+    onPlayVoice: (String) -> Unit,
+    onLawClick: (List<LawDetail>) -> Unit
+) {
     val isUser = message.isUser
     val isThinking = !isUser && message.content.startsWith("Thinking")
     val bubbleColor = if (isUser) Color(0xFF2F2F2F) else Color.Transparent
     val shape = if (isUser) RoundedCornerShape(20.dp, 20.dp, 4.dp, 20.dp) else RoundedCornerShape(0.dp)
     val clipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
+    
+    // [보안 및 강화] 백엔드에서 데이터가 어떤 순서로 오든, JSON 패턴을 찾아내어 상세 내용을 복원합니다.
+    val actualLawDetails = remember(message.content, message.lawDetails) {
+        val parsedList = mutableListOf<LawDetail>()
+        
+        // 1. 이미 앱 메모리에 있으면 최우선 사용
+        if (message.lawDetails.isNotEmpty()) {
+            parsedList.addAll(message.lawDetails)
+        } 
+        
+        // 2. 메모리에 없으면(예: 히스토리 로드 등) 본문에서 JSON 패턴 강제 추출
+        if (parsedList.isEmpty() && !isUser) {
+            try {
+                // 패턴: 꼬리표 뒤의 첫 '[' 부터 마지막 ']' 까지 가장 넓게 추출
+                val content = message.content
+                val tagIndex = content.indexOf("---[LEGAL_DETAILS]---")
+                if (tagIndex != -1) {
+                    val searchDomain = content.substring(tagIndex + "---[LEGAL_DETAILS]---".length)
+                    val start = searchDomain.indexOf('[')
+                    val end = searchDomain.lastIndexOf(']')
+                    
+                    if (start != -1 && end != -1 && end > start) {
+                        val jsonStr = searchDomain.substring(start, end + 1).trim()
+                        val jsonArray = org.json.JSONArray(jsonStr)
+                        for (i in 0 until jsonArray.length()) {
+                            val obj = jsonArray.optJSONObject(i)
+                            if (obj != null) {
+                                val title = obj.optString("title", "").trim()
+                                val detail = obj.optString("content", "").trim()
+                                if (title.isNotEmpty()) {
+                                    parsedList.add(LawDetail(title, detail.ifEmpty { "상세 정보가 없습니다." }))
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (e: Exception) { /* 파싱 중 에러는 스트리밍 중 발생할 수 있으므로 무시 */ }
+        }
+        
+        // 3. [최종 안전망] JSON 파싱이 아예 불가능할 때만 텍스트 기반으로 제목이라도 추출
+        if (parsedList.isEmpty() && !isUser && (message.content.contains("LEGAL_BASIS") || message.content.contains("법적 근거"))) {
+            // 아직 상세 데이터(LEGAL_DETAILS) 태그는 있는데 JSON이 파싱 전이라면 '로딩 중' 표현
+            val hasDetailsTag = message.content.contains("LEGAL_DETAILS")
+            val fallbackMsg = if (hasDetailsTag) "상세 조문 데이터를 불러오는 중입니다..." else "상세 내용을 백엔드에서 불러오지 못했습니다. (법조문 제목만 표시)"
+            
+            val contentLines = message.content.substringBefore("---[LEGAL_DETAILS]---", message.content).split("\n")
+            contentLines.filter { it.trim().startsWith("-") && !it.trim().startsWith("---") }.forEach { line ->
+                val title = line.replace("-", "").trim()
+                if (title.isNotEmpty() && !title.contains("국가 법령")) {
+                    parsedList.add(LawDetail(title, fallbackMsg))
+                }
+            }
+        }
+        
+        parsedList.toList()
+    }
 
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
@@ -745,38 +947,57 @@ fun ChatBubble(message: ChatMessage, onPlayVoice: (String) -> Unit) {
                     if (isUser) {
                         Text(text = message.content, color = if (isThinking) Color.Gray else Color.White, style = MaterialTheme.typography.bodyLarge)
                     } else {
-                        val parts = message.content.split("\n\n---[LEGAL_BASIS]---\n").toMutableList()
-                        // 혹시 과거의 \n\n---\n 포맷이 남아있을 경우를 대비
-                        if (parts.size == 1) {
-                            parts.clear()
-                            parts.addAll(message.content.split("\n\n---\n"))
-                        }
+                        // [파싱 전략 원복 및 강화] 
+                        // 스트리밍 중(태그가 아직 없을 때)에는 텍스트를 그대로 보여주고,
+                        // 답변이 끝나고 태그가 들어오면 본문과 법적 근거를 깨끗하게 분리합니다.
+                        val rawContent = message.content
+                        val detailTag = "---[LEGAL_DETAILS]---"
+                        val basisTag = "---[LEGAL_BASIS]---"
                         
-                        if (parts.size > 1 && !isThinking) {
-                            Column {
+                        // 1. 본문(Main Body) 추출: 근거 태그 이전까지만 본문으로 인식
+                        val mainBodyDisplay = rawContent.substringBefore(basisTag).substringBefore(detailTag).trim()
+
+                        // 2. 법적 근거(Legal Basis) 추출: 근거 태그와 상세 태그 사이만 추출
+                        val legalBasisText = if (rawContent.contains(basisTag)) {
+                            rawContent.substringAfter(basisTag).substringBefore(detailTag).trim()
+                        } else ""
+
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            // 본문 출력
+                            if (mainBodyDisplay.isNotEmpty() || !isThinking) {
                                 MarkdownText(
-                                    markdown = parts[0],
+                                    markdown = mainBodyDisplay,
                                     color = Color.White,
                                     style = MaterialTheme.typography.bodyLarge,
                                     isTextSelectable = true
                                 )
+                            }
+                            
+                            // 답변이 다 끝나고(Thinking 종료) 법적 근거가 있을 때만 하단 섹션 표시
+                            if (!isThinking && legalBasisText.isNotEmpty() && !legalBasisText.contains("DETAILS")) {
                                 Spacer(modifier = Modifier.height(16.dp))
                                 HorizontalDivider(color = Color.DarkGray)
                                 Spacer(modifier = Modifier.height(8.dp))
-                                MarkdownText(
-                                    markdown = parts.drop(1).joinToString("\n\n---[LEGAL_BASIS]---\n").replace("\n\n---\n", ""),
+                                
+                                Text(
+                                    text = "⚖️ 법적 근거 및 참고 문헌",
                                     color = Color.Gray,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    isTextSelectable = true
+                                    style = MaterialTheme.typography.titleSmall,
+                                    modifier = Modifier.padding(bottom = 4.dp)
                                 )
+                                
+                                val lawItems = legalBasisText.split("\n")
+                                    .filter { it.trim().startsWith("-") && !it.trim().startsWith("---") }
+                                
+                                lawItems.forEach { item ->
+                                    Text(
+                                        text = item.trim(),
+                                        color = Color.Gray,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        modifier = Modifier.padding(vertical = 4.dp)
+                                    )
+                                }
                             }
-                        } else {
-                            MarkdownText(
-                                markdown = message.content,
-                                color = if (isThinking) Color.Gray else Color.White,
-                                style = MaterialTheme.typography.bodyLarge,
-                                isTextSelectable = true
-                            )
                         }
                     }
                 }
@@ -801,6 +1022,19 @@ fun ChatBubble(message: ChatMessage, onPlayVoice: (String) -> Unit) {
                         modifier = Modifier.size(32.dp)
                     ) {
                         Icon(Icons.Default.VolumeUp, contentDescription = "Play", tint = Color.Gray, modifier = Modifier.size(18.dp))
+                    }
+                    // [개선] 법률 데이터 로딩 여부와 상관없이 복사/음성 버튼과 함께 항상 노출합니다.
+                    IconButton(
+                        onClick = { 
+                            if (actualLawDetails.isNotEmpty()) {
+                                onLawClick(actualLawDetails)
+                            } else {
+                                Toast.makeText(context, "상세 조문 데이터를 불러오는 중입니다...", Toast.LENGTH_SHORT).show()
+                            }
+                        },
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(Icons.Default.Gavel, contentDescription = "Law", tint = Color.Gray, modifier = Modifier.size(18.dp))
                     }
                 }
             }
