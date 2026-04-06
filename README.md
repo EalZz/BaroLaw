@@ -27,15 +27,24 @@ flowchart TD
     STT -.-> Query([Query])
     Query --> API[FastAPI Endpoint]
 
-    subgraph "Multi-Domain RAG Pipeline"
-        API --> Retriever[Vector Retriever]
+    subgraph "Advanced Hybrid RAG Pipeline"
+        API --> Prep[Preprocessor - Gemma 4:5b]
         
-        subgraph "Knowledge Base (pgvector)"
-            Retriever -- "Semantic Search" --> DB_Law[(Statutes DB)]
-            Retriever -- "Semantic Search" --> DB_QA[(Legal Q&A DB)]
+        subgraph "Retrieval & Ranking"
+            Prep -- "Keywords" --> BM25[BM25 Search]
+            Prep -- "Embeddings" --> Vector[Vector Search]
+            BM25 & Vector --> RRF[RRF Fusion]
+            RRF --> Reranker[Reranker - BGE-M3]
         end
         
-        DB_Law & DB_QA --> Builder[Context Builder]
+        subgraph "Knowledge Base (PostgreSQL)"
+            DB[(Statutes & Legal Q&A Data)]
+        end
+        
+        DB -.-> BM25
+        DB -.-> Vector
+        
+        Reranker --> Builder[Context Builder]
         
         subgraph "Memory & Session"
             History[(Chat History DB)] -. "Inject Context" .-> Builder
