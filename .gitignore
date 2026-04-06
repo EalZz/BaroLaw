@@ -1,9 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# AI/ML
+hf_cache/
 *.gguf
+*.pt
+*.parquet
+
+# Backup/Legacy
+legacy/
+*.bak
+
+# Builds
 build/
-.gradle/
-.idea/
 bin/
 obj/
-*.bak
-venv/
+.gradle/
+.idea/
+
+# Database
 postgres_data/
+
+# Logs
+tests/results/*.log
+tests/results/*.md
+
+# OS specific
+.DS_Store
+Thumbs.db

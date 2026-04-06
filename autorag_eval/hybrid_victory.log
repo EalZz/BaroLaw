@@ -1,0 +1,729 @@
+[03/23/26 10:37:50] INFO     [__init__.py:69] >>  __init__.py:69
+                             You are using API                  
+                             version of                         
+                             AutoRAG.To use local               
+                             version, run pip                   
+                             install                            
+                             'AutoRAG[gpu]'                     
+[03/23/26 10:37:57] INFO     [evaluator.py:130] evaluator.py:130
+                             >>                                 
+                                             _                  
+                             _____                              
+                             _____                              
+                                  /\        | |                 
+                             |  __ \     /\   /                 
+                             ____|                              
+                                 /  \  _   _|                   
+                             |_ ___ | |__) |                    
+                             /  \ | |  __                       
+                                / /\ \| | | |                   
+                             __/ _ \|  _  /   /                 
+                             /\ \| | |_ |                       
+                               / ____ \ |_| |                   
+                             || (_) | | \ \  /                  
+                             ____ \ |__| |                      
+                              /_/                               
+                             \_\__,_|\__\___/|_                 
+                             |  \_\/_/                          
+                             \_\_____|                          
+                                                                
+                                                                
+                    INFO     [evaluator.py:131] evaluator.py:131
+                             >> Start                           
+                             Validation input                   
+                             data and config                    
+                             YAML file first.                   
+                             If you want to                     
+                             skip this, put the                 
+                             --skip_validation                  
+                             flag or                            
+                             `skip_validation`                  
+                             at the start_trial                 
+                             function.                          
+[03/23/26 10:37:58] INFO     [evaluator.py:229] evaluator.py:229
+                             >> Embedding BM25                  
+                             corpus...                          
+[03/23/26 10:38:00] INFO     [evaluator.py:249] evaluator.py:249
+                             >> BM25 corpus                     
+                             embedding                          
+                             complete.                          
+                    INFO     [Sentenc SentenceTransformer.py:227
+                             eTransfo                           
+                             rmer.py:                           
+                             227] >>                            
+                             Load                               
+                             pretrain                           
+                             ed                                 
+                             Sentence                           
+                             Transfor                           
+                             mer:                               
+                             jhgan/ko                           
+                             -srobert                           
+                             a-multit                           
+                             ask                                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/modules.json                
+                              "HTTP/1.1 307                     
+                             Temporary Redirect"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/modules.json                    
+                             "HTTP/1.1 200 OK"                  
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/config_sente                
+                             nce_transformers.js                
+                             on "HTTP/1.1 307                   
+                             Temporary Redirect"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/config_sentence_                
+                             transformers.json                  
+                             "HTTP/1.1 200 OK"                  
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/config_sente                
+                             nce_transformers.js                
+                             on "HTTP/1.1 307                   
+                             Temporary Redirect"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/config_sentence_                
+                             transformers.json                  
+                             "HTTP/1.1 200 OK"                  
+[03/23/26 10:38:01] INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/README.md                   
+                             "HTTP/1.1 307                      
+                             Temporary Redirect"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/README.md                       
+                             "HTTP/1.1 200 OK"                  
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/modules.json                
+                              "HTTP/1.1 307                     
+                             Temporary Redirect"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/modules.json                    
+                             "HTTP/1.1 200 OK"                  
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/sentence_ber                
+                             t_config.json                      
+                             "HTTP/1.1 307                      
+                             Temporary Redirect"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/sentence_bert_co                
+                             nfig.json "HTTP/1.1                
+                             200 OK"                            
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/adapter_conf                
+                             ig.json "HTTP/1.1                  
+                             404 Not Found"                     
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+                    WARNING  [_http.py:857] >>      _http.py:857
+                             Warning: You are                   
+                             sending                            
+                             unauthenticated                    
+                             requests to the HF                 
+                             Hub. Please set a                  
+                             HF_TOKEN to enable                 
+                             higher rate limits and             
+                             faster downloads.                  
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/config.json                 
+                             "HTTP/1.1 307                      
+                             Temporary Redirect"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/config.json                     
+                             "HTTP/1.1 200 OK"                  
+[03/23/26 10:38:02] INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/model.safete                
+                             nsors "HTTP/1.1 404                
+                             Not Found"                         
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             GET                                
+                             https://huggingface                
+                             .co/api/models/jhga                
+                             n/ko-sroberta-multi                
+                             task "HTTP/1.1 200                 
+                             OK"                                
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:   1%|          | 1/199 [00:00<00:00, 18641.35it/s, Materializing param=embeddings.LayerNorm.bias]Loading weights:   1%|          | 1/199 [00:00<00:00, 8924.05it/s, Materializing param=embeddings.LayerNorm.bias] Loading weights:   1%|          | 2/199 [00:00<00:00, 7674.85it/s, Materializing param=embeddings.LayerNorm.weight]Loading weights:   1%|          | 2/199 [00:00<00:00, 1200.43it/s, Materializing param=embeddings.LayerNorm.weight]Loading weights:   2%|▏         | 3/199 [00:00<00:00, 1520.78it/s, Materializing param=embeddings.position_embeddings.weight]Loading weights:   2%|▏         | 3/199 [00:00<00:00, 1478.43it/s, Materializing param=embeddings.position_embeddings.weight]Loading weights:   2%|▏         | 4/199 [00:00<00:00, 1861.86it/s, Materializing param=embeddings.token_type_embeddings.weight]Loading weights:   2%|▏         | 4/199 [00:00<00:00, 1820.05it/s, Materializing param=embeddings.token_type_embeddings.weight]Loading weights:   3%|▎         | 5/199 [00:00<00:00, 2164.02it/s, Materializing param=embeddings.word_embeddings.weight]      Loading weights:   3%|▎         | 5/199 [00:00<00:00, 2121.55it/s, Materializing param=embeddings.word_embeddings.weight]Loading weights:   3%|▎         | 6/199 [00:00<00:00, 2432.89it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.bias]Loading weights:   3%|▎         | 6/199 [00:00<00:00, 2386.29it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.bias]Loading weights:   4%|▎         | 7/199 [00:00<00:00, 2551.50it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.weight]Loading weights:   4%|▎         | 7/199 [00:00<00:00, 2489.62it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.weight]Loading weights:   4%|▍         | 8/199 [00:00<00:00, 2697.74it/s, Materializing param=encoder.layer.0.attention.output.dense.bias]      Loading weights:   4%|▍         | 8/199 [00:00<00:00, 2643.75it/s, Materializing param=encoder.layer.0.attention.output.dense.bias]Loading weights:   5%|▍         | 9/199 [00:00<00:00, 2836.33it/s, Materializing param=encoder.layer.0.attention.output.dense.weight]Loading weights:   5%|▍         | 9/199 [00:00<00:00, 2785.47it/s, Materializing param=encoder.layer.0.attention.output.dense.weight]Loading weights:   5%|▌         | 10/199 [00:00<00:00, 2962.71it/s, Materializing param=encoder.layer.0.attention.self.key.bias]     Loading weights:   5%|▌         | 10/199 [00:00<00:00, 2913.72it/s, Materializing param=encoder.layer.0.attention.self.key.bias]Loading weights:   6%|▌         | 11/199 [00:00<00:00, 2804.36it/s, Materializing param=encoder.layer.0.attention.self.key.weight]Loading weights:   6%|▌         | 11/199 [00:00<00:00, 2741.86it/s, Materializing param=encoder.layer.0.attention.self.key.weight]Loading weights:   6%|▌         | 12/199 [00:00<00:00, 2857.97it/s, Materializing param=encoder.layer.0.attention.self.query.bias]Loading weights:   6%|▌         | 12/199 [00:00<00:00, 2808.69it/s, Materializing param=encoder.layer.0.attention.self.query.bias]Loading weights:   7%|▋         | 13/199 [00:00<00:00, 2925.84it/s, Materializing param=encoder.layer.0.attention.self.query.weight]Loading weights:   7%|▋         | 13/199 [00:00<00:00, 2879.94it/s, Materializing param=encoder.layer.0.attention.self.query.weight]Loading weights:   7%|▋         | 14/199 [00:00<00:00, 2634.85it/s, Materializing param=encoder.layer.0.attention.self.value.bias]  Loading weights:   7%|▋         | 14/199 [00:00<00:00, 2598.01it/s, Materializing param=encoder.layer.0.attention.self.value.bias]Loading weights:   8%|▊         | 15/199 [00:00<00:00, 2702.86it/s, Materializing param=encoder.layer.0.attention.self.value.weight]Loading weights:   8%|▊         | 15/199 [00:00<00:00, 2673.46it/s, Materializing param=encoder.layer.0.attention.self.value.weight]Loading weights:   8%|▊         | 16/199 [00:00<00:00, 2777.45it/s, Materializing param=encoder.layer.0.intermediate.dense.bias]    Loading weights:   8%|▊         | 16/199 [00:00<00:00, 2749.57it/s, Materializing param=encoder.layer.0.intermediate.dense.bias]Loading weights:   9%|▊         | 17/199 [00:00<00:00, 2849.28it/s, Materializing param=encoder.layer.0.intermediate.dense.weight]Loading weights:   9%|▊         | 17/199 [00:00<00:00, 2822.43it/s, Materializing param=encoder.layer.0.intermediate.dense.weight]Loading weights:   9%|▉         | 18/199 [00:00<00:00, 2475.00it/s, Materializing param=encoder.layer.0.output.LayerNorm.bias]    Loading weights:   9%|▉         | 18/199 [00:00<00:00, 2451.61it/s, Materializing param=encoder.layer.0.output.LayerNorm.bias]Loading weights:  10%|▉         | 19/199 [00:00<00:00, 2533.76it/s, Materializing param=encoder.layer.0.output.LayerNorm.weight]Loading weights:  10%|▉         | 19/199 [00:00<00:00, 2513.38it/s, Materializing param=encoder.layer.0.output.LayerNorm.weight]Loading weights:  10%|█         | 20/199 [00:00<00:00, 2373.01it/s, Materializing param=encoder.layer.0.output.dense.bias]      Loading weights:  10%|█         | 20/199 [00:00<00:00, 2357.48it/s, Materializing param=encoder.layer.0.output.dense.bias]Loading weights:  11%|█         | 21/199 [00:00<00:00, 2430.00it/s, Materializing param=encoder.layer.0.output.dense.weight]Loading weights:  11%|█         | 21/199 [00:00<00:00, 2415.94it/s, Materializing param=encoder.layer.0.output.dense.weight]Loading weights:  11%|█         | 22/199 [00:00<00:00, 2497.89it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.bias]Loading weights:  11%|█         | 22/199 [00:00<00:00, 2484.38it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.bias]Loading weights:  12%|█▏        | 23/199 [00:00<00:00, 2558.38it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.weight]Loading weights:  12%|█▏        | 23/199 [00:00<00:00, 2544.75it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.weight]Loading weights:  12%|█▏        | 24/199 [00:00<00:00, 2246.00it/s, Materializing param=encoder.layer.1.attention.output.dense.bias]      Loading weights:  12%|█▏        | 24/199 [00:00<00:00, 2233.54it/s, Materializing param=encoder.layer.1.attention.output.dense.bias]Loading weights:  13%|█▎        | 25/199 [00:00<00:00, 2300.16it/s, Materializing param=encoder.layer.1.attention.output.dense.weight]Loading weights:  13%|█▎        | 25/199 [00:00<00:00, 2290.02it/s, Materializing param=encoder.layer.1.attention.output.dense.weight]Loading weights:  13%|█▎        | 26/199 [00:00<00:00, 2336.86it/s, Materializing param=encoder.layer.1.attention.self.key.bias]      Loading weights:  13%|█▎        | 26/199 [00:00<00:00, 2326.29it/s, Materializing param=encoder.layer.1.attention.self.key.bias]Loading weights:  14%|█▎        | 27/199 [00:00<00:00, 2389.21it/s, Materializing param=encoder.layer.1.attention.self.key.weight]Loading weights:  14%|█▎        | 27/199 [00:00<00:00, 2379.37it/s, Materializing param=encoder.layer.1.attention.self.key.weight]Loading weights:  14%|█▍        | 28/199 [00:00<00:00, 2438.60it/s, Materializing param=encoder.layer.1.attention.self.query.bias]Loading weights:  14%|█▍        | 28/199 [00:00<00:00, 2428.41it/s, Materializing param=encoder.layer.1.attention.self.query.bias]Loading weights:  15%|█▍        | 29/199 [00:00<00:00, 2482.29it/s, Materializing param=encoder.layer.1.attention.self.query.weight]Loading weights:  15%|█▍        | 29/199 [00:00<00:00, 2472.00it/s, Materializing param=encoder.layer.1.attention.self.query.weight]Loading weights:  15%|█▌        | 30/199 [00:00<00:00, 2532.44it/s, Materializing param=encoder.layer.1.attention.self.value.bias]  Loading weights:  15%|█▌        | 30/199 [00:00<00:00, 2522.64it/s, Materializing param=encoder.layer.1.attention.self.value.bias]Loading weights:  16%|█▌        | 31/199 [00:00<00:00, 2582.75it/s, Materializing param=encoder.layer.1.attention.self.value.weight]Loading weights:  16%|█▌        | 31/199 [00:00<00:00, 2572.89it/s, Materializing param=encoder.layer.1.attention.self.value.weight]Loading weights:  16%|█▌        | 32/199 [00:00<00:00, 2631.77it/s, Materializing param=encoder.layer.1.intermediate.dense.bias]    Loading weights:  16%|█▌        | 32/199 [00:00<00:00, 2621.90it/s, Materializing param=encoder.layer.1.intermediate.dense.bias]Loading weights:  17%|█▋        | 33/199 [00:00<00:00, 2565.04it/s, Materializing param=encoder.layer.1.intermediate.dense.weight]Loading weights:  17%|█▋        | 33/199 [00:00<00:00, 2555.94it/s, Materializing param=encoder.layer.1.intermediate.dense.weight]Loading weights:  17%|█▋        | 34/199 [00:00<00:00, 2620.43it/s, Materializing param=encoder.layer.1.output.LayerNorm.bias]    Loading weights:  17%|█▋        | 34/199 [00:00<00:00, 2613.99it/s, Materializing param=encoder.layer.1.output.LayerNorm.bias]Loading weights:  18%|█▊        | 35/199 [00:00<00:00, 2679.09it/s, Materializing param=encoder.layer.1.output.LayerNorm.weight]Loading weights:  18%|█▊        | 35/199 [00:00<00:00, 2672.84it/s, Materializing param=encoder.layer.1.output.LayerNorm.weight]Loading weights:  18%|█▊        | 36/199 [00:00<00:00, 2737.90it/s, Materializing param=encoder.layer.1.output.dense.bias]      Loading weights:  18%|█▊        | 36/199 [00:00<00:00, 2731.85it/s, Materializing param=encoder.layer.1.output.dense.bias]Loading weights:  19%|█▊        | 37/199 [00:00<00:00, 2790.12it/s, Materializing param=encoder.layer.1.output.dense.weight]Loading weights:  19%|█▊        | 37/199 [00:00<00:00, 2781.72it/s, Materializing param=encoder.layer.1.output.dense.weight]Loading weights:  19%|█▉        | 38/199 [00:00<00:00, 2842.68it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.bias]Loading weights:  19%|█▉        | 38/199 [00:00<00:00, 2835.75it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.bias]Loading weights:  20%|█▉        | 39/199 [00:00<00:00, 2897.65it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.weight]Loading weights:  20%|█▉        | 39/199 [00:00<00:00, 2891.14it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.weight]Loading weights:  20%|██        | 40/199 [00:00<00:00, 2953.22it/s, Materializing param=encoder.layer.2.attention.output.dense.bias]      Loading weights:  20%|██        | 40/199 [00:00<00:00, 2946.58it/s, Materializing param=encoder.layer.2.attention.output.dense.bias]Loading weights:  21%|██        | 41/199 [00:00<00:00, 3008.25it/s, Materializing param=encoder.layer.2.attention.output.dense.weight]Loading weights:  21%|██        | 41/199 [00:00<00:00, 3001.79it/s, Materializing param=encoder.layer.2.attention.output.dense.weight]Loading weights:  21%|██        | 42/199 [00:00<00:00, 3063.29it/s, Materializing param=encoder.layer.2.attention.self.key.bias]      Loading weights:  21%|██        | 42/199 [00:00<00:00, 3056.91it/s, Materializing param=encoder.layer.2.attention.self.key.bias]Loading weights:  22%|██▏       | 43/199 [00:00<00:00, 3117.90it/s, Materializing param=encoder.layer.2.attention.self.key.weight]Loading weights:  22%|██▏       | 43/199 [00:00<00:00, 3111.45it/s, Materializing param=encoder.layer.2.attention.self.key.weight]Loading weights:  22%|██▏       | 44/199 [00:00<00:00, 3171.93it/s, Materializing param=encoder.layer.2.attention.self.query.bias]Loading weights:  22%|██▏       | 44/199 [00:00<00:00, 3165.46it/s, Materializing param=encoder.layer.2.attention.self.query.bias]Loading weights:  23%|██▎       | 45/199 [00:00<00:00, 3225.23it/s, Materializing param=encoder.layer.2.attention.self.query.weight]Loading weights:  23%|██▎       | 45/199 [00:00<00:00, 3218.52it/s, Materializing param=encoder.layer.2.attention.self.query.weight]Loading weights:  23%|██▎       | 46/199 [00:00<00:00, 3278.02it/s, Materializing param=encoder.layer.2.attention.self.value.bias]  Loading weights:  23%|██▎       | 46/199 [00:00<00:00, 3271.30it/s, Materializing param=encoder.layer.2.attention.self.value.bias]Loading weights:  24%|██▎       | 47/199 [00:00<00:00, 3330.05it/s, Materializing param=encoder.layer.2.attention.self.value.weight]Loading weights:  24%|██▎       | 47/199 [00:00<00:00, 3323.37it/s, Materializing param=encoder.layer.2.attention.self.value.weight]Loading weights:  24%|██▍       | 48/199 [00:00<00:00, 3380.06it/s, Materializing param=encoder.layer.2.intermediate.dense.bias]    Loading weights:  24%|██▍       | 48/199 [00:00<00:00, 3372.98it/s, Materializing param=encoder.layer.2.intermediate.dense.bias]Loading weights:  25%|██▍       | 49/199 [00:00<00:00, 3430.89it/s, Materializing param=encoder.layer.2.intermediate.dense.weight]Loading weights:  25%|██▍       | 49/199 [00:00<00:00, 3423.98it/s, Materializing param=encoder.layer.2.intermediate.dense.weight]Loading weights:  25%|██▌       | 50/199 [00:00<00:00, 3481.62it/s, Materializing param=encoder.layer.2.output.LayerNorm.bias]    Loading weights:  25%|██▌       | 50/199 [00:00<00:00, 3474.52it/s, Materializing param=encoder.layer.2.output.LayerNorm.bias]Loading weights:  26%|██▌       | 51/199 [00:00<00:00, 3526.48it/s, Materializing param=encoder.layer.2.output.LayerNorm.weight]Loading weights:  26%|██▌       | 51/199 [00:00<00:00, 3518.54it/s, Materializing param=encoder.layer.2.output.LayerNorm.weight]Loading weights:  26%|██▌       | 52/199 [00:00<00:00, 3574.48it/s, Materializing param=encoder.layer.2.output.dense.bias]      Loading weights:  26%|██▌       | 52/199 [00:00<00:00, 3567.40it/s, Materializing param=encoder.layer.2.output.dense.bias]Loading weights:  27%|██▋       | 53/199 [00:00<00:00, 3621.97it/s, Materializing param=encoder.layer.2.output.dense.weight]Loading weights:  27%|██▋       | 53/199 [00:00<00:00, 3612.55it/s, Materializing param=encoder.layer.2.output.dense.weight]Loading weights:  27%|██▋       | 54/199 [00:00<00:00, 3665.70it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.bias]Loading weights:  27%|██▋       | 54/199 [00:00<00:00, 3658.24it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.bias]Loading weights:  28%|██▊       | 55/199 [00:00<00:00, 3711.83it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.weight]Loading weights:  28%|██▊       | 55/199 [00:00<00:00, 3704.50it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.weight]Loading weights:  28%|██▊       | 56/199 [00:00<00:00, 3758.58it/s, Materializing param=encoder.layer.3.attention.output.dense.bias]      Loading weights:  28%|██▊       | 56/199 [00:00<00:00, 3751.13it/s, Materializing param=encoder.layer.3.attention.output.dense.bias]Loading weights:  29%|██▊       | 57/199 [00:00<00:00, 3804.75it/s, Materializing param=encoder.layer.3.attention.output.dense.weight]Loading weights:  29%|██▊       | 57/199 [00:00<00:00, 3797.26it/s, Materializing param=encoder.layer.3.attention.output.dense.weight]Loading weights:  29%|██▉       | 58/199 [00:00<00:00, 3850.60it/s, Materializing param=encoder.layer.3.attention.self.key.bias]      Loading weights:  29%|██▉       | 58/199 [00:00<00:00, 3843.18it/s, Materializing param=encoder.layer.3.attention.self.key.bias]Loading weights:  30%|██▉       | 59/199 [00:00<00:00, 3895.84it/s, Materializing param=encoder.layer.3.attention.self.key.weight]Loading weights:  30%|██▉       | 59/199 [00:00<00:00, 3888.50it/s, Materializing param=encoder.layer.3.attention.self.key.weight]Loading weights:  30%|███       | 60/199 [00:00<00:00, 3940.78it/s, Materializing param=encoder.layer.3.attention.self.query.bias]Loading weights:  30%|███       | 60/199 [00:00<00:00, 3933.14it/s, Materializing param=encoder.layer.3.attention.self.query.bias]Loading weights:  31%|███       | 61/199 [00:00<00:00, 3984.93it/s, Materializing param=encoder.layer.3.attention.self.query.weight]Loading weights:  31%|███       | 61/199 [00:00<00:00, 3977.37it/s, Materializing param=encoder.layer.3.attention.self.query.weight]Loading weights:  31%|███       | 62/199 [00:00<00:00, 4028.99it/s, Materializing param=encoder.layer.3.attention.self.value.bias]  Loading weights:  31%|███       | 62/199 [00:00<00:00, 4021.51it/s, Materializing param=encoder.layer.3.attention.self.value.bias]Loading weights:  32%|███▏      | 63/199 [00:00<00:00, 4066.69it/s, Materializing param=encoder.layer.3.attention.self.value.weight]Loading weights:  32%|███▏      | 63/199 [00:00<00:00, 4057.63it/s, Materializing param=encoder.layer.3.attention.self.value.weight]Loading weights:  32%|███▏      | 64/199 [00:00<00:00, 4107.47it/s, Materializing param=encoder.layer.3.intermediate.dense.bias]    Loading weights:  32%|███▏      | 64/199 [00:00<00:00, 4099.75it/s, Materializing param=encoder.layer.3.intermediate.dense.bias]Loading weights:  33%|███▎      | 65/199 [00:00<00:00, 4149.93it/s, Materializing param=encoder.layer.3.intermediate.dense.weight]Loading weights:  33%|███▎      | 65/199 [00:00<00:00, 4142.30it/s, Materializing param=encoder.layer.3.intermediate.dense.weight]Loading weights:  33%|███▎      | 66/199 [00:00<00:00, 4192.65it/s, Materializing param=encoder.layer.3.output.LayerNorm.bias]    Loading weights:  33%|███▎      | 66/199 [00:00<00:00, 4185.17it/s, Materializing param=encoder.layer.3.output.LayerNorm.bias]Loading weights:  34%|███▎      | 67/199 [00:00<00:00, 4234.82it/s, Materializing param=encoder.layer.3.output.LayerNorm.weight]Loading weights:  34%|███▎      | 67/199 [00:00<00:00, 4227.24it/s, Materializing param=encoder.layer.3.output.LayerNorm.weight]Loading weights:  34%|███▍      | 68/199 [00:00<00:00, 4276.56it/s, Materializing param=encoder.layer.3.output.dense.bias]      Loading weights:  34%|███▍      | 68/199 [00:00<00:00, 4269.01it/s, Materializing param=encoder.layer.3.output.dense.bias]Loading weights:  35%|███▍      | 69/199 [00:00<00:00, 4317.83it/s, Materializing param=encoder.layer.3.output.dense.weight]Loading weights:  35%|███▍      | 69/199 [00:00<00:00, 4310.18it/s, Materializing param=encoder.layer.3.output.dense.weight]Loading weights:  35%|███▌      | 70/199 [00:00<00:00, 4359.01it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.bias]Loading weights:  35%|███▌      | 70/199 [00:00<00:00, 4351.20it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.bias]Loading weights:  36%|███▌      | 71/199 [00:00<00:00, 4398.69it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.weight]Loading weights:  36%|███▌      | 71/199 [00:00<00:00, 4390.84it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.weight]Loading weights:  36%|███▌      | 72/199 [00:00<00:00, 4438.48it/s, Materializing param=encoder.layer.4.attention.output.dense.bias]      Loading weights:  36%|███▌      | 72/199 [00:00<00:00, 4427.10it/s, Materializing param=encoder.layer.4.attention.output.dense.bias]Loading weights:  37%|███▋      | 73/199 [00:00<00:00, 4471.28it/s, Materializing param=encoder.layer.4.attention.output.dense.weight]Loading weights:  37%|███▋      | 73/199 [00:00<00:00, 4462.94it/s, Materializing param=encoder.layer.4.attention.output.dense.weight]Loading weights:  37%|███▋      | 74/199 [00:00<00:00, 4509.09it/s, Materializing param=encoder.layer.4.attention.self.key.bias]      Loading weights:  37%|███▋      | 74/199 [00:00<00:00, 4501.17it/s, Materializing param=encoder.layer.4.attention.self.key.bias]Loading weights:  38%|███▊      | 75/199 [00:00<00:00, 4547.62it/s, Materializing param=encoder.layer.4.attention.self.key.weight]Loading weights:  38%|███▊      | 75/199 [00:00<00:00, 4539.81it/s, Materializing param=encoder.layer.4.attention.self.key.weight]Loading weights:  38%|███▊      | 76/199 [00:00<00:00, 4586.12it/s, Materializing param=encoder.layer.4.attention.self.query.bias]Loading weights:  38%|███▊      | 76/199 [00:00<00:00, 4578.28it/s, Materializing param=encoder.layer.4.attention.self.query.bias]Loading weights:  39%|███▊      | 77/199 [00:00<00:00, 4624.50it/s, Materializing param=encoder.layer.4.attention.self.query.weight]Loading weights:  39%|███▊      | 77/199 [00:00<00:00, 4614.86it/s, Materializing param=encoder.layer.4.attention.self.query.weight]Loading weights:  39%|███▉      | 78/199 [00:00<00:00, 4659.81it/s, Materializing param=encoder.layer.4.attention.self.value.bias]  Loading weights:  39%|███▉      | 78/199 [00:00<00:00, 4651.53it/s, Materializing param=encoder.layer.4.attention.self.value.bias]Loading weights:  40%|███▉      | 79/199 [00:00<00:00, 4690.22it/s, Materializing param=encoder.layer.4.attention.self.value.weight]Loading weights:  40%|███▉      | 79/199 [00:00<00:00, 4681.41it/s, Materializing param=encoder.layer.4.attention.self.value.weight]Loading weights:  40%|████      | 80/199 [00:00<00:00, 4723.85it/s, Materializing param=encoder.layer.4.intermediate.dense.bias]    Loading weights:  40%|████      | 80/199 [00:00<00:00, 4715.42it/s, Materializing param=encoder.layer.4.intermediate.dense.bias]Loading weights:  41%|████      | 81/199 [00:00<00:00, 4759.31it/s, Materializing param=encoder.layer.4.intermediate.dense.weight]Loading weights:  41%|████      | 81/199 [00:00<00:00, 4751.19it/s, Materializing param=encoder.layer.4.intermediate.dense.weight]Loading weights:  41%|████      | 82/199 [00:00<00:00, 4795.43it/s, Materializing param=encoder.layer.4.output.LayerNorm.bias]    Loading weights:  41%|████      | 82/199 [00:00<00:00, 4787.49it/s, Materializing param=encoder.layer.4.output.LayerNorm.bias]Loading weights:  42%|████▏     | 83/199 [00:00<00:00, 4810.71it/s, Materializing param=encoder.layer.4.output.LayerNorm.weight]Loading weights:  42%|████▏     | 83/199 [00:00<00:00, 4798.64it/s, Materializing param=encoder.layer.4.output.LayerNorm.weight]Loading weights:  42%|████▏     | 84/199 [00:00<00:00, 4838.32it/s, Materializing param=encoder.layer.4.output.dense.bias]      Loading weights:  42%|████▏     | 84/199 [00:00<00:00, 4829.56it/s, Materializing param=encoder.layer.4.output.dense.bias]Loading weights:  43%|████▎     | 85/199 [00:00<00:00, 4872.03it/s, Materializing param=encoder.layer.4.output.dense.weight]Loading weights:  43%|████▎     | 85/199 [00:00<00:00, 4863.86it/s, Materializing param=encoder.layer.4.output.dense.weight]Loading weights:  43%|████▎     | 86/199 [00:00<00:00, 4906.62it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.bias]Loading weights:  43%|████▎     | 86/199 [00:00<00:00, 4898.36it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.bias]Loading weights:  44%|████▎     | 87/199 [00:00<00:00, 4940.02it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.weight]Loading weights:  44%|████▎     | 87/199 [00:00<00:00, 4931.67it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.weight]Loading weights:  44%|████▍     | 88/199 [00:00<00:00, 4973.71it/s, Materializing param=encoder.layer.5.attention.output.dense.bias]      Loading weights:  44%|████▍     | 88/199 [00:00<00:00, 4965.61it/s, Materializing param=encoder.layer.5.attention.output.dense.bias]Loading weights:  45%|████▍     | 89/199 [00:00<00:00, 5007.28it/s, Materializing param=encoder.layer.5.attention.output.dense.weight]Loading weights:  45%|████▍     | 89/199 [00:00<00:00, 4998.77it/s, Materializing param=encoder.layer.5.attention.output.dense.weight]Loading weights:  45%|████▌     | 90/199 [00:00<00:00, 5040.29it/s, Materializing param=encoder.layer.5.attention.self.key.bias]      Loading weights:  45%|████▌     | 90/199 [00:00<00:00, 5032.02it/s, Materializing param=encoder.layer.5.attention.self.key.bias]Loading weights:  46%|████▌     | 91/199 [00:00<00:00, 5072.65it/s, Materializing param=encoder.layer.5.attention.self.key.weight]Loading weights:  46%|████▌     | 91/199 [00:00<00:00, 5064.31it/s, Materializing param=encoder.layer.5.attention.self.key.weight]Loading weights:  46%|████▌     | 92/199 [00:00<00:00, 5103.30it/s, Materializing param=encoder.layer.5.attention.self.query.bias]Loading weights:  46%|████▌     | 92/199 [00:00<00:00, 5094.54it/s, Materializing param=encoder.layer.5.attention.self.query.bias]Loading weights:  47%|████▋     | 93/199 [00:00<00:00, 5129.60it/s, Materializing param=encoder.layer.5.attention.self.query.weight]Loading weights:  47%|████▋     | 93/199 [00:00<00:00, 5120.51it/s, Materializing param=encoder.layer.5.attention.self.query.weight]Loading weights:  47%|████▋     | 94/199 [00:00<00:00, 5159.59it/s, Materializing param=encoder.layer.5.attention.self.value.bias]  Loading weights:  47%|████▋     | 94/199 [00:00<00:00, 5151.09it/s, Materializing param=encoder.layer.5.attention.self.value.bias]Loading weights:  48%|████▊     | 95/199 [00:00<00:00, 5165.33it/s, Materializing param=encoder.layer.5.attention.self.value.weight]Loading weights:  48%|████▊     | 95/199 [00:00<00:00, 5146.25it/s, Materializing param=encoder.layer.5.attention.self.value.weight]Loading weights:  48%|████▊     | 96/199 [00:00<00:00, 5171.90it/s, Materializing param=encoder.layer.5.intermediate.dense.bias]    Loading weights:  48%|████▊     | 96/199 [00:00<00:00, 5157.79it/s, Materializing param=encoder.layer.5.intermediate.dense.bias]Loading weights:  49%|████▊     | 97/199 [00:00<00:00, 5187.93it/s, Materializing param=encoder.layer.5.intermediate.dense.weight]Loading weights:  49%|████▊     | 97/199 [00:00<00:00, 5177.10it/s, Materializing param=encoder.layer.5.intermediate.dense.weight]Loading weights:  49%|████▉     | 98/199 [00:00<00:00, 5209.85it/s, Materializing param=encoder.layer.5.output.LayerNorm.bias]    Loading weights:  49%|████▉     | 98/199 [00:00<00:00, 5199.11it/s, Materializing param=encoder.layer.5.output.LayerNorm.bias]Loading weights:  50%|████▉     | 99/199 [00:00<00:00, 5233.10it/s, Materializing param=encoder.layer.5.output.LayerNorm.weight]Loading weights:  50%|████▉     | 99/199 [00:00<00:00, 5222.64it/s, Materializing param=encoder.layer.5.output.LayerNorm.weight]Loading weights:  50%|█████     | 100/199 [00:00<00:00, 5257.14it/s, Materializing param=encoder.layer.5.output.dense.bias]     Loading weights:  50%|█████     | 100/199 [00:00<00:00, 5246.82it/s, Materializing param=encoder.layer.5.output.dense.bias]Loading weights:  51%|█████     | 101/199 [00:00<00:00, 5281.31it/s, Materializing param=encoder.layer.5.output.dense.weight]Loading weights:  51%|█████     | 101/199 [00:00<00:00, 5271.32it/s, Materializing param=encoder.layer.5.output.dense.weight]Loading weights:  51%|█████▏    | 102/199 [00:00<00:00, 5305.82it/s, Materializing param=encoder.layer.6.attention.output.LayerNorm.bias]Loading weights:  51%|█████▏    | 102/199 [00:00<00:00, 5295.31it/s, Materializing param=encoder.layer.6.attention.output.LayerNorm.bias]Loading weights:  52%|█████▏    | 103/199 [00:00<00:00, 5328.10it/s, Materializing param=encoder.layer.6.attention.output.LayerNorm.weight]Loading weights:  52%|█████▏    | 103/199 [00:00<00:00, 5317.74it/s, Materializing param=encoder.layer.6.attention.output.LayerNorm.weight]Loading weights:  52%|█████▏    | 104/199 [00:00<00:00, 5351.06it/s, Materializing param=encoder.layer.6.attention.output.dense.bias]      Loading weights:  52%|█████▏    | 104/199 [00:00<00:00, 5340.71it/s, Materializing param=encoder.layer.6.attention.output.dense.bias]Loading weights:  53%|█████▎    | 105/199 [00:00<00:00, 5373.51it/s, Materializing param=encoder.layer.6.attention.output.dense.weight]Loading weights:  53%|█████▎    | 105/199 [00:00<00:00, 5363.30it/s, Materializing param=encoder.layer.6.attention.output.dense.weight]Loading weights:  53%|█████▎    | 106/199 [00:00<00:00, 5395.98it/s, Materializing param=encoder.layer.6.attention.self.key.bias]      Loading weights:  53%|█████▎    | 106/199 [00:00<00:00, 5382.20it/s, Materializing param=encoder.layer.6.attention.self.key.bias]Loading weights:  54%|█████▍    | 107/199 [00:00<00:00, 5413.18it/s, Materializing param=encoder.layer.6.attention.self.key.weight]Loading weights:  54%|█████▍    | 107/199 [00:00<00:00, 5403.01it/s, Materializing param=encoder.layer.6.attention.self.key.weight]Loading weights:  54%|█████▍    | 108/199 [00:00<00:00, 5434.99it/s, Materializing param=encoder.layer.6.attention.self.query.bias]Loading weights:  54%|█████▍    | 108/199 [00:00<00:00, 5410.52it/s, Materializing param=encoder.layer.6.attention.self.query.bias]Loading weights:  55%|█████▍    | 109/199 [00:00<00:00, 5432.20it/s, Materializing param=encoder.layer.6.attention.self.query.weight]Loading weights:  55%|█████▍    | 109/199 [00:00<00:00, 5419.64it/s, Materializing param=encoder.layer.6.attention.self.query.weight]Loading weights:  55%|█████▌    | 110/199 [00:00<00:00, 5448.37it/s, Materializing param=encoder.layer.6.attention.self.value.bias]  Loading weights:  55%|█████▌    | 110/199 [00:00<00:00, 5437.26it/s, Materializing param=encoder.layer.6.attention.self.value.bias]Loading weights:  56%|█████▌    | 111/199 [00:00<00:00, 5463.58it/s, Materializing param=encoder.layer.6.attention.self.value.weight]Loading weights:  56%|█████▌    | 111/199 [00:00<00:00, 5452.19it/s, Materializing param=encoder.layer.6.attention.self.value.weight]Loading weights:  56%|█████▋    | 112/199 [00:00<00:00, 5475.34it/s, Materializing param=encoder.layer.6.intermediate.dense.bias]    Loading weights:  56%|█████▋    | 112/199 [00:00<00:00, 5458.22it/s, Materializing param=encoder.layer.6.intermediate.dense.bias]Loading weights:  57%|█████▋    | 113/199 [00:00<00:00, 5463.79it/s, Materializing param=encoder.layer.6.intermediate.dense.weight]Loading weights:  57%|█████▋    | 113/199 [00:00<00:00, 5447.77it/s, Materializing param=encoder.layer.6.intermediate.dense.weight]Loading weights:  57%|█████▋    | 114/199 [00:00<00:00, 5477.41it/s, Materializing param=encoder.layer.6.output.LayerNorm.bias]    Loading weights:  57%|█████▋    | 114/199 [00:00<00:00, 5467.39it/s, Materializing param=encoder.layer.6.output.LayerNorm.bias]Loading weights:  58%|█████▊    | 115/199 [00:00<00:00, 5493.24it/s, Materializing param=encoder.layer.6.output.LayerNorm.weight]Loading weights:  58%|█████▊    | 115/199 [00:00<00:00, 5482.38it/s, Materializing param=encoder.layer.6.output.LayerNorm.weight]Loading weights:  58%|█████▊    | 116/199 [00:00<00:00, 5512.38it/s, Materializing param=encoder.layer.6.output.dense.bias]      Loading weights:  58%|█████▊    | 116/199 [00:00<00:00, 5502.66it/s, Materializing param=encoder.layer.6.output.dense.bias]Loading weights:  59%|█████▉    | 117/199 [00:00<00:00, 5533.13it/s, Materializing param=encoder.layer.6.output.dense.weight]Loading weights:  59%|█████▉    | 117/199 [00:00<00:00, 5523.79it/s, Materializing param=encoder.layer.6.output.dense.weight]Loading weights:  59%|█████▉    | 118/199 [00:00<00:00, 5539.89it/s, Materializing param=encoder.layer.7.attention.output.LayerNorm.bias]Loading weights:  59%|█████▉    | 118/199 [00:00<00:00, 5525.54it/s, Materializing param=encoder.layer.7.attention.output.LayerNorm.bias]Loading weights:  60%|█████▉    | 119/199 [00:00<00:00, 5552.03it/s, Materializing param=encoder.layer.7.attention.output.LayerNorm.weight]Loading weights:  60%|█████▉    | 119/199 [00:00<00:00, 5541.86it/s, Materializing param=encoder.layer.7.attention.output.LayerNorm.weight]Loading weights:  60%|██████    | 120/199 [00:00<00:00, 5558.62it/s, Materializing param=encoder.layer.7.attention.output.dense.bias]      Loading weights:  60%|██████    | 120/199 [00:00<00:00, 5546.61it/s, Materializing param=encoder.layer.7.attention.output.dense.bias]Loading weights:  61%|██████    | 121/199 [00:00<00:00, 5574.77it/s, Materializing param=encoder.layer.7.attention.output.dense.weight]Loading weights:  61%|██████    | 121/199 [00:00<00:00, 5565.97it/s, Materializing param=encoder.layer.7.attention.output.dense.weight]Loading weights:  61%|██████▏   | 122/199 [00:00<00:00, 5594.55it/s, Materializing param=encoder.layer.7.attention.self.key.bias]      Loading weights:  61%|██████▏   | 122/199 [00:00<00:00, 5585.45it/s, Materializing param=encoder.layer.7.attention.self.key.bias]Loading weights:  62%|██████▏   | 123/199 [00:00<00:00, 5615.05it/s, Materializing param=encoder.layer.7.attention.self.key.weight]Loading weights:  62%|██████▏   | 123/199 [00:00<00:00, 5606.93it/s, Materializing param=encoder.layer.7.attention.self.key.weight]Loading weights:  62%|██████▏   | 124/199 [00:00<00:00, 5637.75it/s, Materializing param=encoder.layer.7.attention.self.query.bias]Loading weights:  62%|██████▏   | 124/199 [00:00<00:00, 5629.69it/s, Materializing param=encoder.layer.7.attention.self.query.bias]Loading weights:  63%|██████▎   | 125/199 [00:00<00:00, 5660.63it/s, Materializing param=encoder.layer.7.attention.self.query.weight]Loading weights:  63%|██████▎   | 125/199 [00:00<00:00, 5652.82it/s, Materializing param=encoder.layer.7.attention.self.query.weight]Loading weights:  63%|██████▎   | 126/199 [00:00<00:00, 5684.13it/s, Materializing param=encoder.layer.7.attention.self.value.bias]  Loading weights:  63%|██████▎   | 126/199 [00:00<00:00, 5676.50it/s, Materializing param=encoder.layer.7.attention.self.value.bias]Loading weights:  64%|██████▍   | 127/199 [00:00<00:00, 5707.51it/s, Materializing param=encoder.layer.7.attention.self.value.weight]Loading weights:  64%|██████▍   | 127/199 [00:00<00:00, 5699.82it/s, Materializing param=encoder.layer.7.attention.self.value.weight]Loading weights:  64%|██████▍   | 128/199 [00:00<00:00, 5730.47it/s, Materializing param=encoder.layer.7.intermediate.dense.bias]    Loading weights:  64%|██████▍   | 128/199 [00:00<00:00, 5722.90it/s, Materializing param=encoder.layer.7.intermediate.dense.bias]Loading weights:  65%|██████▍   | 129/199 [00:00<00:00, 5753.56it/s, Materializing param=encoder.layer.7.intermediate.dense.weight]Loading weights:  65%|██████▍   | 129/199 [00:00<00:00, 5746.11it/s, Materializing param=encoder.layer.7.intermediate.dense.weight]Loading weights:  65%|██████▌   | 130/199 [00:00<00:00, 5776.91it/s, Materializing param=encoder.layer.7.output.LayerNorm.bias]    Loading weights:  65%|██████▌   | 130/199 [00:00<00:00, 5769.39it/s, Materializing param=encoder.layer.7.output.LayerNorm.bias]Loading weights:  66%|██████▌   | 131/199 [00:00<00:00, 5799.60it/s, Materializing param=encoder.layer.7.output.LayerNorm.weight]Loading weights:  66%|██████▌   | 131/199 [00:00<00:00, 5791.96it/s, Materializing param=encoder.layer.7.output.LayerNorm.weight]Loading weights:  66%|██████▋   | 132/199 [00:00<00:00, 5822.30it/s, Materializing param=encoder.layer.7.output.dense.bias]      Loading weights:  66%|██████▋   | 132/199 [00:00<00:00, 5814.78it/s, Materializing param=encoder.layer.7.output.dense.bias]Loading weights:  67%|██████▋   | 133/199 [00:00<00:00, 5845.20it/s, Materializing param=encoder.layer.7.output.dense.weight]Loading weights:  67%|██████▋   | 133/199 [00:00<00:00, 5837.80it/s, Materializing param=encoder.layer.7.output.dense.weight]Loading weights:  67%|██████▋   | 134/199 [00:00<00:00, 5868.30it/s, Materializing param=encoder.layer.8.attention.output.LayerNorm.bias]Loading weights:  67%|██████▋   | 134/199 [00:00<00:00, 5860.78it/s, Materializing param=encoder.layer.8.attention.output.LayerNorm.bias]Loading weights:  68%|██████▊   | 135/199 [00:00<00:00, 5888.12it/s, Materializing param=encoder.layer.8.attention.output.LayerNorm.weight]Loading weights:  68%|██████▊   | 135/199 [00:00<00:00, 5880.23it/s, Materializing param=encoder.layer.8.attention.output.LayerNorm.weight]Loading weights:  68%|██████▊   | 136/199 [00:00<00:00, 5909.80it/s, Materializing param=encoder.layer.8.attention.output.dense.bias]      Loading weights:  68%|██████▊   | 136/199 [00:00<00:00, 5902.21it/s, Materializing param=encoder.layer.8.attention.output.dense.bias]Loading weights:  69%|██████▉   | 137/199 [00:00<00:00, 5931.86it/s, Materializing param=encoder.layer.8.attention.output.dense.weight]Loading weights:  69%|██████▉   | 137/199 [00:00<00:00, 5919.82it/s, Materializing param=encoder.layer.8.attention.output.dense.weight]Loading weights:  69%|██████▉   | 138/199 [00:00<00:00, 5947.59it/s, Materializing param=encoder.layer.8.attention.self.key.bias]      Loading weights:  69%|██████▉   | 138/199 [00:00<00:00, 5939.72it/s, Materializing param=encoder.layer.8.attention.self.key.bias]Loading weights:  70%|██████▉   | 139/199 [00:00<00:00, 5968.68it/s, Materializing param=encoder.layer.8.attention.self.key.weight]Loading weights:  70%|██████▉   | 139/199 [00:00<00:00, 5961.11it/s, Materializing param=encoder.layer.8.attention.self.key.weight]Loading weights:  70%|███████   | 140/199 [00:00<00:00, 5990.21it/s, Materializing param=encoder.layer.8.attention.self.query.bias]Loading weights:  70%|███████   | 140/199 [00:00<00:00, 5982.83it/s, Materializing param=encoder.layer.8.attention.self.query.bias]Loading weights:  71%|███████   | 141/199 [00:00<00:00, 6011.96it/s, Materializing param=encoder.layer.8.attention.self.query.weight]Loading weights:  71%|███████   | 141/199 [00:00<00:00, 6004.64it/s, Materializing param=encoder.layer.8.attention.self.query.weight]Loading weights:  71%|███████▏  | 142/199 [00:00<00:00, 6034.05it/s, Materializing param=encoder.layer.8.attention.self.value.bias]  Loading weights:  71%|███████▏  | 142/199 [00:00<00:00, 6026.54it/s, Materializing param=encoder.layer.8.attention.self.value.bias]Loading weights:  72%|███████▏  | 143/199 [00:00<00:00, 6055.44it/s, Materializing param=encoder.layer.8.attention.self.value.weight]Loading weights:  72%|███████▏  | 143/199 [00:00<00:00, 6047.93it/s, Materializing param=encoder.layer.8.attention.self.value.weight]Loading weights:  72%|███████▏  | 144/199 [00:00<00:00, 6076.87it/s, Materializing param=encoder.layer.8.intermediate.dense.bias]    Loading weights:  72%|███████▏  | 144/199 [00:00<00:00, 6069.42it/s, Materializing param=encoder.layer.8.intermediate.dense.bias]Loading weights:  73%|███████▎  | 145/199 [00:00<00:00, 6098.14it/s, Materializing param=encoder.layer.8.intermediate.dense.weight]Loading weights:  73%|███████▎  | 145/199 [00:00<00:00, 6090.69it/s, Materializing param=encoder.layer.8.intermediate.dense.weight]Loading weights:  73%|███████▎  | 146/199 [00:00<00:00, 6119.58it/s, Materializing param=encoder.layer.8.output.LayerNorm.bias]    Loading weights:  73%|███████▎  | 146/199 [00:00<00:00, 6112.19it/s, Materializing param=encoder.layer.8.output.LayerNorm.bias]Loading weights:  74%|███████▍  | 147/199 [00:00<00:00, 6140.57it/s, Materializing param=encoder.layer.8.output.LayerNorm.weight]Loading weights:  74%|███████▍  | 147/199 [00:00<00:00, 6133.30it/s, Materializing param=encoder.layer.8.output.LayerNorm.weight]Loading weights:  74%|███████▍  | 148/199 [00:00<00:00, 6161.67it/s, Materializing param=encoder.layer.8.output.dense.bias]      Loading weights:  74%|███████▍  | 148/199 [00:00<00:00, 6152.93it/s, Materializing param=encoder.layer.8.output.dense.bias]Loading weights:  75%|███████▍  | 149/199 [00:00<00:00, 6180.54it/s, Materializing param=encoder.layer.8.output.dense.weight]Loading weights:  75%|███████▍  | 149/199 [00:00<00:00, 6173.09it/s, Materializing param=encoder.layer.8.output.dense.weight]Loading weights:  75%|███████▌  | 150/199 [00:00<00:00, 6201.35it/s, Materializing param=encoder.layer.9.attention.output.LayerNorm.bias]Loading weights:  75%|███████▌  | 150/199 [00:00<00:00, 6193.60it/s, Materializing param=encoder.layer.9.attention.output.LayerNorm.bias]Loading weights:  76%|███████▌  | 151/199 [00:00<00:00, 6220.44it/s, Materializing param=encoder.layer.9.attention.output.LayerNorm.weight]Loading weights:  76%|███████▌  | 151/199 [00:00<00:00, 6212.93it/s, Materializing param=encoder.layer.9.attention.output.LayerNorm.weight]Loading weights:  76%|███████▋  | 152/199 [00:00<00:00, 6240.73it/s, Materializing param=encoder.layer.9.attention.output.dense.bias]      Loading weights:  76%|███████▋  | 152/199 [00:00<00:00, 6233.22it/s, Materializing param=encoder.layer.9.attention.output.dense.bias]Loading weights:  77%|███████▋  | 153/199 [00:00<00:00, 6260.64it/s, Materializing param=encoder.layer.9.attention.output.dense.weight]Loading weights:  77%|███████▋  | 153/199 [00:00<00:00, 6253.20it/s, Materializing param=encoder.layer.9.attention.output.dense.weight]Loading weights:  77%|███████▋  | 154/199 [00:00<00:00, 6280.61it/s, Materializing param=encoder.layer.9.attention.self.key.bias]      Loading weights:  77%|███████▋  | 154/199 [00:00<00:00, 6273.23it/s, Materializing param=encoder.layer.9.attention.self.key.bias]Loading weights:  78%|███████▊  | 155/199 [00:00<00:00, 6300.26it/s, Materializing param=encoder.layer.9.attention.self.key.weight]Loading weights:  78%|███████▊  | 155/199 [00:00<00:00, 6292.88it/s, Materializing param=encoder.layer.9.attention.self.key.weight]Loading weights:  78%|███████▊  | 156/199 [00:00<00:00, 6320.20it/s, Materializing param=encoder.layer.9.attention.self.query.bias]Loading weights:  78%|███████▊  | 156/199 [00:00<00:00, 6312.82it/s, Materializing param=encoder.layer.9.attention.self.query.bias]Loading weights:  79%|███████▉  | 157/199 [00:00<00:00, 6339.83it/s, Materializing param=encoder.layer.9.attention.self.query.weight]Loading weights:  79%|███████▉  | 157/199 [00:00<00:00, 6332.46it/s, Materializing param=encoder.layer.9.attention.self.query.weight]Loading weights:  79%|███████▉  | 158/199 [00:00<00:00, 6359.46it/s, Materializing param=encoder.layer.9.attention.self.value.bias]  Loading weights:  79%|███████▉  | 158/199 [00:00<00:00, 6352.08it/s, Materializing param=encoder.layer.9.attention.self.value.bias]Loading weights:  80%|███████▉  | 159/199 [00:00<00:00, 6377.07it/s, Materializing param=encoder.layer.9.attention.self.value.weight]Loading weights:  80%|███████▉  | 159/199 [00:00<00:00, 6365.62it/s, Materializing param=encoder.layer.9.attention.self.value.weight]Loading weights:  80%|████████  | 160/199 [00:00<00:00, 6390.59it/s, Materializing param=encoder.layer.9.intermediate.dense.bias]    Loading weights:  80%|████████  | 160/199 [00:00<00:00, 6382.81it/s, Materializing param=encoder.layer.9.intermediate.dense.bias]Loading weights:  81%|████████  | 161/199 [00:00<00:00, 6405.22it/s, Materializing param=encoder.layer.9.intermediate.dense.weight]Loading weights:  81%|████████  | 161/199 [00:00<00:00, 6396.72it/s, Materializing param=encoder.layer.9.intermediate.dense.weight]Loading weights:  81%|████████▏ | 162/199 [00:00<00:00, 6414.40it/s, Materializing param=encoder.layer.9.output.LayerNorm.bias]    Loading weights:  81%|████████▏ | 162/199 [00:00<00:00, 6402.37it/s, Materializing param=encoder.layer.9.output.LayerNorm.bias]Loading weights:  82%|████████▏ | 163/199 [00:00<00:00, 6425.24it/s, Materializing param=encoder.layer.9.output.LayerNorm.weight]Loading weights:  82%|████████▏ | 163/199 [00:00<00:00, 6417.34it/s, Materializing param=encoder.layer.9.output.LayerNorm.weight]Loading weights:  82%|████████▏ | 164/199 [00:00<00:00, 6443.29it/s, Materializing param=encoder.layer.9.output.dense.bias]      Loading weights:  82%|████████▏ | 164/199 [00:00<00:00, 6435.93it/s, Materializing param=encoder.layer.9.output.dense.bias]Loading weights:  83%|████████▎ | 165/199 [00:00<00:00, 6462.24it/s, Materializing param=encoder.layer.9.output.dense.weight]Loading weights:  83%|████████▎ | 165/199 [00:00<00:00, 6455.06it/s, Materializing param=encoder.layer.9.output.dense.weight]Loading weights:  83%|████████▎ | 166/199 [00:00<00:00, 6481.25it/s, Materializing param=encoder.layer.10.attention.output.LayerNorm.bias]Loading weights:  83%|████████▎ | 166/199 [00:00<00:00, 6473.96it/s, Materializing param=encoder.layer.10.attention.output.LayerNorm.bias]Loading weights:  84%|████████▍ | 167/199 [00:00<00:00, 6499.24it/s, Materializing param=encoder.layer.10.attention.output.LayerNorm.weight]Loading weights:  84%|████████▍ | 167/199 [00:00<00:00, 6491.89it/s, Materializing param=encoder.layer.10.attention.output.LayerNorm.weight]Loading weights:  84%|████████▍ | 168/199 [00:00<00:00, 6517.65it/s, Materializing param=encoder.layer.10.attention.output.dense.bias]      Loading weights:  84%|████████▍ | 168/199 [00:00<00:00, 6510.31it/s, Materializing param=encoder.layer.10.attention.output.dense.bias]Loading weights:  85%|████████▍ | 169/199 [00:00<00:00, 6535.83it/s, Materializing param=encoder.layer.10.attention.output.dense.weight]Loading weights:  85%|████████▍ | 169/199 [00:00<00:00, 6528.55it/s, Materializing param=encoder.layer.10.attention.output.dense.weight]Loading weights:  85%|████████▌ | 170/199 [00:00<00:00, 6553.84it/s, Materializing param=encoder.layer.10.attention.self.key.bias]      Loading weights:  85%|████████▌ | 170/199 [00:00<00:00, 6546.38it/s, Materializing param=encoder.layer.10.attention.self.key.bias]Loading weights:  86%|████████▌ | 171/199 [00:00<00:00, 6571.67it/s, Materializing param=encoder.layer.10.attention.self.key.weight]Loading weights:  86%|████████▌ | 171/199 [00:00<00:00, 6564.52it/s, Materializing param=encoder.layer.10.attention.self.key.weight]Loading weights:  86%|████████▋ | 172/199 [00:00<00:00, 6589.76it/s, Materializing param=encoder.layer.10.attention.self.query.bias]Loading weights:  86%|████████▋ | 172/199 [00:00<00:00, 6582.36it/s, Materializing param=encoder.layer.10.attention.self.query.bias]Loading weights:  87%|████████▋ | 173/199 [00:00<00:00, 6607.19it/s, Materializing param=encoder.layer.10.attention.self.query.weight]Loading weights:  87%|████████▋ | 173/199 [00:00<00:00, 6599.98it/s, Materializing param=encoder.layer.10.attention.self.query.weight]Loading weights:  87%|████████▋ | 174/199 [00:00<00:00, 6624.93it/s, Materializing param=encoder.layer.10.attention.self.value.bias]  Loading weights:  87%|████████▋ | 174/199 [00:00<00:00, 6617.60it/s, Materializing param=encoder.layer.10.attention.self.value.bias]Loading weights:  88%|████████▊ | 175/199 [00:00<00:00, 6642.50it/s, Materializing param=encoder.layer.10.attention.self.value.weight]Loading weights:  88%|████████▊ | 175/199 [00:00<00:00, 6635.24it/s, Materializing param=encoder.layer.10.attention.self.value.weight]Loading weights:  88%|████████▊ | 176/199 [00:00<00:00, 6658.11it/s, Materializing param=encoder.layer.10.intermediate.dense.bias]    Loading weights:  88%|████████▊ | 176/199 [00:00<00:00, 6650.43it/s, Materializing param=encoder.layer.10.intermediate.dense.bias]Loading weights:  89%|████████▉ | 177/199 [00:00<00:00, 6674.86it/s, Materializing param=encoder.layer.10.intermediate.dense.weight]Loading weights:  89%|████████▉ | 177/199 [00:00<00:00, 6667.61it/s, Materializing param=encoder.layer.10.intermediate.dense.weight]Loading weights:  89%|████████▉ | 178/199 [00:00<00:00, 6692.42it/s, Materializing param=encoder.layer.10.output.LayerNorm.bias]    Loading weights:  89%|████████▉ | 178/199 [00:00<00:00, 6685.17it/s, Materializing param=encoder.layer.10.output.LayerNorm.bias]Loading weights:  90%|████████▉ | 179/199 [00:00<00:00, 6709.63it/s, Materializing param=encoder.layer.10.output.LayerNorm.weight]Loading weights:  90%|████████▉ | 179/199 [00:00<00:00, 6702.38it/s, Materializing param=encoder.layer.10.output.LayerNorm.weight]Loading weights:  90%|█████████ | 180/199 [00:00<00:00, 6723.80it/s, Materializing param=encoder.layer.10.output.dense.bias]      Loading weights:  90%|█████████ | 180/199 [00:00<00:00, 6712.92it/s, Materializing param=encoder.layer.10.output.dense.bias]Loading weights:  91%|█████████ | 181/199 [00:00<00:00, 6735.36it/s, Materializing param=encoder.layer.10.output.dense.weight]Loading weights:  91%|█████████ | 181/199 [00:00<00:00, 6727.84it/s, Materializing param=encoder.layer.10.output.dense.weight]Loading weights:  91%|█████████▏| 182/199 [00:00<00:00, 6751.36it/s, Materializing param=encoder.layer.11.attention.output.LayerNorm.bias]Loading weights:  91%|█████████▏| 182/199 [00:00<00:00, 6743.85it/s, Materializing param=encoder.layer.11.attention.output.LayerNorm.bias]Loading weights:  92%|█████████▏| 183/199 [00:00<00:00, 6766.62it/s, Materializing param=encoder.layer.11.attention.output.LayerNorm.weight]Loading weights:  92%|█████████▏| 183/199 [00:00<00:00, 6759.17it/s, Materializing param=encoder.layer.11.attention.output.LayerNorm.weight]Loading weights:  92%|█████████▏| 184/199 [00:00<00:00, 6782.49it/s, Materializing param=encoder.layer.11.attention.output.dense.bias]      Loading weights:  92%|█████████▏| 184/199 [00:00<00:00, 6775.10it/s, Materializing param=encoder.layer.11.attention.output.dense.bias]Loading weights:  93%|█████████▎| 185/199 [00:00<00:00, 6798.50it/s, Materializing param=encoder.layer.11.attention.output.dense.weight]Loading weights:  93%|█████████▎| 185/199 [00:00<00:00, 6791.06it/s, Materializing param=encoder.layer.11.attention.output.dense.weight]Loading weights:  93%|█████████▎| 186/199 [00:00<00:00, 6814.35it/s, Materializing param=encoder.layer.11.attention.self.key.bias]      Loading weights:  93%|█████████▎| 186/199 [00:00<00:00, 6806.97it/s, Materializing param=encoder.layer.11.attention.self.key.bias]Loading weights:  94%|█████████▍| 187/199 [00:00<00:00, 6829.86it/s, Materializing param=encoder.layer.11.attention.self.key.weight]Loading weights:  94%|█████████▍| 187/199 [00:00<00:00, 6822.44it/s, Materializing param=encoder.layer.11.attention.self.key.weight]Loading weights:  94%|█████████▍| 188/199 [00:00<00:00, 6845.76it/s, Materializing param=encoder.layer.11.attention.self.query.bias]Loading weights:  94%|█████████▍| 188/199 [00:00<00:00, 6838.58it/s, Materializing param=encoder.layer.11.attention.self.query.bias]Loading weights:  95%|█████████▍| 189/199 [00:00<00:00, 6859.07it/s, Materializing param=encoder.layer.11.attention.self.query.weight]Loading weights:  95%|█████████▍| 189/199 [00:00<00:00, 6851.48it/s, Materializing param=encoder.layer.11.attention.self.query.weight]Loading weights:  95%|█████████▌| 190/199 [00:00<00:00, 6874.25it/s, Materializing param=encoder.layer.11.attention.self.value.bias]  Loading weights:  95%|█████████▌| 190/199 [00:00<00:00, 6866.84it/s, Materializing param=encoder.layer.11.attention.self.value.bias]Loading weights:  96%|█████████▌| 191/199 [00:00<00:00, 6889.92it/s, Materializing param=encoder.layer.11.attention.self.value.weight]Loading weights:  96%|█████████▌| 191/199 [00:00<00:00, 6882.76it/s, Materializing param=encoder.layer.11.attention.self.value.weight]Loading weights:  96%|█████████▋| 192/199 [00:00<00:00, 6905.57it/s, Materializing param=encoder.layer.11.intermediate.dense.bias]    Loading weights:  96%|█████████▋| 192/199 [00:00<00:00, 6898.41it/s, Materializing param=encoder.layer.11.intermediate.dense.bias]Loading weights:  97%|█████████▋| 193/199 [00:00<00:00, 6921.35it/s, Materializing param=encoder.layer.11.intermediate.dense.weight]Loading weights:  97%|█████████▋| 193/199 [00:00<00:00, 6914.14it/s, Materializing param=encoder.layer.11.intermediate.dense.weight]Loading weights:  97%|█████████▋| 194/199 [00:00<00:00, 6937.23it/s, Materializing param=encoder.layer.11.output.LayerNorm.bias]    Loading weights:  97%|█████████▋| 194/199 [00:00<00:00, 6930.14it/s, Materializing param=encoder.layer.11.output.LayerNorm.bias]Loading weights:  98%|█████████▊| 195/199 [00:00<00:00, 6952.83it/s, Materializing param=encoder.layer.11.output.LayerNorm.weight]Loading weights:  98%|█████████▊| 195/199 [00:00<00:00, 6945.80it/s, Materializing param=encoder.layer.11.output.LayerNorm.weight]Loading weights:  98%|█████████▊| 196/199 [00:00<00:00, 6968.94it/s, Materializing param=encoder.layer.11.output.dense.bias]      Loading weights:  98%|█████████▊| 196/199 [00:00<00:00, 6961.97it/s, Materializing param=encoder.layer.11.output.dense.bias]Loading weights:  99%|█████████▉| 197/199 [00:00<00:00, 6984.83it/s, Materializing param=encoder.layer.11.output.dense.weight]Loading weights:  99%|█████████▉| 197/199 [00:00<00:00, 6977.81it/s, Materializing param=encoder.layer.11.output.dense.weight]Loading weights:  99%|█████████▉| 198/199 [00:00<00:00, 7000.82it/s, Materializing param=pooler.dense.bias]                   Loading weights:  99%|█████████▉| 198/199 [00:00<00:00, 6993.92it/s, Materializing param=pooler.dense.bias]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7016.89it/s, Materializing param=pooler.dense.weight]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7010.06it/s, Materializing param=pooler.dense.weight]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 6992.85it/s, Materializing param=pooler.dense.weight]
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             GET                                
+                             https://huggingface                
+                             .co/api/models/jhga                
+                             n/ko-sroberta-multi                
+                             task/commits/main                  
+                             "HTTP/1.1 200 OK"                  
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/config.json                 
+                             "HTTP/1.1 307                      
+                             Temporary Redirect"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/config.json                     
+                             "HTTP/1.1 200 OK"                  
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             GET                                
+                             https://huggingface                
+                             .co/api/models/jhga                
+                             n/ko-sroberta-multi                
+                             task/discussions?p=                
+                             0 "HTTP/1.1 200 OK"                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/tokenizer_co                
+                             nfig.json "HTTP/1.1                
+                             307 Temporary                      
+                             Redirect"                          
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/tokenizer_config                
+                             .json "HTTP/1.1 200                
+                             OK"                                
+[03/23/26 10:38:03] INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             GET                                
+                             https://huggingface                
+                             .co/api/models/jhga                
+                             n/ko-sroberta-multi                
+                             task/commits/refs%2                
+                             Fpr%2F12 "HTTP/1.1                 
+                             200 OK"                            
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/tokenizer_co                
+                             nfig.json "HTTP/1.1                
+                             307 Temporary                      
+                             Redirect"                          
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/tokenizer_config                
+                             .json "HTTP/1.1 200                
+                             OK"                                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/refs%2Fpr%2F12/mo                
+                             del.safetensors.ind                
+                             ex.json "HTTP/1.1                  
+                             404 Not Found"                     
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             GET                                
+                             https://huggingface                
+                             .co/api/models/jhga                
+                             n/ko-sroberta-multi                
+                             task/tree/main/addi                
+                             tional_chat_templat                
+                             es?recursive=false&                
+                             expand=false                       
+                             "HTTP/1.1 404 Not                  
+                             Found"                             
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/refs%2Fpr%2F12/mo                
+                             del.safetensors                    
+                             "HTTP/1.1 302                      
+                             Found"                             
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             GET                                
+                             https://huggingface                
+                             .co/api/models/jhga                
+                             n/ko-sroberta-multi                
+                             task/tree/main?recu                
+                             rsive=true&expand=f                
+                             alse "HTTP/1.1 200                 
+                             OK"                                
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/jhgan/ko-srober                
+                             ta-multitask/resolv                
+                             e/main/1_Pooling/co                
+                             nfig.json "HTTP/1.1                
+                             307 Temporary                      
+                             Redirect"                          
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             HEAD                               
+                             https://huggingface                
+                             .co/api/resolve-cac                
+                             he/models/jhgan/ko-                
+                             sroberta-multitask/                
+                             ab957ae6a91e99c4cad                
+                             36d52063a2a9cf1bf44                
+                             19/1_Pooling%2Fconf                
+                             ig.json "HTTP/1.1                  
+                             200 OK"                            
+                    INFO     [_client.py:1025]   _client.py:1025
+                             >> HTTP Request:                   
+                             GET                                
+                             https://huggingface                
+                             .co/api/models/jhga                
+                             n/ko-sroberta-multi                
+                             task "HTTP/1.1 200                 
+                             OK"                                
+[03/23/26 10:38:04] INFO     [posthog.py:22] >>    posthog.py:22
+                             Anonymized telemetry               
+                             enabled. See                       
+                             https://docs.trychrom              
+                             a.com/telemetry for                
+                             more information.                  
+                    INFO     [vectordb.py:284]   vectordb.py:284
+                             >> Start embedding                 
+                             corpus data with                   
+                             huggingface model.                 
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.90it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.90it/s]
+                    INFO     [vectordb.py:292]   vectordb.py:292
+                             >> Finish embedding                
+                             & ingesting corpus                 
+                             data with                          
+                             huggingface model.                 
+                    INFO     [evaluator.py:204] evaluator.py:204
+                             >> Running node                    
+                             line                               
+                             hybrid_retrieval_l                 
+                             ine...                             
+                    INFO     [node.py:55] >> Running  node.py:55
+                             node                               
+                             lexical_retrieval...               
+                    INFO     [base.py:18] >>          base.py:18
+                             Initialize retrieval               
+                             node - BM25                        
+                    INFO     [base.py:31] >> Running  base.py:31
+                             retrieval node - BM25              
+                             module...                          
+                    ERROR    [__init__.py:41] >>  __init__.py:41
+                             Unexpected exception               
+                             ╭─ Traceback (most─╮               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/bin/autorag: │               
+                             │ 6 in <module>    │               
+                             │                  │               
+                             │   3 from autorag │               
+                             │   4 if __name__  │               
+                             │   5 │   sys.argv │               
+                             │ ❱ 6 │   sys.exit │               
+                             │   7              │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /click/core.py:1 │               
+                             │ 485 in __call__  │               
+                             │                  │               
+                             │   1482 │         │               
+                             │   1483 │   def _ │               
+                             │   1484 │   │   " │               
+                             │ ❱ 1485 │   │   r │               
+                             │   1486           │               
+                             │   1487           │               
+                             │   1488 class _Fa │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /click/core.py:1 │               
+                             │ 406 in main      │               
+                             │                  │               
+                             │   1403 │   │   t │               
+                             │   1404 │   │   │ │               
+                             │   1405 │   │   │ │               
+                             │ ❱ 1406 │   │   │ │               
+                             │   1407 │   │   │ │               
+                             │   1408 │   │   │ │               
+                             │   1409 │   │   │ │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /click/core.py:1 │               
+                             │ 873 in invoke    │               
+                             │                  │               
+                             │   1870 │   │   │ │               
+                             │   1871 │   │   │ │               
+                             │   1872 │   │   │ │               
+                             │ ❱ 1873 │   │   │ │               
+                             │   1874 │   │     │               
+                             │   1875 │   │   # │               
+                             │   1876 │   │   # │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /click/core.py:1 │               
+                             │ 269 in invoke    │               
+                             │                  │               
+                             │   1266 │   │   │ │               
+                             │   1267 │   │     │               
+                             │   1268 │   │   i │               
+                             │ ❱ 1269 │   │   │ │               
+                             │   1270 │         │               
+                             │   1271 │   def s │               
+                             │   1272 │   │   " │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /click/core.py:8 │               
+                             │ 24 in invoke     │               
+                             │                  │               
+                             │    821 │   │     │               
+                             │    822 │   │   w │               
+                             │    823 │   │   │ │               
+                             │ ❱  824 │   │   │ │               
+                             │    825 │         │               
+                             │    826 │   def f │               
+                             │    827 │   │   " │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/cli.py: │               
+                             │ 57 in evaluate   │               
+                             │                  │               
+                             │    54 │   if not │               
+                             │    55 │   │   ra │               
+                             │    56 │   evalua │               
+                             │ ❱  57 │   evalua │               
+                             │    58            │               
+                             │    59            │               
+                             │    60 @click.com │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/evaluat │               
+                             │ or.py:141 in     │               
+                             │ start_trial      │               
+                             │                  │               
+                             │   138 │   │   │  │               
+                             │   139 │   │   │  │               
+                             │   140 │   │   │  │               
+                             │ ❱ 141 │   │   │  │               
+                             │   142 │   │      │               
+                             │   143 │   │   os │               
+                             │   144            │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/validat │               
+                             │ or.py:92 in      │               
+                             │ validate         │               
+                             │                  │               
+                             │   89 │   │   │   │               
+                             │   90 │   │   │   │               
+                             │   91 │   │   │   │               
+                             │ ❱ 92 │   │   │   │               
+                             │   93 │   │   │   │               
+                             │   94 │   │   │   │               
+                             │   95 │   │   │   │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/evaluat │               
+                             │ or.py:205 in     │               
+                             │ start_trial      │               
+                             │                  │               
+                             │   202 │   │   │  │               
+                             │   203 │   │   │  │               
+                             │   204 │   │   │  │               
+                             │ ❱ 205 │   │   │  │               
+                             │   206 │   │   │  │               
+                             │   207 │   │   │  │               
+                             │   208 │   │   │  │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/node_li │               
+                             │ ne.py:47 in      │               
+                             │ run_node_line    │               
+                             │                  │               
+                             │   44 │           │               
+                             │   45 │   summary │               
+                             │   46 │   for nod │               
+                             │ ❱ 47 │   │   pre │               
+                             │   48 │   │   nod │               
+                             │   49 │   │   │   │               
+                             │   50 │   │   )   │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/schema/ │               
+                             │ node.py:57 in    │               
+                             │ run              │               
+                             │                  │               
+                             │    54 │   def ru │               
+                             │    55 │   │   lo │               
+                             │    56 │   │   in │               
+                             │ ❱  57 │   │   re │               
+                             │    58 │   │   │  │               
+                             │    59 │   │   │  │               
+                             │    60 │   │   │  │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/nodes/l │               
+                             │ exicalretrieval/ │               
+                             │ run.py:55 in     │               
+                             │ run_lexical_retr │               
+                             │ ieval_node       │               
+                             │                  │               
+                             │    52 │   │   os │               
+                             │    53 │          │               
+                             │    54 │   # Run  │               
+                             │ ❱  55 │   lexica │               
+                             │    56 │   │   *m │               
+                             │    57 │   │   │  │               
+                             │    58 │   │   │  │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/nodes/l │               
+                             │ exicalretrieval/ │               
+                             │ run.py:57 in     │               
+                             │ <lambda>         │               
+                             │                  │               
+                             │    54 │   # Run  │               
+                             │    55 │   lexica │               
+                             │    56 │   │   *m │               
+                             │ ❱  57 │   │   │  │               
+                             │    58 │   │   │  │               
+                             │    59 │   │   │  │               
+                             │    60 │   │   │  │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/strateg │               
+                             │ y.py:14 in       │               
+                             │ measure_speed    │               
+                             │                  │               
+                             │    11 │   Method │               
+                             │    12 │   """    │               
+                             │    13 │   start_ │               
+                             │ ❱  14 │   result │               
+                             │    15 │   end_ti │               
+                             │    16 │   return │               
+                             │    17            │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/schema/ │               
+                             │ base.py:26 in    │               
+                             │ run_evaluator    │               
+                             │                  │               
+                             │   23 │   │   **k │               
+                             │   24 │   ):      │               
+                             │   25 │   │   ins │               
+                             │ ❱ 26 │   │   res │               
+                             │   27 │   │   del │               
+                             │   28 │   │   ret │               
+                             │   29             │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/utils/u │               
+                             │ til.py:72 in     │               
+                             │ wrapper          │               
+                             │                  │               
+                             │    69 │   def de │               
+                             │    70 │   │   @f │               
+                             │    71 │   │   de │               
+                             │ ❱  72 │   │   │  │               
+                             │    73 │   │   │  │               
+                             │    74 │   │   │  │               
+                             │    75 │   │   │  │               
+                             │                  │               
+                             │ /home/ksj/BaroLa │               
+                             │ w/autorag_eval/v │               
+                             │ env/lib/python3. │               
+                             │ 12/site-packages │               
+                             │ /autorag/nodes/l │               
+                             │ exicalretrieval/ │               
+                             │ bm25.py:193 in   │               
+                             │ pure             │               
+                             │                  │               
+                             │   190 │   def pu │               
+                             │   191 │   │   qu │               
+                             │   192 │   │   pu │               
+                             │ ❱ 193 │   │   id │               
+                             │   194 │   │   co │               
+                             │   195 │   │   re │               
+                             │   196            │               
+                             ╰──────────────────╯               
+                             TypeError:                         
+                             BM25._pure() missing               
+                             1 required                         
+                             positional argument:               
+                             'top_k'                            
+[03/23/26 10:38:05] INFO     [base.py:28] >> Deleting base.py:28
+                             retrieval node - BM25              
+                             module...                          

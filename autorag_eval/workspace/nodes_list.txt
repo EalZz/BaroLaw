@@ -1,0 +1,37 @@
+[03/05/26 00:06:11] INFO     [__init__.py:69 __init__.py:69
+                             ] >> You are                  
+                             using API                     
+                             version of                    
+                             AutoRAG.To use                
+                             local version,                
+                             run pip install               
+                             'AutoRAG[gpu]'                
+[03/05/26 00:06:14] ERROR    [__init__.py:41 __init__.py:41
+                             ] >> Unexpected               
+                             exception                     
+                             ╭─ Traceback ─╮               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ch │               
+                             │ eck_nodes.p │               
+                             │ y:2 in      │               
+                             │ <module>    │               
+                             │             │               
+                             │   1 import  │               
+                             │ ❱ 2 from au │               
+                             │   3 print(" │               
+                             │   4 for key │               
+                             │   5 │   pri │               
+                             ╰─────────────╯               
+                             ImportError:                  
+                             cannot import                 
+                             name                          
+                             'node_dictionar               
+                             y' from                       
+                             'autorag'                     
+                             (/home/ksj/Baro               
+                             Law/autorag_eva               
+                             l/venv/lib/pyth               
+                             on3.12/site-pac               
+                             kages/autorag/_               
+                             _init__.py)                   

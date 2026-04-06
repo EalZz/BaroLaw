@@ -1,0 +1,11 @@
+# [BaroLaw] AutoRAG Step 3-b: Final Semantic Config
+node_lines:
+  - node_line_name: semantic_check
+    nodes:
+      - node_type: semantic_retrieval
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall]
+        modules:
+          - module_type: vectordb
+            top_k: 30
+            vectordb: barolaw_vector

@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 from uuid import uuid4
 
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, create_engine, func
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, create_engine, func, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session, relationship
@@ -55,6 +55,9 @@ class ChatSession(Base):
     session_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     profile_id = Column(UUID(as_uuid=True), ForeignKey("profiles.profile_id", ondelete="CASCADE"), nullable=False)
     title = Column(String(200), default="새 대화")
+    current_category = Column(String(50), nullable=True)  # [Phase 2] 멀티턴 카테고리 상태
+    past_request = Column(Text, nullable=True)            # [Phase 2] 이전 사용자 메시지 맥락
+    past_statutes = Column(Text, nullable=True)           # [Phase 23] 이전 턴 법령명 (T2 Recall 강화용)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
@@ -175,6 +178,20 @@ def save_chat_message(db: Session, session_id: str, role: str, content: str, ref
     db.refresh(msg)
     return msg
 
+def update_session_state(db: Session, session_id: str, category: str = None, past_request: str = None, past_statutes: str = None):
+    """세션의 멀티턴 상태(카테고리, 이전 질문, 법령명) 업데이트"""
+    session = db.query(ChatSession).filter(ChatSession.session_id == session_id).first()
+    if session:
+        if category is not None:
+            session.current_category = category
+        if past_request is not None:
+            session.past_request = past_request
+        if past_statutes is not None:
+            session.past_statutes = past_statutes
+        db.commit()
+        return True
+    return False
+
 def get_session_history(db: Session, session_id: str, limit: int = 50):
     """특정 세션의 대화 이력 조회 (시간 순)"""
     return db.query(ChatMessage)\
@@ -202,4 +219,13 @@ def delete_chat_session(db: Session, session_id: str):
 
 # 테이블 자동 생성 (없을 경우 새로 만듦)
 Base.metadata.create_all(bind=user_engine)
+
+# [Phase 2] 기존 테이블에 컬럼이 없을 경우 추가하는 마이그레이션 로직 (로컬 DB용)
+try:
+    with user_engine.begin() as conn:
+        conn.execute(text("ALTER TABLE sessions ADD COLUMN IF NOT EXISTS current_category VARCHAR(50);"))
+        conn.execute(text("ALTER TABLE sessions ADD COLUMN IF NOT EXISTS past_request TEXT;"))
+        conn.execute(text("ALTER TABLE sessions ADD COLUMN IF NOT EXISTS past_statutes TEXT;"))
+except Exception as e:
+    print(f"Migration error: {e}")
 # Base.metadata.create_all(bind=knowledge_engine) # knowledge_db는 pgvector나 별도 스크립트로 초기화하는 것이 일반적임.

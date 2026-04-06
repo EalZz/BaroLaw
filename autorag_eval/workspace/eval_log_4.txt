@@ -1,0 +1,673 @@
+[03/05/26 00:13:05] INFO     [__init__.py:69 __init__.py:69
+                             ] >> You are                  
+                             using API                     
+                             version of                    
+                             AutoRAG.To use                
+                             local version,                
+                             run pip install               
+                             'AutoRAG[gpu]'                
+[03/05/26 00:13:15] INFO     [base.py:69] >> You base.py:69
+                             are using API                 
+                             version of                    
+                             AutoRAG.To use                
+                             local version, run            
+                             pip install                   
+                             'AutoRAG[gpu]'                
+[03/05/26 00:13:16] INFO     [evaluator.py evaluator.py:130
+                             :130] >>                      
+                                                           
+                                _                          
+                             _____                         
+                             _____                         
+                                  /\                       
+                             | |      |                    
+                             __ \     /\                   
+                             / ____|                       
+                                 /  \  _                   
+                             _| |_ ___ |                   
+                             |__) |   /  \                 
+                             | |  __                       
+                                / /\ \| |                  
+                             | | __/ _ \|                  
+                             _  /   / /\                   
+                             \| | |_ |                     
+                               / ____ \                    
+                             |_| | || (_)                  
+                             | | \ \  /                    
+                             ____ \ |__| |                 
+                              /_/                          
+                             \_\__,_|\__\_                 
+                             __/|_|                        
+                             \_\/_/                        
+                             \_\_____|                     
+                                                           
+                                                           
+                    INFO     [evaluator.py evaluator.py:131
+                             :131] >>                      
+                             Start                         
+                             Validation                    
+                             input data                    
+                             and config                    
+                             YAML file                     
+                             first. If you                 
+                             want to skip                  
+                             this, put the                 
+                             --skip_valida                 
+                             tion flag or                  
+                             `skip_validat                 
+                             ion` at the                   
+                             start_trial                   
+                             function.                     
+                    INFO     [evaluator.py evaluator.py:229
+                             :229] >>                      
+                             Embedding                     
+                             BM25                          
+                             corpus...                     
+                    INFO     [evaluator.py evaluator.py:249
+                             :249] >> BM25                 
+                             corpus                        
+                             embedding                     
+                             complete.                     
+[03/05/26 00:13:17] INFO     [posthog.py:22]  posthog.py:22
+                             >> Anonymized                 
+                             telemetry                     
+                             enabled. See                  
+                             https://docs.try              
+                             chroma.com/telem              
+                             etry for more                 
+                             information.                  
+[03/05/26 00:13:20] INFO     [_client.py:17 _client.py:1740
+                             40] >> HTTP                   
+                             Request: POST                 
+                             https://api.op                
+                             enai.com/v1/em                
+                             beddings                      
+                             "HTTP/1.1 401                 
+                             Unauthorized"                 
+                    ERROR    [__init__.py:41 __init__.py:41
+                             ] >> Unexpected               
+                             exception                     
+                             ╭─ Traceback ─╮               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/bin/auto │               
+                             │ rag:6 in    │               
+                             │ <module>    │               
+                             │             │               
+                             │   3 from au │               
+                             │   4 if __na │               
+                             │   5 │   sys │               
+                             │ ❱ 6 │   sys │               
+                             │   7         │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:1485 in   │               
+                             │ __call__    │               
+                             │             │               
+                             │   1482 │    │               
+                             │   1483 │    │               
+                             │   1484 │    │               
+                             │ ❱ 1485 │    │               
+                             │   1486      │               
+                             │   1487      │               
+                             │   1488 clas │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:1406 in   │               
+                             │ main        │               
+                             │             │               
+                             │   1403 │    │               
+                             │   1404 │    │               
+                             │   1405 │    │               
+                             │ ❱ 1406 │    │               
+                             │   1407 │    │               
+                             │   1408 │    │               
+                             │   1409 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:1873 in   │               
+                             │ invoke      │               
+                             │             │               
+                             │   1870 │    │               
+                             │   1871 │    │               
+                             │   1872 │    │               
+                             │ ❱ 1873 │    │               
+                             │   1874 │    │               
+                             │   1875 │    │               
+                             │   1876 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:1269 in   │               
+                             │ invoke      │               
+                             │             │               
+                             │   1266 │    │               
+                             │   1267 │    │               
+                             │   1268 │    │               
+                             │ ❱ 1269 │    │               
+                             │   1270 │    │               
+                             │   1271 │    │               
+                             │   1272 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:824 in    │               
+                             │ invoke      │               
+                             │             │               
+                             │    821 │    │               
+                             │    822 │    │               
+                             │    823 │    │               
+                             │ ❱  824 │    │               
+                             │    825 │    │               
+                             │    826 │    │               
+                             │    827 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/cli. │               
+                             │ py:57 in    │               
+                             │ evaluate    │               
+                             │             │               
+                             │    54 │   i │               
+                             │    55 │   │ │               
+                             │    56 │   e │               
+                             │ ❱  57 │   e │               
+                             │    58       │               
+                             │    59       │               
+                             │    60 @clic │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/eval │               
+                             │ uator.py:14 │               
+                             │ 1 in        │               
+                             │ start_trial │               
+                             │             │               
+                             │   138 │   │ │               
+                             │   139 │   │ │               
+                             │   140 │   │ │               
+                             │ ❱ 141 │   │ │               
+                             │   142 │   │ │               
+                             │   143 │   │ │               
+                             │   144       │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/vali │               
+                             │ dator.py:92 │               
+                             │  in         │               
+                             │ validate    │               
+                             │             │               
+                             │   89 │   │  │               
+                             │   90 │   │  │               
+                             │   91 │   │  │               
+                             │ ❱ 92 │   │  │               
+                             │   93 │   │  │               
+                             │   94 │   │  │               
+                             │   95 │   │  │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/eval │               
+                             │ uator.py:18 │               
+                             │ 4 in        │               
+                             │ start_trial │               
+                             │             │               
+                             │   181 │   │ │               
+                             │   182 │   │ │               
+                             │   183 │   │ │               
+                             │ ❱ 184 │   │ │               
+                             │   185 │   │ │               
+                             │   186 │   │ │               
+                             │   187       │               
+                             │             │               
+                             │ /usr/lib/py │               
+                             │ thon3.12/as │               
+                             │ yncio/base_ │               
+                             │ events.py:6 │               
+                             │ 87 in       │               
+                             │ run_until_c │               
+                             │ omplete     │               
+                             │             │               
+                             │    684 │    │               
+                             │    685 │    │               
+                             │    686 │    │               
+                             │ ❱  687 │    │               
+                             │    688 │    │               
+                             │    689 │    │               
+                             │    690 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/node │               
+                             │ s/semanticr │               
+                             │ etrieval/ve │               
+                             │ ctordb.py:2 │               
+                             │ 62 in       │               
+                             │ vectordb_in │               
+                             │ gest_api    │               
+                             │             │               
+                             │   259 │   │ │               
+                             │   260 │   │ │               
+                             │   261 │   │ │               
+                             │ ❱ 262 │   │ │               
+                             │   263       │               
+                             │   264       │               
+                             │   265 def v │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/vect │               
+                             │ ordb/chroma │               
+                             │ .py:69 in   │               
+                             │ add         │               
+                             │             │               
+                             │    66 │     │               
+                             │    67 │   a │               
+                             │    68 │   │ │               
+                             │ ❱  69 │   │ │               
+                             │    70 │   │ │               
+                             │    71 │   │ │               
+                             │    72 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/l │               
+                             │ lama_index_ │               
+                             │ instrumenta │               
+                             │ tion/dispat │               
+                             │ cher.py:464 │               
+                             │  in         │               
+                             │ async_wrapp │               
+                             │ er          │               
+                             │             │               
+                             │   461 │   │ │               
+                             │   462 │   │ │               
+                             │   463 │   │ │               
+                             │ ❱ 464 │   │ │               
+                             │   465 │   │ │               
+                             │   466 │   │ │               
+                             │   467 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/l │               
+                             │ lama_index/ │               
+                             │ core/base/e │               
+                             │ mbeddings/b │               
+                             │ ase.py:559  │               
+                             │ in          │               
+                             │ aget_text_e │               
+                             │ mbedding_ba │               
+                             │ tch         │               
+                             │             │               
+                             │   556 │   │ │               
+                             │   557 │   │ │               
+                             │   558 │   │ │               
+                             │ ❱ 559 │   │ │               
+                             │   560 │   │ │               
+                             │   561 │   │ │               
+                             │   562       │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/l │               
+                             │ lama_index/ │               
+                             │ embeddings/ │               
+                             │ openai/base │               
+                             │ .py:488 in  │               
+                             │ _aget_text_ │               
+                             │ embeddings  │               
+                             │             │               
+                             │   485 │   │ │               
+                             │   486 │   │ │               
+                             │   487 │   │ │               
+                             │ ❱ 488 │   │ │               
+                             │   489       │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/t │               
+                             │ enacity/asy │               
+                             │ ncio/__init │               
+                             │ __.py:189   │               
+                             │ in          │               
+                             │ async_wrapp │               
+                             │ ed          │               
+                             │             │               
+                             │   186 │   │ │               
+                             │   187 │   │ │               
+                             │   188 │   │ │               
+                             │ ❱ 189 │   │ │               
+                             │   190 │   │ │               
+                             │   191 │   │ │               
+                             │   192 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/t │               
+                             │ enacity/asy │               
+                             │ ncio/__init │               
+                             │ __.py:111   │               
+                             │ in __call__ │               
+                             │             │               
+                             │   108 │   │ │               
+                             │   109 │   │ │               
+                             │   110 │   │ │               
+                             │ ❱ 111 │   │ │               
+                             │   112 │   │ │               
+                             │   113 │   │ │               
+                             │   114 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/t │               
+                             │ enacity/asy │               
+                             │ ncio/__init │               
+                             │ __.py:153   │               
+                             │ in iter     │               
+                             │             │               
+                             │   150 │   │ │               
+                             │   151 │   │ │               
+                             │   152 │   │ │               
+                             │ ❱ 153 │   │ │               
+                             │   154 │   │ │               
+                             │   155 │     │               
+                             │   156 │   d │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/t │               
+                             │ enacity/_ut │               
+                             │ ils.py:99   │               
+                             │ in inner    │               
+                             │             │               
+                             │    96 │   │ │               
+                             │    97 │     │               
+                             │    98 │   a │               
+                             │ ❱  99 │   │ │               
+                             │   100 │     │               
+                             │   101 │   r │               
+                             │   102       │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/t │               
+                             │ enacity/__i │               
+                             │ nit__.py:39 │               
+                             │ 8 in        │               
+                             │ <lambda>    │               
+                             │             │               
+                             │   395 │     │               
+                             │   396 │   d │               
+                             │   397 │   │ │               
+                             │ ❱ 398 │   │ │               
+                             │   399 │   │ │               
+                             │   400 │   │ │               
+                             │   401 │   │ │               
+                             │             │               
+                             │ /usr/lib/py │               
+                             │ thon3.12/co │               
+                             │ ncurrent/fu │               
+                             │ tures/_base │               
+                             │ .py:449 in  │               
+                             │ result      │               
+                             │             │               
+                             │   446 │   │ │               
+                             │   447 │   │ │               
+                             │   448 │   │ │               
+                             │ ❱ 449 │   │ │               
+                             │   450 │   │ │               
+                             │   451 │   │ │               
+                             │   452       │               
+                             │             │               
+                             │ /usr/lib/py │               
+                             │ thon3.12/co │               
+                             │ ncurrent/fu │               
+                             │ tures/_base │               
+                             │ .py:401 in  │               
+                             │ __get_resul │               
+                             │ t           │               
+                             │             │               
+                             │   398 │   d │               
+                             │   399 │   │ │               
+                             │   400 │   │ │               
+                             │ ❱ 401 │   │ │               
+                             │   402 │   │ │               
+                             │   403 │   │ │               
+                             │   404 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/t │               
+                             │ enacity/asy │               
+                             │ ncio/__init │               
+                             │ __.py:114   │               
+                             │ in __call__ │               
+                             │             │               
+                             │   111 │   │ │               
+                             │   112 │   │ │               
+                             │   113 │   │ │               
+                             │ ❱ 114 │   │ │               
+                             │   115 │   │ │               
+                             │   116 │   │ │               
+                             │   117 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/l │               
+                             │ lama_index/ │               
+                             │ embeddings/ │               
+                             │ openai/base │               
+                             │ .py:481 in  │               
+                             │ _retryable_ │               
+                             │ aget_embedd │               
+                             │ ings        │               
+                             │             │               
+                             │   478 │   │ │               
+                             │   479 │   │ │               
+                             │   480 │   │ │               
+                             │ ❱ 481 │   │ │               
+                             │   482 │   │ │               
+                             │   483 │   │ │               
+                             │   484 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/l │               
+                             │ lama_index/ │               
+                             │ embeddings/ │               
+                             │ openai/base │               
+                             │ .py:197 in  │               
+                             │ aget_embedd │               
+                             │ ings        │               
+                             │             │               
+                             │   194 │   l │               
+                             │   195 │     │               
+                             │   196 │   d │               
+                             │ ❱ 197 │   │ │               
+                             │   198 │   ) │               
+                             │   199 │   r │               
+                             │   200       │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/o │               
+                             │ penai/resou │               
+                             │ rces/embedd │               
+                             │ ings.py:251 │               
+                             │  in create  │               
+                             │             │               
+                             │   248 │   │ │               
+                             │   249 │   │ │               
+                             │   250 │   │ │               
+                             │ ❱ 251 │   │ │               
+                             │   252 │   │ │               
+                             │   253 │   │ │               
+                             │   254 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/o │               
+                             │ penai/_base │               
+                             │ _client.py: │               
+                             │ 1794 in     │               
+                             │ post        │               
+                             │             │               
+                             │   1791 │    │               
+                             │   1792 │    │               
+                             │        asyn │               
+                             │   1793 │    │               
+                             │ ❱ 1794 │    │               
+                             │   1795 │    │               
+                             │   1796 │    │               
+                             │   1797 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/o │               
+                             │ penai/_base │               
+                             │ _client.py: │               
+                             │ 1594 in     │               
+                             │ request     │               
+                             │             │               
+                             │   1591 │    │               
+                             │   1592 │    │               
+                             │   1593 │    │               
+                             │ ❱ 1594 │    │               
+                             │   1595 │    │               
+                             │   1596 │    │               
+                             │   1597      │               
+                             ╰─────────────╯               
+                             AuthenticationE               
+                             rror: Error                   
+                             code: 401 -                   
+                             {'error':                     
+                             {'message':                   
+                             "You didn't                   
+                             provide an API                
+                             key. You need                 
+                             to provide your               
+                             API key in an                 
+                             Authorization                 
+                             header using                  
+                             Bearer auth                   
+                             (i.e.                         
+                             Authorization:                
+                             Bearer                        
+                             YOUR_KEY), or                 
+                             as the password               
+                             field (with                   
+                             blank username)               
+                             if you're                     
+                             accessing the                 
+                             API from your                 
+                             browser and are               
+                             prompted for a                
+                             username and                  
+                             password. You                 
+                             can obtain an                 
+                             API key from                  
+                             https://platfor               
+                             m.openai.com/ac               
+                             count/api-keys.               
+                             ", 'type':                    
+                             'invalid_reques               
+                             t_error',                     
+                             'param': None,                
+                             'code': None}}                

@@ -1,0 +1,18 @@
+# AutoRAG Retrieval Evaluation Configuration
+# 목적: 현재 사용 중인 순수 유사도(Vector) 검색과 키워드(BM25) 및 하이브리드 조합의 최적 성능 수치를 비교합니다.
+# 참조 지표: ndcg@3 (정답 법령을 최상단에 올릴 수 있는지 여부), recall@5 (범위 내 탐색 성공률)
+
+node_lines:
+  - node_line_name: retrieve_node_line
+    nodes:
+      - node_type: lexical_retrieval
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision]
+        modules:
+          - module_type: bm25
+      - node_type: semantic_retrieval
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision]
+        modules:
+          - module_type: vectordb
+            embedding_model: jhgan/ko-sroberta-multitask

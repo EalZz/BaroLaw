@@ -1,0 +1,163 @@
+[03/23/26 02:24:00] INFO     [__init__.py:69] >> __init__.py:69
+                             You are using API                 
+                             version of                        
+                             AutoRAG.To use                    
+                             local version, run                
+                             pip install                       
+                             'AutoRAG[gpu]'                    
+[03/23/26 02:24:09] INFO     [base.py:69] >> You are base.py:69
+                             using API version of              
+                             AutoRAG.To use local              
+                             version, run pip                  
+                             install 'AutoRAG[gpu]'            
+                    ERROR    [__init__.py:41] >> __init__.py:41
+                             Unexpected                        
+                             exception                         
+                             ╭─ Traceback (mos─╮               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/bin/autor │               
+                             │ ag:6 in         │               
+                             │ <module>        │               
+                             │                 │               
+                             │   3 from autora │               
+                             │   4 if __name__ │               
+                             │   5 │   sys.arg │               
+                             │ ❱ 6 │   sys.exi │               
+                             │   7             │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:1485 in     │               
+                             │ __call__        │               
+                             │                 │               
+                             │   1482 │        │               
+                             │   1483 │   def  │               
+                             │   1484 │   │    │               
+                             │ ❱ 1485 │   │    │               
+                             │   1486          │               
+                             │   1487          │               
+                             │   1488 class _F │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:1406 in     │               
+                             │ main            │               
+                             │                 │               
+                             │   1403 │   │    │               
+                             │   1404 │   │    │               
+                             │   1405 │   │    │               
+                             │ ❱ 1406 │   │    │               
+                             │   1407 │   │    │               
+                             │   1408 │   │    │               
+                             │   1409 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:1873 in     │               
+                             │ invoke          │               
+                             │                 │               
+                             │   1870 │   │    │               
+                             │   1871 │   │    │               
+                             │   1872 │   │    │               
+                             │ ❱ 1873 │   │    │               
+                             │   1874 │   │    │               
+                             │   1875 │   │    │               
+                             │   1876 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:1269 in     │               
+                             │ invoke          │               
+                             │                 │               
+                             │   1266 │   │    │               
+                             │   1267 │   │    │               
+                             │   1268 │   │    │               
+                             │ ❱ 1269 │   │    │               
+                             │   1270 │        │               
+                             │   1271 │   def  │               
+                             │   1272 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:824 in      │               
+                             │ invoke          │               
+                             │                 │               
+                             │    821 │   │    │               
+                             │    822 │   │    │               
+                             │    823 │   │    │               
+                             │ ❱  824 │   │    │               
+                             │    825 │        │               
+                             │    826 │   def  │               
+                             │    827 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/cl │               
+                             │ i.py:56 in      │               
+                             │ evaluate        │               
+                             │                 │               
+                             │    53 │   │   r │               
+                             │    54 │   if no │               
+                             │    55 │   │   r │               
+                             │ ❱  56 │   evalu │               
+                             │    57 │   evalu │               
+                             │    58           │               
+                             │    59           │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/ev │               
+                             │ aluator.py:92   │               
+                             │ in __init__     │               
+                             │                 │               
+                             │    89 │   │   i │               
+                             │    90 │   │   │ │               
+                             │    91 │   │     │               
+                             │ ❱  92 │   │   v │               
+                             │    93 │   │     │               
+                             │    94 │   │   # │               
+                             │    95 │   │   i │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/ut │               
+                             │ ils/preprocess. │               
+                             │ py:147 in       │               
+                             │ validate_qa_fro │               
+                             │ m_corpus_datase │               
+                             │ t               │               
+                             │                 │               
+                             │   144 │   │   f │               
+                             │   145 │   )     │               
+                             │   146 │         │               
+                             │ ❱ 147 │   asser │               
+                             │   148 │   │   f │               
+                             │   149 │   )     │               
+                             │   150           │               
+                             ╰─────────────────╯               
+                             AssertionError: 42                
+                             doc_ids in                        
+                             retrieval_gt do not               
+                             exist in corpus_df.               

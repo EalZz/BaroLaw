@@ -1,0 +1,21 @@
+Loaded 2457 raw law mappings.
+Loaded 120 test cases from golden_dataset.json.
+Build normalized mapping for 1450 distinct statutes (excluding parentheses content).
+
+[Normalization Result Overview]
+Total Valid Queries: 42
+Total Skipped Queries: 138
+
+[Remaining Top 10 Unmapped names]
+- 도로교통법: 15 times
+- 주택임대차보호법: 7 times
+- 절도: 7 times
+- 재물손괴: 5 times
+- 사기: 4 times
+- 주거침입: 4 times
+- 업무방해: 4 times
+- 특수협박: 4 times
+- 전기통신금융사기: 3 times
+- 정보통신망법: 3 times
+
+Final dataset saved to /home/ksj/BaroLaw/autorag_eval/autorag_data/qa.parquet

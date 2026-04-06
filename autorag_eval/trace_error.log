@@ -1,0 +1,570 @@
+[03/23/26 09:57:28] INFO     [__init__.py:69] >> __init__.py:69
+                             You are using API                 
+                             version of                        
+                             AutoRAG.To use                    
+                             local version, run                
+                             pip install                       
+                             'AutoRAG[gpu]'                    
+[03/23/26 09:57:37] INFO     [base.py:69] >> You are base.py:69
+                             using API version of              
+                             AutoRAG.To use local              
+                             version, run pip                  
+                             install 'AutoRAG[gpu]'            
+                    INFO     [evaluator.py:130 evaluator.py:130
+                             ] >>                              
+                                             _                 
+                             _____                             
+                             _____                             
+                                  /\        |                  
+                             |      |  __ \                    
+                             /\   / ____|                      
+                                 /  \  _   _|                  
+                             |_ ___ | |__) |                   
+                             /  \ | |  __                      
+                                / /\ \| | | |                  
+                             __/ _ \|  _  /                    
+                             / /\ \| | |_ |                    
+                               / ____ \ |_| |                  
+                             || (_) | | \ \  /                 
+                             ____ \ |__| |                     
+                              /_/                              
+                             \_\__,_|\__\___/|                 
+                             _|  \_\/_/                        
+                             \_\_____|                         
+                                                               
+                                                               
+                    INFO     [evaluator.py:131 evaluator.py:131
+                             ] >> Start                        
+                             Validation input                  
+                             data and config                   
+                             YAML file first.                  
+                             If you want to                    
+                             skip this, put                    
+                             the                               
+                             --skip_validation                 
+                             flag or                           
+                             `skip_validation`                 
+                             at the                            
+                             start_trial                       
+                             function.                         
+[03/23/26 09:57:38] INFO     [posthog.py:22] >>   posthog.py:22
+                             Anonymized telemetry              
+                             enabled. See                      
+                             https://docs.trychro              
+                             ma.com/telemetry for              
+                             more information.                 
+[03/23/26 09:57:39] INFO     [_client.py:1740]  _client.py:1740
+                             >> HTTP Request:                  
+                             POST                              
+                             https://api.openai                
+                             .com/v1/embeddings                
+                              "HTTP/1.1 401                    
+                             Unauthorized"                     
+                    ERROR    [__init__.py:41] >> __init__.py:41
+                             Unexpected                        
+                             exception                         
+                             ╭─ Traceback (mos─╮               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/bin/autor │               
+                             │ ag:6 in         │               
+                             │ <module>        │               
+                             │                 │               
+                             │   3 from autora │               
+                             │   4 if __name__ │               
+                             │   5 │   sys.arg │               
+                             │ ❱ 6 │   sys.exi │               
+                             │   7             │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:1485 in     │               
+                             │ __call__        │               
+                             │                 │               
+                             │   1482 │        │               
+                             │   1483 │   def  │               
+                             │   1484 │   │    │               
+                             │ ❱ 1485 │   │    │               
+                             │   1486          │               
+                             │   1487          │               
+                             │   1488 class _F │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:1406 in     │               
+                             │ main            │               
+                             │                 │               
+                             │   1403 │   │    │               
+                             │   1404 │   │    │               
+                             │   1405 │   │    │               
+                             │ ❱ 1406 │   │    │               
+                             │   1407 │   │    │               
+                             │   1408 │   │    │               
+                             │   1409 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:1873 in     │               
+                             │ invoke          │               
+                             │                 │               
+                             │   1870 │   │    │               
+                             │   1871 │   │    │               
+                             │   1872 │   │    │               
+                             │ ❱ 1873 │   │    │               
+                             │   1874 │   │    │               
+                             │   1875 │   │    │               
+                             │   1876 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:1269 in     │               
+                             │ invoke          │               
+                             │                 │               
+                             │   1266 │   │    │               
+                             │   1267 │   │    │               
+                             │   1268 │   │    │               
+                             │ ❱ 1269 │   │    │               
+                             │   1270 │        │               
+                             │   1271 │   def  │               
+                             │   1272 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/click/core │               
+                             │ .py:824 in      │               
+                             │ invoke          │               
+                             │                 │               
+                             │    821 │   │    │               
+                             │    822 │   │    │               
+                             │    823 │   │    │               
+                             │ ❱  824 │   │    │               
+                             │    825 │        │               
+                             │    826 │   def  │               
+                             │    827 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/cl │               
+                             │ i.py:57 in      │               
+                             │ evaluate        │               
+                             │                 │               
+                             │    54 │   if no │               
+                             │    55 │   │   r │               
+                             │    56 │   evalu │               
+                             │ ❱  57 │   evalu │               
+                             │    58           │               
+                             │    59           │               
+                             │    60 @click.co │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/ev │               
+                             │ aluator.py:141  │               
+                             │ in start_trial  │               
+                             │                 │               
+                             │   138 │   │   │ │               
+                             │   139 │   │   │ │               
+                             │   140 │   │   │ │               
+                             │ ❱ 141 │   │   │ │               
+                             │   142 │   │     │               
+                             │   143 │   │   o │               
+                             │   144           │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/va │               
+                             │ lidator.py:92   │               
+                             │ in validate     │               
+                             │                 │               
+                             │   89 │   │   │  │               
+                             │   90 │   │   │  │               
+                             │   91 │   │   │  │               
+                             │ ❱ 92 │   │   │  │               
+                             │   93 │   │   │  │               
+                             │   94 │   │   │  │               
+                             │   95 │   │   │  │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/ev │               
+                             │ aluator.py:184  │               
+                             │ in start_trial  │               
+                             │                 │               
+                             │   181 │   │   │ │               
+                             │   182 │   │   │ │               
+                             │   183 │   │   │ │               
+                             │ ❱ 184 │   │   │ │               
+                             │   185 │   │   │ │               
+                             │   186 │   │   │ │               
+                             │   187           │               
+                             │                 │               
+                             │ /usr/lib/python │               
+                             │ 3.12/asyncio/ba │               
+                             │ se_events.py:68 │               
+                             │ 7 in            │               
+                             │ run_until_compl │               
+                             │ ete             │               
+                             │                 │               
+                             │    684 │   │    │               
+                             │    685 │   │    │               
+                             │    686 │   │    │               
+                             │ ❱  687 │   │    │               
+                             │    688 │        │               
+                             │    689 │   def  │               
+                             │    690 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/no │               
+                             │ des/semanticret │               
+                             │ rieval/vectordb │               
+                             │ .py:262 in      │               
+                             │ vectordb_ingest │               
+                             │ _api            │               
+                             │                 │               
+                             │   259 │   │   c │               
+                             │   260 │   │   i │               
+                             │   261 │   │   f │               
+                             │ ❱ 262 │   │   │ │               
+                             │   263           │               
+                             │   264           │               
+                             │   265 def vecto │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/autorag/ve │               
+                             │ ctordb/chroma.p │               
+                             │ y:69 in add     │               
+                             │                 │               
+                             │    66 │         │               
+                             │    67 │   async │               
+                             │    68 │   │   t │               
+                             │ ❱  69 │   │   t │               
+                             │    70 │   │   i │               
+                             │    71 │   │   │ │               
+                             │    72 │   │   e │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/llama_inde │               
+                             │ x_instrumentati │               
+                             │ on/dispatcher.p │               
+                             │ y:464 in        │               
+                             │ async_wrapper   │               
+                             │                 │               
+                             │   461 │   │   │ │               
+                             │   462 │   │   │ │               
+                             │   463 │   │   │ │               
+                             │ ❱ 464 │   │   │ │               
+                             │   465 │   │   │ │               
+                             │   466 │   │   │ │               
+                             │   467 │   │   │ │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/llama_inde │               
+                             │ x/core/base/emb │               
+                             │ eddings/base.py │               
+                             │ :559 in         │               
+                             │ aget_text_embed │               
+                             │ ding_batch      │               
+                             │                 │               
+                             │   556 │   │   │ │               
+                             │   557 │   │   │ │               
+                             │   558 │   │   │ │               
+                             │ ❱ 559 │   │   │ │               
+                             │   560 │   │   e │               
+                             │   561 │   │   │ │               
+                             │   562           │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/llama_inde │               
+                             │ x/embeddings/op │               
+                             │ enai/base.py:48 │               
+                             │ 8 in            │               
+                             │ _aget_text_embe │               
+                             │ ddings          │               
+                             │                 │               
+                             │   485 │   │   │ │               
+                             │   486 │   │   │ │               
+                             │   487 │   │     │               
+                             │ ❱ 488 │   │   r │               
+                             │   489           │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/tenacity/a │               
+                             │ syncio/__init__ │               
+                             │ .py:189 in      │               
+                             │ async_wrapped   │               
+                             │                 │               
+                             │   186 │   │   │ │               
+                             │   187 │   │   │ │               
+                             │   188 │   │   │ │               
+                             │ ❱ 189 │   │   │ │               
+                             │   190 │   │     │               
+                             │   191 │   │   # │               
+                             │   192 │   │   a │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/tenacity/a │               
+                             │ syncio/__init__ │               
+                             │ .py:111 in      │               
+                             │ __call__        │               
+                             │                 │               
+                             │   108 │   │     │               
+                             │   109 │   │   r │               
+                             │   110 │   │   w │               
+                             │ ❱ 111 │   │   │ │               
+                             │   112 │   │   │ │               
+                             │   113 │   │   │ │               
+                             │   114 │   │   │ │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/tenacity/a │               
+                             │ syncio/__init__ │               
+                             │ .py:153 in iter │               
+                             │                 │               
+                             │   150 │   │   s │               
+                             │   151 │   │   r │               
+                             │   152 │   │   f │               
+                             │ ❱ 153 │   │   │ │               
+                             │   154 │   │   r │               
+                             │   155 │         │               
+                             │   156 │   def _ │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/tenacity/_ │               
+                             │ utils.py:99 in  │               
+                             │ inner           │               
+                             │                 │               
+                             │    96 │   │   r │               
+                             │    97 │         │               
+                             │    98 │   async │               
+                             │ ❱  99 │   │   r │               
+                             │   100 │         │               
+                             │   101 │   retur │               
+                             │   102           │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/tenacity/_ │               
+                             │ _init__.py:398  │               
+                             │ in <lambda>     │               
+                             │                 │               
+                             │   395 │         │               
+                             │   396 │   def _ │               
+                             │   397 │   │   i │               
+                             │ ❱ 398 │   │   │ │               
+                             │   399 │   │   │ │               
+                             │   400 │   │     │               
+                             │   401 │   │   i │               
+                             │                 │               
+                             │ /usr/lib/python │               
+                             │ 3.12/concurrent │               
+                             │ /futures/_base. │               
+                             │ py:449 in       │               
+                             │ result          │               
+                             │                 │               
+                             │   446 │   │   │ │               
+                             │   447 │   │   │ │               
+                             │   448 │   │   │ │               
+                             │ ❱ 449 │   │   │ │               
+                             │   450 │   │   │ │               
+                             │   451 │   │   │ │               
+                             │   452           │               
+                             │                 │               
+                             │ /usr/lib/python │               
+                             │ 3.12/concurrent │               
+                             │ /futures/_base. │               
+                             │ py:401 in       │               
+                             │ __get_result    │               
+                             │                 │               
+                             │   398 │   def _ │               
+                             │   399 │   │   i │               
+                             │   400 │   │   │ │               
+                             │ ❱ 401 │   │   │ │               
+                             │   402 │   │   │ │               
+                             │   403 │   │   │ │               
+                             │   404 │   │   │ │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/tenacity/a │               
+                             │ syncio/__init__ │               
+                             │ .py:114 in      │               
+                             │ __call__        │               
+                             │                 │               
+                             │   111 │   │   │ │               
+                             │   112 │   │   │ │               
+                             │   113 │   │   │ │               
+                             │ ❱ 114 │   │   │ │               
+                             │   115 │   │   │ │               
+                             │   116 │   │   │ │               
+                             │   117 │   │   │ │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/llama_inde │               
+                             │ x/embeddings/op │               
+                             │ enai/base.py:48 │               
+                             │ 1 in            │               
+                             │ _retryable_aget │               
+                             │ _embeddings     │               
+                             │                 │               
+                             │   478 │   │     │               
+                             │   479 │   │   @ │               
+                             │   480 │   │   a │               
+                             │ ❱ 481 │   │   │ │               
+                             │   482 │   │   │ │               
+                             │   483 │   │   │ │               
+                             │   484 │   │   │ │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/llama_inde │               
+                             │ x/embeddings/op │               
+                             │ enai/base.py:19 │               
+                             │ 7 in            │               
+                             │ aget_embeddings │               
+                             │                 │               
+                             │   194 │   list_ │               
+                             │   195 │         │               
+                             │   196 │   data  │               
+                             │ ❱ 197 │   │   a │               
+                             │   198 │   ).dat │               
+                             │   199 │   retur │               
+                             │   200           │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/openai/res │               
+                             │ ources/embeddin │               
+                             │ gs.py:251 in    │               
+                             │ create          │               
+                             │                 │               
+                             │   248 │   │   │ │               
+                             │   249 │   │   │ │               
+                             │   250 │   │     │               
+                             │ ❱ 251 │   │   r │               
+                             │   252 │   │   │ │               
+                             │   253 │   │   │ │               
+                             │   254 │   │   │ │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/openai/_ba │               
+                             │ se_client.py:17 │               
+                             │ 94 in post      │               
+                             │                 │               
+                             │   1791 │   │    │               
+                             │   1792 │   │    │               
+                             │        async_to │               
+                             │   1793 │   │    │               
+                             │ ❱ 1794 │   │    │               
+                             │   1795 │        │               
+                             │   1796 │   asyn │               
+                             │   1797 │   │    │               
+                             │                 │               
+                             │ /home/ksj/BaroL │               
+                             │ aw/autorag_eval │               
+                             │ /venv/lib/pytho │               
+                             │ n3.12/site-pack │               
+                             │ ages/openai/_ba │               
+                             │ se_client.py:15 │               
+                             │ 94 in request   │               
+                             │                 │               
+                             │   1591 │   │    │               
+                             │   1592 │   │    │               
+                             │   1593 │   │    │               
+                             │ ❱ 1594 │   │    │               
+                             │   1595 │   │    │               
+                             │   1596 │   │    │               
+                             │   1597          │               
+                             ╰─────────────────╯               
+                             AuthenticationError               
+                             : Error code: 401 -               
+                             {'error':                         
+                             {'message': "You                  
+                             didn't provide an                 
+                             API key. You need                 
+                             to provide your API               
+                             key in an                         
+                             Authorization                     
+                             header using Bearer               
+                             auth (i.e.                        
+                             Authorization:                    
+                             Bearer YOUR_KEY),                 
+                             or as the password                
+                             field (with blank                 
+                             username) if you're               
+                             accessing the API                 
+                             from your browser                 
+                             and are prompted                  
+                             for a username and                
+                             password. You can                 
+                             obtain an API key                 
+                             from                              
+                             https://platform.op               
+                             enai.com/account/ap               
+                             i-keys.", 'type':                 
+                             'invalid_request_er               
+                             ror', 'param':                    
+                             None, 'code':                     
+                             None}}                            

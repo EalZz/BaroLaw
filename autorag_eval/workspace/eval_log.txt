@@ -1,0 +1,211 @@
+[03/04/26 23:54:48] INFO     [__init__.py:69 __init__.py:69
+                             ] >> You are                  
+                             using API                     
+                             version of                    
+                             AutoRAG.To use                
+                             local version,                
+                             run pip install               
+                             'AutoRAG[gpu]'                
+[03/04/26 23:54:58] INFO     [base.py:69] >> You base.py:69
+                             are using API                 
+                             version of                    
+                             AutoRAG.To use                
+                             local version, run            
+                             pip install                   
+                             'AutoRAG[gpu]'                
+                    ERROR    [__init__.py:41 __init__.py:41
+                             ] >> Unexpected               
+                             exception                     
+                             ╭─ Traceback ─╮               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/bin/auto │               
+                             │ rag:6 in    │               
+                             │ <module>    │               
+                             │             │               
+                             │   3 from au │               
+                             │   4 if __na │               
+                             │   5 │   sys │               
+                             │ ❱ 6 │   sys │               
+                             │   7         │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:1485 in   │               
+                             │ __call__    │               
+                             │             │               
+                             │   1482 │    │               
+                             │   1483 │    │               
+                             │   1484 │    │               
+                             │ ❱ 1485 │    │               
+                             │   1486      │               
+                             │   1487      │               
+                             │   1488 clas │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:1406 in   │               
+                             │ main        │               
+                             │             │               
+                             │   1403 │    │               
+                             │   1404 │    │               
+                             │   1405 │    │               
+                             │ ❱ 1406 │    │               
+                             │   1407 │    │               
+                             │   1408 │    │               
+                             │   1409 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:1873 in   │               
+                             │ invoke      │               
+                             │             │               
+                             │   1870 │    │               
+                             │   1871 │    │               
+                             │   1872 │    │               
+                             │ ❱ 1873 │    │               
+                             │   1874 │    │               
+                             │   1875 │    │               
+                             │   1876 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:1269 in   │               
+                             │ invoke      │               
+                             │             │               
+                             │   1266 │    │               
+                             │   1267 │    │               
+                             │   1268 │    │               
+                             │ ❱ 1269 │    │               
+                             │   1270 │    │               
+                             │   1271 │    │               
+                             │   1272 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/c │               
+                             │ lick/core.p │               
+                             │ y:824 in    │               
+                             │ invoke      │               
+                             │             │               
+                             │    821 │    │               
+                             │    822 │    │               
+                             │    823 │    │               
+                             │ ❱  824 │    │               
+                             │    825 │    │               
+                             │    826 │    │               
+                             │    827 │    │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/cli. │               
+                             │ py:56 in    │               
+                             │ evaluate    │               
+                             │             │               
+                             │    53 │   │ │               
+                             │    54 │   i │               
+                             │    55 │   │ │               
+                             │ ❱  56 │   e │               
+                             │    57 │   e │               
+                             │    58       │               
+                             │    59       │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/eval │               
+                             │ uator.py:86 │               
+                             │  in         │               
+                             │ __init__    │               
+                             │             │               
+                             │    83 │   │ │               
+                             │    84 │   │ │               
+                             │    85 │   │ │               
+                             │ ❱  86 │   │ │               
+                             │    87 │   │ │               
+                             │    88 │   │ │               
+                             │    89 │   │ │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/util │               
+                             │ s/preproces │               
+                             │ s.py:54 in  │               
+                             │ cast_qa_dat │               
+                             │ aset        │               
+                             │             │               
+                             │    51 │   │ │               
+                             │    52 │     │               
+                             │    53 │   d │               
+                             │ ❱  54 │   v │               
+                             │    55 │   a │               
+                             │    56 │   │ │               
+                             │    57 │   ) │               
+                             │             │               
+                             │ /home/ksj/B │               
+                             │ aroLaw/auto │               
+                             │ rag_eval/ve │               
+                             │ nv/lib/pyth │               
+                             │ on3.12/site │               
+                             │ -packages/a │               
+                             │ utorag/util │               
+                             │ s/preproces │               
+                             │ s.py:11 in  │               
+                             │ validate_qa │               
+                             │ _dataset    │               
+                             │             │               
+                             │     8       │               
+                             │     9 def v │               
+                             │    10 │   c │               
+                             │ ❱  11 │   a │               
+                             │    12 │   │ │               
+                             │    13 │   ) │               
+                             │    14       │               
+                             ╰─────────────╯               
+                             AssertionError:               
+                             df must have                  
+                             columns ['qid',               
+                             'query',                      
+                             'retrieval_gt',               
+                             'generation_gt'               
+                             ], but got                    
+                             Index(['qid',                 
+                             'query',                      
+                             'retrieval_gt']               
+                             ,                             
+                             dtype='object')               

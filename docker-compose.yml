@@ -10,6 +10,9 @@ services:
       - "11434:11434"
     networks:
       - voice-net
+    environment:
+      - OLLAMA_NUM_PARALLEL=4
+      - OLLAMA_MAX_LOADED_MODELS=1
     deploy:
       resources:
         reservations:
@@ -29,7 +32,7 @@ services:
     environment:
       - OLLAMA_HOST=ollama-server:11434
     entrypoint: /bin/sh
-    command: -c "sleep 5; ollama pull gemma2"
+    command: -c "sleep 5; ollama pull gemma4:5b"
     depends_on:
       - ollama-server
 
@@ -56,7 +59,7 @@ services:
 
   voice-backend:
     build: ./backend
-    image: ealz/voice-backend:v7
+    image: ealz/voice-backend:v8
     container_name: voice-backend
     restart: always
     environment:

@@ -1,0 +1,4 @@
+filename,module_name,module_params,execution_time,retrieval_f1,retrieval_recall,is_best
+0.parquet,VectorDB,"{'vectordb': 'barolaw_vector', 'top_k': 10}",0.09935257530212402,0.18181818181818188,1.0,False
+1.parquet,VectorDB,"{'vectordb': 'barolaw_vector', 'top_k': 5}",0.11311794662475586,0.3333333333333334,1.0,True
+2.parquet,VectorDB,"{'vectordb': 'barolaw_vector', 'top_k': 15}",0.09751906204223633,0.125,1.0,False

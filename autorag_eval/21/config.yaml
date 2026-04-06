@@ -1,0 +1,10 @@
+node_lines:
+  - node_line_name: semantic_line
+    nodes:
+      - node_type: semantic_retrieval
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall]
+        modules:
+          - module_type: vectordb
+            top_k: 50
+            vectordb: barolaw_vector

@@ -42,7 +42,7 @@ flowchart TD
         end
         
         Builder --> Prompt[Prompt Engineering]
-        Prompt --> LLM[Ollama / Gemma 2:9b]
+        Prompt --> LLM[Ollama / gemma4:5b]
     end
     
     LLM -- "SSE Streaming" --> SSE[SSE Streaming]
@@ -84,7 +84,7 @@ flowchart TD
 ## 📜 상세 기술 사양 (Technical Specs)
 
 ### **사용 모델 (AI Models)**
-- **LLM Engine:** `Gemma 2:9b Instruct` (Ollama 호스팅)
+- **LLM Engine:** `gemma4:5b` (Ollama 호스팅)
 - **Embedding Model:** `ko-sroberta-multitask` (768 Dimensions)
 - **STT (Speech-to-Text):** Android `SpeechRecognizer` (Google Engine)
 - **TTS (Text-to-Speech):** Android `TextToSpeech` (Korean Voice Engine)

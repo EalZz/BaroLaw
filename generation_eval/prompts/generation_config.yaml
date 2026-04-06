@@ -1,0 +1,23 @@
+# generation_config.yaml
+# [Phase 29] Generator Optimization Control Config
+
+models:
+  - "gemma2:9b"
+  - "llama3.1:8b"
+  - "qwen2.5:7b"
+  - "mistral:7b"
+
+generation_params:
+  temperature: [0.1, 0.3, 0.5]
+  top_p: [0.9, 0.95]
+  max_tokens: 1024
+  repeat_penalty: 1.1
+
+prompt_strategy:
+  selected_template: "naive_friendly.txt"
+  include_tags: true
+  
+eval_metrics:
+  - "simplicity_score"
+  - "format_integrity"
+  - "action_plan_found"

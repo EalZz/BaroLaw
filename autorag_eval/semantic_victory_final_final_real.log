@@ -1,0 +1,2490 @@
+[03/23/26 10:22:45] INFO     [__in __init__.py:69
+                             it__.               
+                             py:69               
+                             ] >>                
+                             You                 
+                             are                 
+                             using               
+                             API                 
+                             versi               
+                             on of               
+                             AutoR               
+                             AG.To               
+                              use                
+                             local               
+                             versi               
+                             on,                 
+                             run                 
+                             pip                 
+                             insta               
+                             ll                  
+                             'Auto               
+                             RAG[g               
+                             pu]'                
+[03/23/26 10:22:57] INFO     [ev evaluator.py:130
+                             alu                 
+                             ato                 
+                             r.p                 
+                             y:1                 
+                             30]                 
+                              >>                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                              _                  
+                                                 
+                                                 
+                                                 
+                             ___                 
+                             __                  
+                                                 
+                                                 
+                                                 
+                                                 
+                             ___                 
+                             __                  
+                                                 
+                               /                 
+                             \                   
+                                                 
+                                                 
+                             | |                 
+                             |                   
+                             __                  
+                             \                   
+                             /\                  
+                             /                   
+                             ___                 
+                             _|                  
+                                                 
+                              /                  
+                              \                  
+                             _                   
+                             _|                  
+                             |_                  
+                             ___                 
+                             |                   
+                             |__                 
+                             ) |                 
+                             /                   
+                             \ |                 
+                             |                   
+                             __                  
+                                                 
+                             /                   
+                             /\                  
+                             \|                  
+                             | |                 
+                             |                   
+                             __/                 
+                             _                   
+                             \|                  
+                             _                   
+                             /                   
+                             /                   
+                             /\                  
+                             \|                  
+                             |                   
+                             |_                  
+                             |                   
+                               /                 
+                             ___                 
+                             _ \                 
+                             |_|                 
+                             |                   
+                             ||                  
+                             (_)                 
+                             | |                 
+                             \ \                 
+                             /                   
+                             ___                 
+                             _ \                 
+                             |__                 
+                             | |                 
+                              /_                 
+                             /                   
+                                                 
+                             \_\                 
+                             __,                 
+                             _|\                 
+                             __\                 
+                             ___                 
+                             /|_                 
+                             |                   
+                             \_\                 
+                             /_/                 
+                                                 
+                                                 
+                             \_\                 
+                             ___                 
+                             __|                 
+                                                 
+                                                 
+                    INFO     [ev evaluator.py:131
+                             alu                 
+                             ato                 
+                             r.p                 
+                             y:1                 
+                             31]                 
+                              >>                 
+                             Sta                 
+                             rt                  
+                             Val                 
+                             ida                 
+                             tio                 
+                             n                   
+                             inp                 
+                             ut                  
+                             dat                 
+                             a                   
+                             and                 
+                             con                 
+                             fig                 
+                                                 
+                             YAM                 
+                             L                   
+                             fil                 
+                             e                   
+                             fir                 
+                             st.                 
+                              If                 
+                             you                 
+                             wan                 
+                             t                   
+                             to                  
+                             ski                 
+                             p                   
+                             thi                 
+                             s,                  
+                             put                 
+                             the                 
+                             --s                 
+                             kip                 
+                             _va                 
+                             lid                 
+                             ati                 
+                             on                  
+                             fla                 
+                             g                   
+                             or                  
+                             `sk                 
+                             ip_                 
+                             val                 
+                             ida                 
+                             tio                 
+                             n`                  
+                             at                  
+                             the                 
+                             sta                 
+                             rt_                 
+                             tri                 
+                             al                  
+                             fun                 
+                             cti                 
+                             on.                 
+[03/23/26          INFO     [ SentenceTransforme…
+10:22:58]                   S                    
+                            e                    
+                            n                    
+                            t                    
+                            e                    
+                            n                    
+                            c                    
+                            e                    
+                            T                    
+                            r                    
+                            a                    
+                            n                    
+                            s                    
+                            f                    
+                            o                    
+                            r                    
+                            m                    
+                            e                    
+                            r                    
+                            .                    
+                            p                    
+                            y                    
+                            :                    
+                            2                    
+                            2                    
+                            7                    
+                            ]                    
+                                                 
+                            >                    
+                            >                    
+                                                 
+                            L                    
+                            o                    
+                            a                    
+                            d                    
+                                                 
+                            p                    
+                            r                    
+                            e                    
+                            t                    
+                            r                    
+                            a                    
+                            i                    
+                            n                    
+                            e                    
+                            d                    
+                                                 
+                            S                    
+                            e                    
+                            n                    
+                            t                    
+                            e                    
+                            n                    
+                            c                    
+                            e                    
+                            T                    
+                            r                    
+                            a                    
+                            n                    
+                            s                    
+                            f                    
+                            o                    
+                            r                    
+                            m                    
+                            e                    
+                            r                    
+                            :                    
+                                                 
+                            B                    
+                            A                    
+                            A                    
+                            I                    
+                            /                    
+                            b                    
+                            g                    
+                            e                    
+                            -                    
+                            s                    
+                            m                    
+                            a                    
+                            l                    
+                            l                    
+                            -                    
+                            e                    
+                            n                    
+[03/23/26 10:22:59] INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/mo                
+                             dule                
+                             s.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/m                
+                             odul                
+                             es.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/m                
+                             odul                
+                             es.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/co                
+                             nfig                
+                             _sen                
+                             tenc                
+                             e_tr                
+                             ansf                
+                             orme                
+                             rs.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/c                
+                             onfi                
+                             g_se                
+                             nten                
+                             ce_t                
+                             rans                
+                             form                
+                             ers.                
+                             json                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/c                
+                             onfi                
+                             g_se                
+                             nten                
+                             ce_t                
+                             rans                
+                             form                
+                             ers.                
+                             json                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/co                
+                             nfig                
+                             _sen                
+                             tenc                
+                             e_tr                
+                             ansf                
+                             orme                
+                             rs.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+                    WARNING  [_http. _http.py:857
+                             py:857]             
+                              >>                 
+                             Warning             
+                             : You               
+                             are                 
+                             sending             
+                             unauthe             
+                             nticate             
+                             d                   
+                             request             
+                             s to                
+                             the HF              
+                             Hub.                
+                             Please              
+                             set a               
+                             HF_TOKE             
+                             N to                
+                             enable              
+                             higher              
+                             rate                
+                             limits              
+                             and                 
+                             faster              
+                             downloa             
+                             ds.                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/c                
+                             onfi                
+                             g_se                
+                             nten                
+                             ce_t                
+                             rans                
+                             form                
+                             ers.                
+                             json                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/RE                
+                             ADME                
+                             .md                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/R                
+                             EADM                
+                             E.md                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/R                
+                             EADM                
+                             E.md                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/mo                
+                             dule                
+                             s.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/m                
+                             odul                
+                             es.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+[03/23/26 10:23:00] INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/se                
+                             nten                
+                             ce_b                
+                             ert_                
+                             conf                
+                             ig.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/s                
+                             ente                
+                             nce_                
+                             bert                
+                             _con                
+                             fig.                
+                             json                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/s                
+                             ente                
+                             nce_                
+                             bert                
+                             _con                
+                             fig.                
+                             json                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/ad                
+                             apte                
+                             r_co                
+                             nfig                
+                             .jso                
+                             n                   
+                             "HTT                
+                             P/1.                
+                             1                   
+                             404                 
+                             Not                 
+                             Foun                
+                             d"                  
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/co                
+                             nfig                
+                             .jso                
+                             n                   
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/c                
+                             onfi                
+                             g.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/c                
+                             onfi                
+                             g.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/mo                
+                             del.                
+                             safe                
+                             tens                
+                             ors                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             302                 
+                             Foun                
+                             d"                  
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/m                
+                             odel                
+                             s/BA                
+                             AI/b                
+                             ge-s                
+                             mall                
+                             -en/                
+                             xet-                
+                             read                
+                             -tok                
+                             en/2                
+                             275a                
+                             7bde                
+                             e235                
+                             e9b4                
+                             f01f                
+                             a73a                
+                             a60d                
+                             3311                
+                             983c                
+                             fea                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:   1%|          | 1/199 [00:00<00:00, 13842.59it/s, Materializing param=embeddings.LayerNorm.bias]Loading weights:   1%|          | 1/199 [00:00<00:00, 6842.26it/s, Materializing param=embeddings.LayerNorm.bias] Loading weights:   1%|          | 2/199 [00:00<00:00, 6467.70it/s, Materializing param=embeddings.LayerNorm.weight]Loading weights:   1%|          | 2/199 [00:00<00:00, 5479.17it/s, Materializing param=embeddings.LayerNorm.weight]Loading weights:   2%|▏         | 3/199 [00:00<00:00, 4120.14it/s, Materializing param=embeddings.position_embeddings.weight]Loading weights:   2%|▏         | 3/199 [00:00<00:00, 3798.04it/s, Materializing param=embeddings.position_embeddings.weight]Loading weights:   2%|▏         | 4/199 [00:00<00:00, 4088.02it/s, Materializing param=embeddings.token_type_embeddings.weight]Loading weights:   2%|▏         | 4/199 [00:00<00:00, 3841.82it/s, Materializing param=embeddings.token_type_embeddings.weight]Loading weights:   3%|▎         | 5/199 [00:00<00:00, 4050.90it/s, Materializing param=embeddings.word_embeddings.weight]      Loading weights:   3%|▎         | 5/199 [00:00<00:00, 3836.72it/s, Materializing param=embeddings.word_embeddings.weight]Loading weights:   3%|▎         | 6/199 [00:00<00:00, 2308.79it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.bias]Loading weights:   3%|▎         | 6/199 [00:00<00:00, 2230.02it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.bias]Loading weights:   4%|▎         | 7/199 [00:00<00:00, 2299.15it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.weight]Loading weights:   4%|▎         | 7/199 [00:00<00:00, 2238.67it/s, Materializing param=encoder.layer.0.attention.output.LayerNorm.weight]Loading weights:   4%|▍         | 8/199 [00:00<00:00, 2365.99it/s, Materializing param=encoder.layer.0.attention.output.dense.bias]      Loading weights:   4%|▍         | 8/199 [00:00<00:00, 2324.52it/s, Materializing param=encoder.layer.0.attention.output.dense.bias]Loading weights:   5%|▍         | 9/199 [00:00<00:00, 2336.37it/s, Materializing param=encoder.layer.0.attention.output.dense.weight]Loading weights:   5%|▍         | 9/199 [00:00<00:00, 2296.99it/s, Materializing param=encoder.layer.0.attention.output.dense.weight]Loading weights:   5%|▌         | 10/199 [00:00<00:00, 2433.60it/s, Materializing param=encoder.layer.0.attention.self.key.bias]     Loading weights:   5%|▌         | 10/199 [00:00<00:00, 2400.59it/s, Materializing param=encoder.layer.0.attention.self.key.bias]Loading weights:   6%|▌         | 11/199 [00:00<00:00, 2469.09it/s, Materializing param=encoder.layer.0.attention.self.key.weight]Loading weights:   6%|▌         | 11/199 [00:00<00:00, 2428.92it/s, Materializing param=encoder.layer.0.attention.self.key.weight]Loading weights:   6%|▌         | 12/199 [00:00<00:00, 2232.60it/s, Materializing param=encoder.layer.0.attention.self.query.bias]Loading weights:   6%|▌         | 12/199 [00:00<00:00, 2205.69it/s, Materializing param=encoder.layer.0.attention.self.query.bias]Loading weights:   7%|▋         | 13/199 [00:00<00:00, 2274.00it/s, Materializing param=encoder.layer.0.attention.self.query.weight]Loading weights:   7%|▋         | 13/199 [00:00<00:00, 2248.86it/s, Materializing param=encoder.layer.0.attention.self.query.weight]Loading weights:   7%|▋         | 14/199 [00:00<00:00, 1958.06it/s, Materializing param=encoder.layer.0.attention.self.value.bias]  Loading weights:   7%|▋         | 14/199 [00:00<00:00, 1940.72it/s, Materializing param=encoder.layer.0.attention.self.value.bias]Loading weights:   8%|▊         | 15/199 [00:00<00:00, 2004.86it/s, Materializing param=encoder.layer.0.attention.self.value.weight]Loading weights:   8%|▊         | 15/199 [00:00<00:00, 1988.95it/s, Materializing param=encoder.layer.0.attention.self.value.weight]Loading weights:   8%|▊         | 16/199 [00:00<00:00, 2061.65it/s, Materializing param=encoder.layer.0.intermediate.dense.bias]    Loading weights:   8%|▊         | 16/199 [00:00<00:00, 2044.32it/s, Materializing param=encoder.layer.0.intermediate.dense.bias]Loading weights:   9%|▊         | 17/199 [00:00<00:00, 2001.10it/s, Materializing param=encoder.layer.0.intermediate.dense.weight]Loading weights:   9%|▊         | 17/199 [00:00<00:00, 1986.99it/s, Materializing param=encoder.layer.0.intermediate.dense.weight]Loading weights:   9%|▉         | 18/199 [00:00<00:00, 2045.84it/s, Materializing param=encoder.layer.0.output.LayerNorm.bias]    Loading weights:   9%|▉         | 18/199 [00:00<00:00, 2032.78it/s, Materializing param=encoder.layer.0.output.LayerNorm.bias]Loading weights:  10%|▉         | 19/199 [00:00<00:00, 2033.11it/s, Materializing param=encoder.layer.0.output.LayerNorm.weight]Loading weights:  10%|▉         | 19/199 [00:00<00:00, 2019.97it/s, Materializing param=encoder.layer.0.output.LayerNorm.weight]Loading weights:  10%|█         | 20/199 [00:00<00:00, 2028.68it/s, Materializing param=encoder.layer.0.output.dense.bias]      Loading weights:  10%|█         | 20/199 [00:00<00:00, 2015.09it/s, Materializing param=encoder.layer.0.output.dense.bias]Loading weights:  11%|█         | 21/199 [00:00<00:00, 2072.77it/s, Materializing param=encoder.layer.0.output.dense.weight]Loading weights:  11%|█         | 21/199 [00:00<00:00, 2060.75it/s, Materializing param=encoder.layer.0.output.dense.weight]Loading weights:  11%|█         | 22/199 [00:00<00:00, 1969.07it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.bias]Loading weights:  11%|█         | 22/199 [00:00<00:00, 1958.62it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.bias]Loading weights:  12%|█▏        | 23/199 [00:00<00:00, 2005.80it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.weight]Loading weights:  12%|█▏        | 23/199 [00:00<00:00, 1993.08it/s, Materializing param=encoder.layer.1.attention.output.LayerNorm.weight]Loading weights:  12%|█▏        | 24/199 [00:00<00:00, 2012.86it/s, Materializing param=encoder.layer.1.attention.output.dense.bias]      Loading weights:  12%|█▏        | 24/199 [00:00<00:00, 1937.58it/s, Materializing param=encoder.layer.1.attention.output.dense.bias]Loading weights:  13%|█▎        | 25/199 [00:00<00:00, 1983.50it/s, Materializing param=encoder.layer.1.attention.output.dense.weight]Loading weights:  13%|█▎        | 25/199 [00:00<00:00, 1974.42it/s, Materializing param=encoder.layer.1.attention.output.dense.weight]Loading weights:  13%|█▎        | 26/199 [00:00<00:00, 1980.46it/s, Materializing param=encoder.layer.1.attention.self.key.bias]      Loading weights:  13%|█▎        | 26/199 [00:00<00:00, 1970.05it/s, Materializing param=encoder.layer.1.attention.self.key.bias]Loading weights:  14%|█▎        | 27/199 [00:00<00:00, 1842.33it/s, Materializing param=encoder.layer.1.attention.self.key.weight]Loading weights:  14%|█▎        | 27/199 [00:00<00:00, 1831.54it/s, Materializing param=encoder.layer.1.attention.self.key.weight]Loading weights:  14%|█▍        | 28/199 [00:00<00:00, 1870.22it/s, Materializing param=encoder.layer.1.attention.self.query.bias]Loading weights:  14%|█▍        | 28/199 [00:00<00:00, 1862.21it/s, Materializing param=encoder.layer.1.attention.self.query.bias]Loading weights:  15%|█▍        | 29/199 [00:00<00:00, 1765.77it/s, Materializing param=encoder.layer.1.attention.self.query.weight]Loading weights:  15%|█▍        | 29/199 [00:00<00:00, 1735.78it/s, Materializing param=encoder.layer.1.attention.self.query.weight]Loading weights:  15%|█▌        | 30/199 [00:00<00:00, 1767.31it/s, Materializing param=encoder.layer.1.attention.self.value.bias]  Loading weights:  15%|█▌        | 30/199 [00:00<00:00, 1759.90it/s, Materializing param=encoder.layer.1.attention.self.value.bias]Loading weights:  16%|█▌        | 31/199 [00:00<00:00, 1795.38it/s, Materializing param=encoder.layer.1.attention.self.value.weight]Loading weights:  16%|█▌        | 31/199 [00:00<00:00, 1788.20it/s, Materializing param=encoder.layer.1.attention.self.value.weight]Loading weights:  16%|█▌        | 32/199 [00:00<00:00, 1814.42it/s, Materializing param=encoder.layer.1.intermediate.dense.bias]    Loading weights:  16%|█▌        | 32/199 [00:00<00:00, 1808.55it/s, Materializing param=encoder.layer.1.intermediate.dense.bias]Loading weights:  17%|█▋        | 33/199 [00:00<00:00, 1769.21it/s, Materializing param=encoder.layer.1.intermediate.dense.weight]Loading weights:  17%|█▋        | 33/199 [00:00<00:00, 1763.48it/s, Materializing param=encoder.layer.1.intermediate.dense.weight]Loading weights:  17%|█▋        | 34/199 [00:00<00:00, 1772.21it/s, Materializing param=encoder.layer.1.output.LayerNorm.bias]    Loading weights:  17%|█▋        | 34/199 [00:00<00:00, 1766.68it/s, Materializing param=encoder.layer.1.output.LayerNorm.bias]Loading weights:  18%|█▊        | 35/199 [00:00<00:00, 1772.85it/s, Materializing param=encoder.layer.1.output.LayerNorm.weight]Loading weights:  18%|█▊        | 35/199 [00:00<00:00, 1765.53it/s, Materializing param=encoder.layer.1.output.LayerNorm.weight]Loading weights:  18%|█▊        | 36/199 [00:00<00:00, 1732.09it/s, Materializing param=encoder.layer.1.output.dense.bias]      Loading weights:  18%|█▊        | 36/199 [00:00<00:00, 1725.56it/s, Materializing param=encoder.layer.1.output.dense.bias]Loading weights:  19%|█▊        | 37/199 [00:00<00:00, 1737.92it/s, Materializing param=encoder.layer.1.output.dense.weight]Loading weights:  19%|█▊        | 37/199 [00:00<00:00, 1732.02it/s, Materializing param=encoder.layer.1.output.dense.weight]Loading weights:  19%|█▉        | 38/199 [00:00<00:00, 1719.79it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.bias]Loading weights:  19%|█▉        | 38/199 [00:00<00:00, 1712.92it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.bias]Loading weights:  20%|█▉        | 39/199 [00:00<00:00, 1734.32it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.weight]Loading weights:  20%|█▉        | 39/199 [00:00<00:00, 1728.97it/s, Materializing param=encoder.layer.2.attention.output.LayerNorm.weight]Loading weights:  20%|██        | 40/199 [00:00<00:00, 1749.52it/s, Materializing param=encoder.layer.2.attention.output.dense.bias]      Loading weights:  20%|██        | 40/199 [00:00<00:00, 1744.79it/s, Materializing param=encoder.layer.2.attention.output.dense.bias]Loading weights:  21%|██        | 41/199 [00:00<00:00, 1772.21it/s, Materializing param=encoder.layer.2.attention.output.dense.weight]Loading weights:  21%|██        | 41/199 [00:00<00:00, 1767.87it/s, Materializing param=encoder.layer.2.attention.output.dense.weight]Loading weights:  21%|██        | 42/199 [00:00<00:00, 1775.17it/s, Materializing param=encoder.layer.2.attention.self.key.bias]      Loading weights:  21%|██        | 42/199 [00:00<00:00, 1755.25it/s, Materializing param=encoder.layer.2.attention.self.key.bias]Loading weights:  22%|██▏       | 43/199 [00:00<00:00, 1738.80it/s, Materializing param=encoder.layer.2.attention.self.key.weight]Loading weights:  22%|██▏       | 43/199 [00:00<00:00, 1732.23it/s, Materializing param=encoder.layer.2.attention.self.key.weight]Loading weights:  22%|██▏       | 44/199 [00:00<00:00, 1745.05it/s, Materializing param=encoder.layer.2.attention.self.query.bias]Loading weights:  22%|██▏       | 44/199 [00:00<00:00, 1740.28it/s, Materializing param=encoder.layer.2.attention.self.query.bias]Loading weights:  23%|██▎       | 45/199 [00:00<00:00, 1738.40it/s, Materializing param=encoder.layer.2.attention.self.query.weight]Loading weights:  23%|██▎       | 45/199 [00:00<00:00, 1734.11it/s, Materializing param=encoder.layer.2.attention.self.query.weight]Loading weights:  23%|██▎       | 46/199 [00:00<00:00, 1755.02it/s, Materializing param=encoder.layer.2.attention.self.value.bias]  Loading weights:  23%|██▎       | 46/199 [00:00<00:00, 1751.40it/s, Materializing param=encoder.layer.2.attention.self.value.bias]Loading weights:  24%|██▎       | 47/199 [00:00<00:00, 1761.79it/s, Materializing param=encoder.layer.2.attention.self.value.weight]Loading weights:  24%|██▎       | 47/199 [00:00<00:00, 1757.43it/s, Materializing param=encoder.layer.2.attention.self.value.weight]Loading weights:  24%|██▍       | 48/199 [00:00<00:00, 1774.08it/s, Materializing param=encoder.layer.2.intermediate.dense.bias]    Loading weights:  24%|██▍       | 48/199 [00:00<00:00, 1769.20it/s, Materializing param=encoder.layer.2.intermediate.dense.bias]Loading weights:  25%|██▍       | 49/199 [00:00<00:00, 1789.80it/s, Materializing param=encoder.layer.2.intermediate.dense.weight]Loading weights:  25%|██▍       | 49/199 [00:00<00:00, 1785.24it/s, Materializing param=encoder.layer.2.intermediate.dense.weight]Loading weights:  25%|██▌       | 50/199 [00:00<00:00, 1808.45it/s, Materializing param=encoder.layer.2.output.LayerNorm.bias]    Loading weights:  25%|██▌       | 50/199 [00:00<00:00, 1802.67it/s, Materializing param=encoder.layer.2.output.LayerNorm.bias]Loading weights:  26%|██▌       | 51/199 [00:00<00:00, 1804.96it/s, Materializing param=encoder.layer.2.output.LayerNorm.weight]Loading weights:  26%|██▌       | 51/199 [00:00<00:00, 1781.33it/s, Materializing param=encoder.layer.2.output.LayerNorm.weight]Loading weights:  26%|██▌       | 52/199 [00:00<00:00, 1800.19it/s, Materializing param=encoder.layer.2.output.dense.bias]      Loading weights:  26%|██▌       | 52/199 [00:00<00:00, 1796.65it/s, Materializing param=encoder.layer.2.output.dense.bias]Loading weights:  27%|██▋       | 53/199 [00:00<00:00, 1819.33it/s, Materializing param=encoder.layer.2.output.dense.weight]Loading weights:  27%|██▋       | 53/199 [00:00<00:00, 1815.67it/s, Materializing param=encoder.layer.2.output.dense.weight]Loading weights:  27%|██▋       | 54/199 [00:00<00:00, 1777.02it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.bias]Loading weights:  27%|██▋       | 54/199 [00:00<00:00, 1773.10it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.bias]Loading weights:  28%|██▊       | 55/199 [00:00<00:00, 1749.39it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.weight]Loading weights:  28%|██▊       | 55/199 [00:00<00:00, 1744.84it/s, Materializing param=encoder.layer.3.attention.output.LayerNorm.weight]Loading weights:  28%|██▊       | 56/199 [00:00<00:00, 1762.29it/s, Materializing param=encoder.layer.3.attention.output.dense.bias]      Loading weights:  28%|██▊       | 56/199 [00:00<00:00, 1749.92it/s, Materializing param=encoder.layer.3.attention.output.dense.bias]Loading weights:  29%|██▊       | 57/199 [00:00<00:00, 1736.83it/s, Materializing param=encoder.layer.3.attention.output.dense.weight]Loading weights:  29%|██▊       | 57/199 [00:00<00:00, 1732.71it/s, Materializing param=encoder.layer.3.attention.output.dense.weight]Loading weights:  29%|██▉       | 58/199 [00:00<00:00, 1736.97it/s, Materializing param=encoder.layer.3.attention.self.key.bias]      Loading weights:  29%|██▉       | 58/199 [00:00<00:00, 1733.91it/s, Materializing param=encoder.layer.3.attention.self.key.bias]Loading weights:  30%|██▉       | 59/199 [00:00<00:00, 1752.39it/s, Materializing param=encoder.layer.3.attention.self.key.weight]Loading weights:  30%|██▉       | 59/199 [00:00<00:00, 1748.57it/s, Materializing param=encoder.layer.3.attention.self.key.weight]Loading weights:  30%|███       | 60/199 [00:00<00:00, 1767.90it/s, Materializing param=encoder.layer.3.attention.self.query.bias]Loading weights:  30%|███       | 60/199 [00:00<00:00, 1764.24it/s, Materializing param=encoder.layer.3.attention.self.query.bias]Loading weights:  31%|███       | 61/199 [00:00<00:00, 1732.55it/s, Materializing param=encoder.layer.3.attention.self.query.weight]Loading weights:  31%|███       | 61/199 [00:00<00:00, 1728.62it/s, Materializing param=encoder.layer.3.attention.self.query.weight]Loading weights:  31%|███       | 62/199 [00:00<00:00, 1742.26it/s, Materializing param=encoder.layer.3.attention.self.value.bias]  Loading weights:  31%|███       | 62/199 [00:00<00:00, 1739.34it/s, Materializing param=encoder.layer.3.attention.self.value.bias]Loading weights:  32%|███▏      | 63/199 [00:00<00:00, 1724.06it/s, Materializing param=encoder.layer.3.attention.self.value.weight]Loading weights:  32%|███▏      | 63/199 [00:00<00:00, 1708.51it/s, Materializing param=encoder.layer.3.attention.self.value.weight]Loading weights:  32%|███▏      | 64/199 [00:00<00:00, 1727.55it/s, Materializing param=encoder.layer.3.intermediate.dense.bias]    Loading weights:  32%|███▏      | 64/199 [00:00<00:00, 1723.86it/s, Materializing param=encoder.layer.3.intermediate.dense.bias]Loading weights:  33%|███▎      | 65/199 [00:00<00:00, 1740.28it/s, Materializing param=encoder.layer.3.intermediate.dense.weight]Loading weights:  33%|███▎      | 65/199 [00:00<00:00, 1737.79it/s, Materializing param=encoder.layer.3.intermediate.dense.weight]Loading weights:  33%|███▎      | 66/199 [00:00<00:00, 1752.03it/s, Materializing param=encoder.layer.3.output.LayerNorm.bias]    Loading weights:  33%|███▎      | 66/199 [00:00<00:00, 1748.81it/s, Materializing param=encoder.layer.3.output.LayerNorm.bias]Loading weights:  34%|███▎      | 67/199 [00:00<00:00, 1763.19it/s, Materializing param=encoder.layer.3.output.LayerNorm.weight]Loading weights:  34%|███▎      | 67/199 [00:00<00:00, 1760.61it/s, Materializing param=encoder.layer.3.output.LayerNorm.weight]Loading weights:  34%|███▍      | 68/199 [00:00<00:00, 1758.34it/s, Materializing param=encoder.layer.3.output.dense.bias]      Loading weights:  34%|███▍      | 68/199 [00:00<00:00, 1755.51it/s, Materializing param=encoder.layer.3.output.dense.bias]Loading weights:  35%|███▍      | 69/199 [00:00<00:00, 1767.88it/s, Materializing param=encoder.layer.3.output.dense.weight]Loading weights:  35%|███▍      | 69/199 [00:00<00:00, 1765.20it/s, Materializing param=encoder.layer.3.output.dense.weight]Loading weights:  35%|███▌      | 70/199 [00:00<00:00, 1771.94it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.bias]Loading weights:  35%|███▌      | 70/199 [00:00<00:00, 1769.20it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.bias]Loading weights:  36%|███▌      | 71/199 [00:00<00:00, 1780.34it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.weight]Loading weights:  36%|███▌      | 71/199 [00:00<00:00, 1772.43it/s, Materializing param=encoder.layer.4.attention.output.LayerNorm.weight]Loading weights:  36%|███▌      | 72/199 [00:00<00:00, 1786.07it/s, Materializing param=encoder.layer.4.attention.output.dense.bias]      Loading weights:  36%|███▌      | 72/199 [00:00<00:00, 1783.51it/s, Materializing param=encoder.layer.4.attention.output.dense.bias]Loading weights:  37%|███▋      | 73/199 [00:00<00:00, 1791.35it/s, Materializing param=encoder.layer.4.attention.output.dense.weight]Loading weights:  37%|███▋      | 73/199 [00:00<00:00, 1774.19it/s, Materializing param=encoder.layer.4.attention.output.dense.weight]Loading weights:  37%|███▋      | 74/199 [00:00<00:00, 1772.98it/s, Materializing param=encoder.layer.4.attention.self.key.bias]      Loading weights:  37%|███▋      | 74/199 [00:00<00:00, 1770.57it/s, Materializing param=encoder.layer.4.attention.self.key.bias]Loading weights:  38%|███▊      | 75/199 [00:00<00:00, 1788.22it/s, Materializing param=encoder.layer.4.attention.self.key.weight]Loading weights:  38%|███▊      | 75/199 [00:00<00:00, 1786.00it/s, Materializing param=encoder.layer.4.attention.self.key.weight]Loading weights:  38%|███▊      | 76/199 [00:00<00:00, 1799.98it/s, Materializing param=encoder.layer.4.attention.self.query.bias]Loading weights:  38%|███▊      | 76/199 [00:00<00:00, 1797.46it/s, Materializing param=encoder.layer.4.attention.self.query.bias]Loading weights:  39%|███▊      | 77/199 [00:00<00:00, 1805.36it/s, Materializing param=encoder.layer.4.attention.self.query.weight]Loading weights:  39%|███▊      | 77/199 [00:00<00:00, 1802.84it/s, Materializing param=encoder.layer.4.attention.self.query.weight]Loading weights:  39%|███▉      | 78/199 [00:00<00:00, 1800.80it/s, Materializing param=encoder.layer.4.attention.self.value.bias]  Loading weights:  39%|███▉      | 78/199 [00:00<00:00, 1798.41it/s, Materializing param=encoder.layer.4.attention.self.value.bias]Loading weights:  40%|███▉      | 79/199 [00:00<00:00, 1811.68it/s, Materializing param=encoder.layer.4.attention.self.value.weight]Loading weights:  40%|███▉      | 79/199 [00:00<00:00, 1809.09it/s, Materializing param=encoder.layer.4.attention.self.value.weight]Loading weights:  40%|████      | 80/199 [00:00<00:00, 1809.29it/s, Materializing param=encoder.layer.4.intermediate.dense.bias]    Loading weights:  40%|████      | 80/199 [00:00<00:00, 1806.29it/s, Materializing param=encoder.layer.4.intermediate.dense.bias]Loading weights:  41%|████      | 81/199 [00:00<00:00, 1768.03it/s, Materializing param=encoder.layer.4.intermediate.dense.weight]Loading weights:  41%|████      | 81/199 [00:00<00:00, 1763.49it/s, Materializing param=encoder.layer.4.intermediate.dense.weight]Loading weights:  41%|████      | 82/199 [00:00<00:00, 1736.48it/s, Materializing param=encoder.layer.4.output.LayerNorm.bias]    Loading weights:  41%|████      | 82/199 [00:00<00:00, 1733.48it/s, Materializing param=encoder.layer.4.output.LayerNorm.bias]Loading weights:  42%|████▏     | 83/199 [00:00<00:00, 1747.14it/s, Materializing param=encoder.layer.4.output.LayerNorm.weight]Loading weights:  42%|████▏     | 83/199 [00:00<00:00, 1745.16it/s, Materializing param=encoder.layer.4.output.LayerNorm.weight]Loading weights:  42%|████▏     | 84/199 [00:00<00:00, 1724.41it/s, Materializing param=encoder.layer.4.output.dense.bias]      Loading weights:  42%|████▏     | 84/199 [00:00<00:00, 1711.26it/s, Materializing param=encoder.layer.4.output.dense.bias]Loading weights:  43%|████▎     | 85/199 [00:00<00:00, 1694.15it/s, Materializing param=encoder.layer.4.output.dense.weight]Loading weights:  43%|████▎     | 85/199 [00:00<00:00, 1692.10it/s, Materializing param=encoder.layer.4.output.dense.weight]Loading weights:  43%|████▎     | 86/199 [00:00<00:00, 1690.52it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.bias]Loading weights:  43%|████▎     | 86/199 [00:00<00:00, 1688.09it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.bias]Loading weights:  44%|████▎     | 87/199 [00:00<00:00, 1699.74it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.weight]Loading weights:  44%|████▎     | 87/199 [00:00<00:00, 1697.42it/s, Materializing param=encoder.layer.5.attention.output.LayerNorm.weight]Loading weights:  44%|████▍     | 88/199 [00:00<00:00, 1703.15it/s, Materializing param=encoder.layer.5.attention.output.dense.bias]      Loading weights:  44%|████▍     | 88/199 [00:00<00:00, 1699.04it/s, Materializing param=encoder.layer.5.attention.output.dense.bias]Loading weights:  45%|████▍     | 89/199 [00:00<00:00, 1712.71it/s, Materializing param=encoder.layer.5.attention.output.dense.weight]Loading weights:  45%|████▍     | 89/199 [00:00<00:00, 1709.32it/s, Materializing param=encoder.layer.5.attention.output.dense.weight]Loading weights:  45%|████▌     | 90/199 [00:00<00:00, 1711.39it/s, Materializing param=encoder.layer.5.attention.self.key.bias]      Loading weights:  45%|████▌     | 90/199 [00:00<00:00, 1709.40it/s, Materializing param=encoder.layer.5.attention.self.key.bias]Loading weights:  46%|████▌     | 91/199 [00:00<00:00, 1719.91it/s, Materializing param=encoder.layer.5.attention.self.key.weight]Loading weights:  46%|████▌     | 91/199 [00:00<00:00, 1718.02it/s, Materializing param=encoder.layer.5.attention.self.key.weight]Loading weights:  46%|████▌     | 92/199 [00:00<00:00, 1717.88it/s, Materializing param=encoder.layer.5.attention.self.query.bias]Loading weights:  46%|████▌     | 92/199 [00:00<00:00, 1715.23it/s, Materializing param=encoder.layer.5.attention.self.query.bias]Loading weights:  47%|████▋     | 93/199 [00:00<00:00, 1723.54it/s, Materializing param=encoder.layer.5.attention.self.query.weight]Loading weights:  47%|████▋     | 93/199 [00:00<00:00, 1721.60it/s, Materializing param=encoder.layer.5.attention.self.query.weight]Loading weights:  47%|████▋     | 94/199 [00:00<00:00, 1734.09it/s, Materializing param=encoder.layer.5.attention.self.value.bias]  Loading weights:  47%|████▋     | 94/199 [00:00<00:00, 1732.15it/s, Materializing param=encoder.layer.5.attention.self.value.bias]Loading weights:  48%|████▊     | 95/199 [00:00<00:00, 1742.73it/s, Materializing param=encoder.layer.5.attention.self.value.weight]Loading weights:  48%|████▊     | 95/199 [00:00<00:00, 1740.22it/s, Materializing param=encoder.layer.5.attention.self.value.weight]Loading weights:  48%|████▊     | 96/199 [00:00<00:00, 1745.66it/s, Materializing param=encoder.layer.5.intermediate.dense.bias]    Loading weights:  48%|████▊     | 96/199 [00:00<00:00, 1743.29it/s, Materializing param=encoder.layer.5.intermediate.dense.bias]Loading weights:  49%|████▊     | 97/199 [00:00<00:00, 1745.08it/s, Materializing param=encoder.layer.5.intermediate.dense.weight]Loading weights:  49%|████▊     | 97/199 [00:00<00:00, 1743.19it/s, Materializing param=encoder.layer.5.intermediate.dense.weight]Loading weights:  49%|████▉     | 98/199 [00:00<00:00, 1745.33it/s, Materializing param=encoder.layer.5.output.LayerNorm.bias]    Loading weights:  49%|████▉     | 98/199 [00:00<00:00, 1725.07it/s, Materializing param=encoder.layer.5.output.LayerNorm.bias]Loading weights:  50%|████▉     | 99/199 [00:00<00:00, 1717.24it/s, Materializing param=encoder.layer.5.output.LayerNorm.weight]Loading weights:  50%|████▉     | 99/199 [00:00<00:00, 1715.39it/s, Materializing param=encoder.layer.5.output.LayerNorm.weight]Loading weights:  50%|█████     | 100/199 [00:00<00:00, 1685.70it/s, Materializing param=encoder.layer.5.output.dense.bias]     Loading weights:  50%|█████     | 100/199 [00:00<00:00, 1683.99it/s, Materializing param=encoder.layer.5.output.dense.bias]Loading weights:  51%|█████     | 101/199 [00:00<00:00, 1677.97it/s, Materializing param=encoder.layer.5.output.dense.weight]Loading weights:  51%|█████     | 101/199 [00:00<00:00, 1673.20it/s, Materializing param=encoder.layer.5.output.dense.weight]Loading weights:  51%|█████▏    | 102/199 [00:00<00:00, 1685.22it/s, Materializing param=encoder.layer.6.attention.output.LayerNorm.bias]Loading weights:  51%|█████▏    | 102/199 [00:00<00:00, 1683.69it/s, Materializing param=encoder.layer.6.attention.output.LayerNorm.bias]Loading weights:  52%|█████▏    | 103/199 [00:00<00:00, 1690.85it/s, Materializing param=encoder.layer.6.attention.output.LayerNorm.weight]Loading weights:  52%|█████▏    | 103/199 [00:00<00:00, 1688.59it/s, Materializing param=encoder.layer.6.attention.output.LayerNorm.weight]Loading weights:  52%|█████▏    | 104/199 [00:00<00:00, 1698.05it/s, Materializing param=encoder.layer.6.attention.output.dense.bias]      Loading weights:  52%|█████▏    | 104/199 [00:00<00:00, 1696.53it/s, Materializing param=encoder.layer.6.attention.output.dense.bias]Loading weights:  53%|█████▎    | 105/199 [00:00<00:00, 1690.82it/s, Materializing param=encoder.layer.6.attention.output.dense.weight]Loading weights:  53%|█████▎    | 105/199 [00:00<00:00, 1689.18it/s, Materializing param=encoder.layer.6.attention.output.dense.weight]Loading weights:  53%|█████▎    | 106/199 [00:00<00:00, 1701.38it/s, Materializing param=encoder.layer.6.attention.self.key.bias]      Loading weights:  53%|█████▎    | 106/199 [00:00<00:00, 1699.96it/s, Materializing param=encoder.layer.6.attention.self.key.bias]Loading weights:  54%|█████▍    | 107/199 [00:00<00:00, 1706.80it/s, Materializing param=encoder.layer.6.attention.self.key.weight]Loading weights:  54%|█████▍    | 107/199 [00:00<00:00, 1705.25it/s, Materializing param=encoder.layer.6.attention.self.key.weight]Loading weights:  54%|█████▍    | 108/199 [00:00<00:00, 1712.18it/s, Materializing param=encoder.layer.6.attention.self.query.bias]Loading weights:  54%|█████▍    | 108/199 [00:00<00:00, 1710.57it/s, Materializing param=encoder.layer.6.attention.self.query.bias]Loading weights:  55%|█████▍    | 109/199 [00:00<00:00, 1710.92it/s, Materializing param=encoder.layer.6.attention.self.query.weight]Loading weights:  55%|█████▍    | 109/199 [00:00<00:00, 1696.01it/s, Materializing param=encoder.layer.6.attention.self.query.weight]Loading weights:  55%|█████▌    | 110/199 [00:00<00:00, 1707.21it/s, Materializing param=encoder.layer.6.attention.self.value.bias]  Loading weights:  55%|█████▌    | 110/199 [00:00<00:00, 1705.81it/s, Materializing param=encoder.layer.6.attention.self.value.bias]Loading weights:  56%|█████▌    | 111/199 [00:00<00:00, 1707.15it/s, Materializing param=encoder.layer.6.attention.self.value.weight]Loading weights:  56%|█████▌    | 111/199 [00:00<00:00, 1705.66it/s, Materializing param=encoder.layer.6.attention.self.value.weight]Loading weights:  56%|█████▋    | 112/199 [00:00<00:00, 1713.87it/s, Materializing param=encoder.layer.6.intermediate.dense.bias]    Loading weights:  56%|█████▋    | 112/199 [00:00<00:00, 1712.39it/s, Materializing param=encoder.layer.6.intermediate.dense.bias]Loading weights:  57%|█████▋    | 113/199 [00:00<00:00, 1701.85it/s, Materializing param=encoder.layer.6.intermediate.dense.weight]Loading weights:  57%|█████▋    | 113/199 [00:00<00:00, 1699.92it/s, Materializing param=encoder.layer.6.intermediate.dense.weight]Loading weights:  57%|█████▋    | 114/199 [00:00<00:00, 1711.08it/s, Materializing param=encoder.layer.6.output.LayerNorm.bias]    Loading weights:  57%|█████▋    | 114/199 [00:00<00:00, 1709.56it/s, Materializing param=encoder.layer.6.output.LayerNorm.bias]Loading weights:  58%|█████▊    | 115/199 [00:00<00:00, 1711.71it/s, Materializing param=encoder.layer.6.output.LayerNorm.weight]Loading weights:  58%|█████▊    | 115/199 [00:00<00:00, 1710.28it/s, Materializing param=encoder.layer.6.output.LayerNorm.weight]Loading weights:  58%|█████▊    | 116/199 [00:00<00:00, 1707.46it/s, Materializing param=encoder.layer.6.output.dense.bias]      Loading weights:  58%|█████▊    | 116/199 [00:00<00:00, 1698.06it/s, Materializing param=encoder.layer.6.output.dense.bias]Loading weights:  59%|█████▉    | 117/199 [00:00<00:00, 1695.32it/s, Materializing param=encoder.layer.6.output.dense.weight]Loading weights:  59%|█████▉    | 117/199 [00:00<00:00, 1693.84it/s, Materializing param=encoder.layer.6.output.dense.weight]Loading weights:  59%|█████▉    | 118/199 [00:00<00:00, 1702.12it/s, Materializing param=encoder.layer.7.attention.output.LayerNorm.bias]Loading weights:  59%|█████▉    | 118/199 [00:00<00:00, 1699.90it/s, Materializing param=encoder.layer.7.attention.output.LayerNorm.bias]Loading weights:  60%|█████▉    | 119/199 [00:00<00:00, 1702.83it/s, Materializing param=encoder.layer.7.attention.output.LayerNorm.weight]Loading weights:  60%|█████▉    | 119/199 [00:00<00:00, 1701.33it/s, Materializing param=encoder.layer.7.attention.output.LayerNorm.weight]Loading weights:  60%|██████    | 120/199 [00:00<00:00, 1710.48it/s, Materializing param=encoder.layer.7.attention.output.dense.bias]      Loading weights:  60%|██████    | 120/199 [00:00<00:00, 1708.97it/s, Materializing param=encoder.layer.7.attention.output.dense.bias]Loading weights:  61%|██████    | 121/199 [00:00<00:00, 1717.53it/s, Materializing param=encoder.layer.7.attention.output.dense.weight]Loading weights:  61%|██████    | 121/199 [00:00<00:00, 1716.18it/s, Materializing param=encoder.layer.7.attention.output.dense.weight]Loading weights:  61%|██████▏   | 122/199 [00:00<00:00, 1710.21it/s, Materializing param=encoder.layer.7.attention.self.key.bias]      Loading weights:  61%|██████▏   | 122/199 [00:00<00:00, 1708.78it/s, Materializing param=encoder.layer.7.attention.self.key.bias]Loading weights:  62%|██████▏   | 123/199 [00:00<00:00, 1712.33it/s, Materializing param=encoder.layer.7.attention.self.key.weight]Loading weights:  62%|██████▏   | 123/199 [00:00<00:00, 1705.28it/s, Materializing param=encoder.layer.7.attention.self.key.weight]Loading weights:  62%|██████▏   | 124/199 [00:00<00:00, 1713.96it/s, Materializing param=encoder.layer.7.attention.self.query.bias]Loading weights:  62%|██████▏   | 124/199 [00:00<00:00, 1712.50it/s, Materializing param=encoder.layer.7.attention.self.query.bias]Loading weights:  63%|██████▎   | 125/199 [00:00<00:00, 1721.60it/s, Materializing param=encoder.layer.7.attention.self.query.weight]Loading weights:  63%|██████▎   | 125/199 [00:00<00:00, 1720.30it/s, Materializing param=encoder.layer.7.attention.self.query.weight]Loading weights:  63%|██████▎   | 126/199 [00:00<00:00, 1718.84it/s, Materializing param=encoder.layer.7.attention.self.value.bias]  Loading weights:  63%|██████▎   | 126/199 [00:00<00:00, 1716.99it/s, Materializing param=encoder.layer.7.attention.self.value.bias]Loading weights:  64%|██████▍   | 127/199 [00:00<00:00, 1716.96it/s, Materializing param=encoder.layer.7.attention.self.value.weight]Loading weights:  64%|██████▍   | 127/199 [00:00<00:00, 1715.60it/s, Materializing param=encoder.layer.7.attention.self.value.weight]Loading weights:  64%|██████▍   | 128/199 [00:00<00:00, 1724.56it/s, Materializing param=encoder.layer.7.intermediate.dense.bias]    Loading weights:  64%|██████▍   | 128/199 [00:00<00:00, 1723.31it/s, Materializing param=encoder.layer.7.intermediate.dense.bias]Loading weights:  65%|██████▍   | 129/199 [00:00<00:00, 1730.66it/s, Materializing param=encoder.layer.7.intermediate.dense.weight]Loading weights:  65%|██████▍   | 129/199 [00:00<00:00, 1729.26it/s, Materializing param=encoder.layer.7.intermediate.dense.weight]Loading weights:  65%|██████▌   | 130/199 [00:00<00:00, 1737.96it/s, Materializing param=encoder.layer.7.output.LayerNorm.bias]    Loading weights:  65%|██████▌   | 130/199 [00:00<00:00, 1736.57it/s, Materializing param=encoder.layer.7.output.LayerNorm.bias]Loading weights:  66%|██████▌   | 131/199 [00:00<00:00, 1728.34it/s, Materializing param=encoder.layer.7.output.LayerNorm.weight]Loading weights:  66%|██████▌   | 131/199 [00:00<00:00, 1726.77it/s, Materializing param=encoder.layer.7.output.LayerNorm.weight]Loading weights:  66%|██████▋   | 132/199 [00:00<00:00, 1731.21it/s, Materializing param=encoder.layer.7.output.dense.bias]      Loading weights:  66%|██████▋   | 132/199 [00:00<00:00, 1729.89it/s, Materializing param=encoder.layer.7.output.dense.bias]Loading weights:  67%|██████▋   | 133/199 [00:00<00:00, 1731.59it/s, Materializing param=encoder.layer.7.output.dense.weight]Loading weights:  67%|██████▋   | 133/199 [00:00<00:00, 1730.23it/s, Materializing param=encoder.layer.7.output.dense.weight]Loading weights:  67%|██████▋   | 134/199 [00:00<00:00, 1737.79it/s, Materializing param=encoder.layer.8.attention.output.LayerNorm.bias]Loading weights:  67%|██████▋   | 134/199 [00:00<00:00, 1736.54it/s, Materializing param=encoder.layer.8.attention.output.LayerNorm.bias]Loading weights:  68%|██████▊   | 135/199 [00:00<00:00, 1744.99it/s, Materializing param=encoder.layer.8.attention.output.LayerNorm.weight]Loading weights:  68%|██████▊   | 135/199 [00:00<00:00, 1743.77it/s, Materializing param=encoder.layer.8.attention.output.LayerNorm.weight]Loading weights:  68%|██████▊   | 136/199 [00:00<00:00, 1744.52it/s, Materializing param=encoder.layer.8.attention.output.dense.bias]      Loading weights:  68%|██████▊   | 136/199 [00:00<00:00, 1743.23it/s, Materializing param=encoder.layer.8.attention.output.dense.bias]Loading weights:  69%|██████▉   | 137/199 [00:00<00:00, 1752.08it/s, Materializing param=encoder.layer.8.attention.output.dense.weight]Loading weights:  69%|██████▉   | 137/199 [00:00<00:00, 1750.88it/s, Materializing param=encoder.layer.8.attention.output.dense.weight]Loading weights:  69%|██████▉   | 138/199 [00:00<00:00, 1759.82it/s, Materializing param=encoder.layer.8.attention.self.key.bias]      Loading weights:  69%|██████▉   | 138/199 [00:00<00:00, 1758.67it/s, Materializing param=encoder.layer.8.attention.self.key.bias]Loading weights:  70%|██████▉   | 139/199 [00:00<00:00, 1761.26it/s, Materializing param=encoder.layer.8.attention.self.key.weight]Loading weights:  70%|██████▉   | 139/199 [00:00<00:00, 1759.95it/s, Materializing param=encoder.layer.8.attention.self.key.weight]Loading weights:  70%|███████   | 140/199 [00:00<00:00, 1768.98it/s, Materializing param=encoder.layer.8.attention.self.query.bias]Loading weights:  70%|███████   | 140/199 [00:00<00:00, 1767.82it/s, Materializing param=encoder.layer.8.attention.self.query.bias]Loading weights:  71%|███████   | 141/199 [00:00<00:00, 1776.34it/s, Materializing param=encoder.layer.8.attention.self.query.weight]Loading weights:  71%|███████   | 141/199 [00:00<00:00, 1775.05it/s, Materializing param=encoder.layer.8.attention.self.query.weight]Loading weights:  71%|███████▏  | 142/199 [00:00<00:00, 1758.30it/s, Materializing param=encoder.layer.8.attention.self.value.bias]  Loading weights:  71%|███████▏  | 142/199 [00:00<00:00, 1749.38it/s, Materializing param=encoder.layer.8.attention.self.value.bias]Loading weights:  72%|███████▏  | 143/199 [00:00<00:00, 1757.98it/s, Materializing param=encoder.layer.8.attention.self.value.weight]Loading weights:  72%|███████▏  | 143/199 [00:00<00:00, 1756.83it/s, Materializing param=encoder.layer.8.attention.self.value.weight]Loading weights:  72%|███████▏  | 144/199 [00:00<00:00, 1753.84it/s, Materializing param=encoder.layer.8.intermediate.dense.bias]    Loading weights:  72%|███████▏  | 144/199 [00:00<00:00, 1752.29it/s, Materializing param=encoder.layer.8.intermediate.dense.bias]Loading weights:  73%|███████▎  | 145/199 [00:00<00:00, 1758.37it/s, Materializing param=encoder.layer.8.intermediate.dense.weight]Loading weights:  73%|███████▎  | 145/199 [00:00<00:00, 1756.66it/s, Materializing param=encoder.layer.8.intermediate.dense.weight]Loading weights:  73%|███████▎  | 146/199 [00:00<00:00, 1753.70it/s, Materializing param=encoder.layer.8.output.LayerNorm.bias]    Loading weights:  73%|███████▎  | 146/199 [00:00<00:00, 1752.36it/s, Materializing param=encoder.layer.8.output.LayerNorm.bias]Loading weights:  74%|███████▍  | 147/199 [00:00<00:00, 1743.45it/s, Materializing param=encoder.layer.8.output.LayerNorm.weight]Loading weights:  74%|███████▍  | 147/199 [00:00<00:00, 1732.88it/s, Materializing param=encoder.layer.8.output.LayerNorm.weight]Loading weights:  74%|███████▍  | 148/199 [00:00<00:00, 1736.80it/s, Materializing param=encoder.layer.8.output.dense.bias]      Loading weights:  74%|███████▍  | 148/199 [00:00<00:00, 1735.59it/s, Materializing param=encoder.layer.8.output.dense.bias]Loading weights:  75%|███████▍  | 149/199 [00:00<00:00, 1706.44it/s, Materializing param=encoder.layer.8.output.dense.weight]Loading weights:  75%|███████▍  | 149/199 [00:00<00:00, 1704.88it/s, Materializing param=encoder.layer.8.output.dense.weight]Loading weights:  75%|███████▌  | 150/199 [00:00<00:00, 1710.98it/s, Materializing param=encoder.layer.9.attention.output.LayerNorm.bias]Loading weights:  75%|███████▌  | 150/199 [00:00<00:00, 1708.34it/s, Materializing param=encoder.layer.9.attention.output.LayerNorm.bias]Loading weights:  76%|███████▌  | 151/199 [00:00<00:00, 1711.79it/s, Materializing param=encoder.layer.9.attention.output.LayerNorm.weight]Loading weights:  76%|███████▌  | 151/199 [00:00<00:00, 1710.60it/s, Materializing param=encoder.layer.9.attention.output.LayerNorm.weight]Loading weights:  76%|███████▋  | 152/199 [00:00<00:00, 1718.30it/s, Materializing param=encoder.layer.9.attention.output.dense.bias]      Loading weights:  76%|███████▋  | 152/199 [00:00<00:00, 1717.24it/s, Materializing param=encoder.layer.9.attention.output.dense.bias]Loading weights:  77%|███████▋  | 153/199 [00:00<00:00, 1724.42it/s, Materializing param=encoder.layer.9.attention.output.dense.weight]Loading weights:  77%|███████▋  | 153/199 [00:00<00:00, 1723.23it/s, Materializing param=encoder.layer.9.attention.output.dense.weight]Loading weights:  77%|███████▋  | 154/199 [00:00<00:00, 1729.88it/s, Materializing param=encoder.layer.9.attention.self.key.bias]      Loading weights:  77%|███████▋  | 154/199 [00:00<00:00, 1728.80it/s, Materializing param=encoder.layer.9.attention.self.key.bias]Loading weights:  78%|███████▊  | 155/199 [00:00<00:00, 1736.54it/s, Materializing param=encoder.layer.9.attention.self.key.weight]Loading weights:  78%|███████▊  | 155/199 [00:00<00:00, 1735.51it/s, Materializing param=encoder.layer.9.attention.self.key.weight]Loading weights:  78%|███████▊  | 156/199 [00:00<00:00, 1735.04it/s, Materializing param=encoder.layer.9.attention.self.query.bias]Loading weights:  78%|███████▊  | 156/199 [00:00<00:00, 1733.86it/s, Materializing param=encoder.layer.9.attention.self.query.bias]Loading weights:  79%|███████▉  | 157/199 [00:00<00:00, 1738.56it/s, Materializing param=encoder.layer.9.attention.self.query.weight]Loading weights:  79%|███████▉  | 157/199 [00:00<00:00, 1737.41it/s, Materializing param=encoder.layer.9.attention.self.query.weight]Loading weights:  79%|███████▉  | 158/199 [00:00<00:00, 1741.83it/s, Materializing param=encoder.layer.9.attention.self.value.bias]  Loading weights:  79%|███████▉  | 158/199 [00:00<00:00, 1737.87it/s, Materializing param=encoder.layer.9.attention.self.value.bias]Loading weights:  80%|███████▉  | 159/199 [00:00<00:00, 1745.69it/s, Materializing param=encoder.layer.9.attention.self.value.weight]Loading weights:  80%|███████▉  | 159/199 [00:00<00:00, 1744.66it/s, Materializing param=encoder.layer.9.attention.self.value.weight]Loading weights:  80%|████████  | 160/199 [00:00<00:00, 1744.73it/s, Materializing param=encoder.layer.9.intermediate.dense.bias]    Loading weights:  80%|████████  | 160/199 [00:00<00:00, 1736.58it/s, Materializing param=encoder.layer.9.intermediate.dense.bias]Loading weights:  81%|████████  | 161/199 [00:00<00:00, 1744.31it/s, Materializing param=encoder.layer.9.intermediate.dense.weight]Loading weights:  81%|████████  | 161/199 [00:00<00:00, 1743.30it/s, Materializing param=encoder.layer.9.intermediate.dense.weight]Loading weights:  81%|████████▏ | 162/199 [00:00<00:00, 1748.52it/s, Materializing param=encoder.layer.9.output.LayerNorm.bias]    Loading weights:  81%|████████▏ | 162/199 [00:00<00:00, 1747.43it/s, Materializing param=encoder.layer.9.output.LayerNorm.bias]Loading weights:  82%|████████▏ | 163/199 [00:00<00:00, 1755.19it/s, Materializing param=encoder.layer.9.output.LayerNorm.weight]Loading weights:  82%|████████▏ | 163/199 [00:00<00:00, 1754.06it/s, Materializing param=encoder.layer.9.output.LayerNorm.weight]Loading weights:  82%|████████▏ | 164/199 [00:00<00:00, 1762.16it/s, Materializing param=encoder.layer.9.output.dense.bias]      Loading weights:  82%|████████▏ | 164/199 [00:00<00:00, 1760.98it/s, Materializing param=encoder.layer.9.output.dense.bias]Loading weights:  83%|████████▎ | 165/199 [00:00<00:00, 1769.32it/s, Materializing param=encoder.layer.9.output.dense.weight]Loading weights:  83%|████████▎ | 165/199 [00:00<00:00, 1768.38it/s, Materializing param=encoder.layer.9.output.dense.weight]Loading weights:  83%|████████▎ | 166/199 [00:00<00:00, 1776.14it/s, Materializing param=encoder.layer.10.attention.output.LayerNorm.bias]Loading weights:  83%|████████▎ | 166/199 [00:00<00:00, 1775.12it/s, Materializing param=encoder.layer.10.attention.output.LayerNorm.bias]Loading weights:  84%|████████▍ | 167/199 [00:00<00:00, 1783.36it/s, Materializing param=encoder.layer.10.attention.output.LayerNorm.weight]Loading weights:  84%|████████▍ | 167/199 [00:00<00:00, 1782.39it/s, Materializing param=encoder.layer.10.attention.output.LayerNorm.weight]Loading weights:  84%|████████▍ | 168/199 [00:00<00:00, 1790.74it/s, Materializing param=encoder.layer.10.attention.output.dense.bias]      Loading weights:  84%|████████▍ | 168/199 [00:00<00:00, 1789.79it/s, Materializing param=encoder.layer.10.attention.output.dense.bias]Loading weights:  85%|████████▍ | 169/199 [00:00<00:00, 1798.14it/s, Materializing param=encoder.layer.10.attention.output.dense.weight]Loading weights:  85%|████████▍ | 169/199 [00:00<00:00, 1797.21it/s, Materializing param=encoder.layer.10.attention.output.dense.weight]Loading weights:  85%|████████▌ | 170/199 [00:00<00:00, 1804.86it/s, Materializing param=encoder.layer.10.attention.self.key.bias]      Loading weights:  85%|████████▌ | 170/199 [00:00<00:00, 1803.49it/s, Materializing param=encoder.layer.10.attention.self.key.bias]Loading weights:  86%|████████▌ | 171/199 [00:00<00:00, 1811.28it/s, Materializing param=encoder.layer.10.attention.self.key.weight]Loading weights:  86%|████████▌ | 171/199 [00:00<00:00, 1810.16it/s, Materializing param=encoder.layer.10.attention.self.key.weight]Loading weights:  86%|████████▋ | 172/199 [00:00<00:00, 1815.17it/s, Materializing param=encoder.layer.10.attention.self.query.bias]Loading weights:  86%|████████▋ | 172/199 [00:00<00:00, 1813.70it/s, Materializing param=encoder.layer.10.attention.self.query.bias]Loading weights:  87%|████████▋ | 173/199 [00:00<00:00, 1821.44it/s, Materializing param=encoder.layer.10.attention.self.query.weight]Loading weights:  87%|████████▋ | 173/199 [00:00<00:00, 1820.22it/s, Materializing param=encoder.layer.10.attention.self.query.weight]Loading weights:  87%|████████▋ | 174/199 [00:00<00:00, 1828.00it/s, Materializing param=encoder.layer.10.attention.self.value.bias]  Loading weights:  87%|████████▋ | 174/199 [00:00<00:00, 1826.76it/s, Materializing param=encoder.layer.10.attention.self.value.bias]Loading weights:  88%|████████▊ | 175/199 [00:00<00:00, 1834.48it/s, Materializing param=encoder.layer.10.attention.self.value.weight]Loading weights:  88%|████████▊ | 175/199 [00:00<00:00, 1833.29it/s, Materializing param=encoder.layer.10.attention.self.value.weight]Loading weights:  88%|████████▊ | 176/199 [00:00<00:00, 1840.85it/s, Materializing param=encoder.layer.10.intermediate.dense.bias]    Loading weights:  88%|████████▊ | 176/199 [00:00<00:00, 1839.99it/s, Materializing param=encoder.layer.10.intermediate.dense.bias]Loading weights:  89%|████████▉ | 177/199 [00:00<00:00, 1848.33it/s, Materializing param=encoder.layer.10.intermediate.dense.weight]Loading weights:  89%|████████▉ | 177/199 [00:00<00:00, 1847.39it/s, Materializing param=encoder.layer.10.intermediate.dense.weight]Loading weights:  89%|████████▉ | 178/199 [00:00<00:00, 1856.52it/s, Materializing param=encoder.layer.10.output.LayerNorm.bias]    Loading weights:  89%|████████▉ | 178/199 [00:00<00:00, 1855.87it/s, Materializing param=encoder.layer.10.output.LayerNorm.bias]Loading weights:  90%|████████▉ | 179/199 [00:00<00:00, 1865.07it/s, Materializing param=encoder.layer.10.output.LayerNorm.weight]Loading weights:  90%|████████▉ | 179/199 [00:00<00:00, 1864.44it/s, Materializing param=encoder.layer.10.output.LayerNorm.weight]Loading weights:  90%|█████████ | 180/199 [00:00<00:00, 1873.72it/s, Materializing param=encoder.layer.10.output.dense.bias]      Loading weights:  90%|█████████ | 180/199 [00:00<00:00, 1873.09it/s, Materializing param=encoder.layer.10.output.dense.bias]Loading weights:  91%|█████████ | 181/199 [00:00<00:00, 1882.36it/s, Materializing param=encoder.layer.10.output.dense.weight]Loading weights:  91%|█████████ | 181/199 [00:00<00:00, 1881.75it/s, Materializing param=encoder.layer.10.output.dense.weight]Loading weights:  91%|█████████▏| 182/199 [00:00<00:00, 1891.02it/s, Materializing param=encoder.layer.11.attention.output.LayerNorm.bias]Loading weights:  91%|█████████▏| 182/199 [00:00<00:00, 1890.37it/s, Materializing param=encoder.layer.11.attention.output.LayerNorm.bias]Loading weights:  92%|█████████▏| 183/199 [00:00<00:00, 1899.55it/s, Materializing param=encoder.layer.11.attention.output.LayerNorm.weight]Loading weights:  92%|█████████▏| 183/199 [00:00<00:00, 1898.91it/s, Materializing param=encoder.layer.11.attention.output.LayerNorm.weight]Loading weights:  92%|█████████▏| 184/199 [00:00<00:00, 1908.08it/s, Materializing param=encoder.layer.11.attention.output.dense.bias]      Loading weights:  92%|█████████▏| 184/199 [00:00<00:00, 1907.43it/s, Materializing param=encoder.layer.11.attention.output.dense.bias]Loading weights:  93%|█████████▎| 185/199 [00:00<00:00, 1916.65it/s, Materializing param=encoder.layer.11.attention.output.dense.weight]Loading weights:  93%|█████████▎| 185/199 [00:00<00:00, 1915.80it/s, Materializing param=encoder.layer.11.attention.output.dense.weight]Loading weights:  93%|█████████▎| 186/199 [00:00<00:00, 1924.92it/s, Materializing param=encoder.layer.11.attention.self.key.bias]      Loading weights:  93%|█████████▎| 186/199 [00:00<00:00, 1924.27it/s, Materializing param=encoder.layer.11.attention.self.key.bias]Loading weights:  94%|█████████▍| 187/199 [00:00<00:00, 1933.45it/s, Materializing param=encoder.layer.11.attention.self.key.weight]Loading weights:  94%|█████████▍| 187/199 [00:00<00:00, 1932.81it/s, Materializing param=encoder.layer.11.attention.self.key.weight]Loading weights:  94%|█████████▍| 188/199 [00:00<00:00, 1942.03it/s, Materializing param=encoder.layer.11.attention.self.query.bias]Loading weights:  94%|█████████▍| 188/199 [00:00<00:00, 1941.41it/s, Materializing param=encoder.layer.11.attention.self.query.bias]Loading weights:  95%|█████████▍| 189/199 [00:00<00:00, 1950.59it/s, Materializing param=encoder.layer.11.attention.self.query.weight]Loading weights:  95%|█████████▍| 189/199 [00:00<00:00, 1949.96it/s, Materializing param=encoder.layer.11.attention.self.query.weight]Loading weights:  95%|█████████▌| 190/199 [00:00<00:00, 1959.14it/s, Materializing param=encoder.layer.11.attention.self.value.bias]  Loading weights:  95%|█████████▌| 190/199 [00:00<00:00, 1958.51it/s, Materializing param=encoder.layer.11.attention.self.value.bias]Loading weights:  96%|█████████▌| 191/199 [00:00<00:00, 1967.70it/s, Materializing param=encoder.layer.11.attention.self.value.weight]Loading weights:  96%|█████████▌| 191/199 [00:00<00:00, 1967.07it/s, Materializing param=encoder.layer.11.attention.self.value.weight]Loading weights:  96%|█████████▋| 192/199 [00:00<00:00, 1975.91it/s, Materializing param=encoder.layer.11.intermediate.dense.bias]    Loading weights:  96%|█████████▋| 192/199 [00:00<00:00, 1975.20it/s, Materializing param=encoder.layer.11.intermediate.dense.bias]Loading weights:  97%|█████████▋| 193/199 [00:00<00:00, 1984.22it/s, Materializing param=encoder.layer.11.intermediate.dense.weight]Loading weights:  97%|█████████▋| 193/199 [00:00<00:00, 1983.58it/s, Materializing param=encoder.layer.11.intermediate.dense.weight]Loading weights:  97%|█████████▋| 194/199 [00:00<00:00, 1992.25it/s, Materializing param=encoder.layer.11.output.LayerNorm.bias]    Loading weights:  97%|█████████▋| 194/199 [00:00<00:00, 1991.53it/s, Materializing param=encoder.layer.11.output.LayerNorm.bias]Loading weights:  98%|█████████▊| 195/199 [00:00<00:00, 2000.56it/s, Materializing param=encoder.layer.11.output.LayerNorm.weight]Loading weights:  98%|█████████▊| 195/199 [00:00<00:00, 1999.91it/s, Materializing param=encoder.layer.11.output.LayerNorm.weight]Loading weights:  98%|█████████▊| 196/199 [00:00<00:00, 2009.00it/s, Materializing param=encoder.layer.11.output.dense.bias]      Loading weights:  98%|█████████▊| 196/199 [00:00<00:00, 2008.37it/s, Materializing param=encoder.layer.11.output.dense.bias]Loading weights:  99%|█████████▉| 197/199 [00:00<00:00, 2017.22it/s, Materializing param=encoder.layer.11.output.dense.weight]Loading weights:  99%|█████████▉| 197/199 [00:00<00:00, 2016.50it/s, Materializing param=encoder.layer.11.output.dense.weight]Loading weights:  99%|█████████▉| 198/199 [00:00<00:00, 2025.54it/s, Materializing param=pooler.dense.bias]                   Loading weights:  99%|█████████▉| 198/199 [00:00<00:00, 2024.90it/s, Materializing param=pooler.dense.bias]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2033.81it/s, Materializing param=pooler.dense.weight]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2033.16it/s, Materializing param=pooler.dense.weight]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2031.61it/s, Materializing param=pooler.dense.weight]
+[03/23/26 10:23:09] INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/co                
+                             nfig                
+                             .jso                
+                             n                   
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/c                
+                             onfi                
+                             g.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/to                
+                             keni                
+                             zer_                
+                             conf                
+                             ig.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/t                
+                             oken                
+                             izer                
+                             _con                
+                             fig.                
+                             json                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/t                
+                             oken                
+                             izer                
+                             _con                
+                             fig.                
+                             json                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+[03/23/26 10:23:10] INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/m                
+                             odel                
+                             s/BA                
+                             AI/b                
+                             ge-s                
+                             mall                
+                             -en/                
+                             tree                
+                             /mai                
+                             n/ad                
+                             diti                
+                             onal                
+                             _cha                
+                             t_te                
+                             mpla                
+                             tes?                
+                             recu                
+                             rsiv                
+                             e=fa                
+                             lse&                
+                             expa                
+                             nd=f                
+                             alse                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             404                 
+                             Not                 
+                             Foun                
+                             d"                  
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/m                
+                             odel                
+                             s/BA                
+                             AI/b                
+                             ge-s                
+                             mall                
+                             -en/                
+                             tree                
+                             /mai                
+                             n?re                
+                             curs                
+                             ive=                
+                             true                
+                             &exp                
+                             and=                
+                             fals                
+                             e                   
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/vo                
+                             cab.                
+                             txt                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/v                
+                             ocab                
+                             .txt                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/v                
+                             ocab                
+                             .txt                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/to                
+                             keni                
+                             zer.                
+                             json                
+                                                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/t                
+                             oken                
+                             izer                
+                             .jso                
+                             n                   
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/t                
+                             oken                
+                             izer                
+                             .jso                
+                             n                   
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/ad                
+                             ded_                
+                             toke                
+                             ns.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             404                 
+                             Not                 
+                             Foun                
+                             d"                  
+[03/23/26 10:23:11] INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/sp                
+                             ecia                
+                             l_to                
+                             kens                
+                             _map                
+                             .jso                
+                             n                   
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/s                
+                             peci                
+                             al_t                
+                             oken                
+                             s_ma                
+                             p.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/s                
+                             peci                
+                             al_t                
+                             oken                
+                             s_ma                
+                             p.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/ch                
+                             at_t                
+                             empl                
+                             ate.                
+                             jinj                
+                             a                   
+                             "HTT                
+                             P/1.                
+                             1                   
+                             404                 
+                             Not                 
+                             Foun                
+                             d"                  
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/B                
+                             AAI/                
+                             bge-                
+                             smal                
+                             l-en                
+                             /res                
+                             olve                
+                             /mai                
+                             n/1_                
+                             Pool                
+                             ing/                
+                             conf                
+                             ig.j                
+                             son                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             307                 
+                             Temp                
+                             orar                
+                             y                   
+                             Redi                
+                             rect                
+                             "                   
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                                                 
+                             HEAD                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/1                
+                             _Poo                
+                             ling                
+                             %2Fc                
+                             onfi                
+                             g.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/r                
+                             esol                
+                             ve-c                
+                             ache                
+                             /mod                
+                             els/                
+                             BAAI                
+                             /bge                
+                             -sma                
+                             ll-e                
+                             n/22                
+                             75a7                
+                             bdee                
+                             235e                
+                             9b4f                
+                             01fa                
+                             73aa                
+                             60d3                
+                             3119                
+                             83cf                
+                             ea/1                
+                             _Poo                
+                             ling                
+                             %2Fc                
+                             onfi                
+                             g.js                
+                             on                  
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+                    INFO     [_cl _client.py:1025
+                             ient                
+                             .py:                
+                             1025                
+                             ] >>                
+                             HTTP                
+                             Requ                
+                             est:                
+                              GET                
+                             http                
+                             s://                
+                             hugg                
+                             ingf                
+                             ace.                
+                             co/a                
+                             pi/m                
+                             odel                
+                             s/BA                
+                             AI/b                
+                             ge-s                
+                             mall                
+                             -en                 
+                             "HTT                
+                             P/1.                
+                             1                   
+                             200                 
+                             OK"                 
+[03/23/26          INFO     [ SentenceTransforme…
+10:23:12]                   S                    
+                            e                    
+                            n                    
+                            t                    
+                            e                    
+                            n                    
+                            c                    
+                            e                    
+                            T                    
+                            r                    
+                            a                    
+                            n                    
+                            s                    
+                            f                    
+                            o                    
+                            r                    
+                            m                    
+                            e                    
+                            r                    
+                            .                    
+                            p                    
+                            y                    
+                            :                    
+                            3                    
+                            7                    
+                            8                    
+                            ]                    
+                                                 
+                            >                    
+                            >                    
+                                                 
+                            1                    
+                            p                    
+                            r                    
+                            o                    
+                            m                    
+                            p                    
+                            t                    
+                                                 
+                            i                    
+                            s                    
+                                                 
+                            l                    
+                            o                    
+                            a                    
+                            d                    
+                            e                    
+                            d                    
+                            ,                    
+                                                 
+                            w                    
+                            i                    
+                            t                    
+                            h                    
+                                                 
+                            t                    
+                            h                    
+                            e                    
+                                                 
+                            k                    
+                            e                    
+                            y                    
+                            :                    
+                                                 
+                            q                    
+                            u                    
+                            e                    
+                            r                    
+                            y                    
+                    INFO     [posth posthog.py:22
+                             og.py:              
+                             22] >>              
+                             Anonym              
+                             ized                
+                             teleme              
+                             try                 
+                             enable              
+                             d. See              
+                             https:              
+                             //docs              
+                             .trych              
+                             roma.c              
+                             om/tel              
+                             emetry              
+                              for                
+                             more                
+                             inform              
+                             ation.              
+                    INFO     [vec vectordb.py:284
+                             tord                
+                             b.py                
+                             :284                
+                             ] >>                
+                             Star                
+                             t                   
+                             embe                
+                             ddin                
+                             g                   
+                             corp                
+                             us                  
+                             data                
+                             with                
+                             hugg                
+                             ingf                
+                             ace                 
+                             mode                
+                             l.                  
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  1.69it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  1.69it/s]
+[03/23/26 10:23:13] INFO     [vec vectordb.py:292
+                             tord                
+                             b.py                
+                             :292                
+                             ] >>                
+                             Fini                
+                             sh                  
+                             embe                
+                             ddin                
+                             g &                 
+                             inge                
+                             stin                
+                             g                   
+                             corp                
+                             us                  
+                             data                
+                             with                
+                             hugg                
+                             ingf                
+                             ace                 
+                             mode                
+                             l.                  
+                    INFO     [ev evaluator.py:204
+                             alu                 
+                             ato                 
+                             r.p                 
+                             y:2                 
+                             04]                 
+                              >>                 
+                             Run                 
+                             nin                 
+                             g                   
+                             nod                 
+                             e                   
+                             lin                 
+                             e                   
+                             sem                 
+                             ant                 
+                             ic_                 
+                             che                 
+                             ck.                 
+                             ..                  
+                    INFO     [node.py: node.py:55
+                             55] >>              
+                             Running             
+                             node                
+                             semantic_           
+                             retrieval           
+                             ...                 
+                    INFO     [base.py: base.py:18
+                             18] >>              
+                             Initializ           
+                             e                   
+                             retrieval           
+                             node -              
+                             VectorDB            
+                    INFO     [base.py: base.py:31
+                             31] >>              
+                             Running             
+                             retrieval           
+                             node -              
+                             VectorDB            
+                             module...           
+                    INFO     [base.py: base.py:28
+                             28] >>              
+                             Deleting            
+                             retrieval           
+                             node -              
+                             VectorDB            
+                             module...           
+                    INFO     [ev evaluator.py:219
+                             alu                 
+                             ato                 
+                             r.p                 
+                             y:2                 
+                             19]                 
+                              >>                 
+                             Eva                 
+                             lua                 
+                             tio                 
+                             n                   
+                             com                 
+                             ple                 
+                             te.                 
+                    INFO     [val validator.py:98
+                             idat                
+                             or.p                
+                             y:98                
+                             ] >>                
+                             Vali                
+                             dati                
+                             on                  
+                             comp                
+                             lete                
+                             .                   
+                    INFO     [posth posthog.py:22
+                             og.py:              
+                             22] >>              
+                             Anonym              
+                             ized                
+                             teleme              
+                             try                 
+                             enable              
+                             d. See              
+                             https:              
+                             //docs              
+                             .trych              
+                             roma.c              
+                             om/tel              
+                             emetry              
+                              for                
+                             more                
+                             inform              
+                             ation.              
+[03/23/26 10:23:14] INFO     [vec vectordb.py:284
+                             tord                
+                             b.py                
+                             :284                
+                             ] >>                
+                             Star                
+                             t                   
+                             embe                
+                             ddin                
+                             g                   
+                             corp                
+                             us                  
+                             data                
+                             with                
+                             hugg                
+                             ingf                
+                             ace                 
+                             mode                
+                             l.                  
+Batches:   0%|          | 0/54 [00:00<?, ?it/s]Batches:   2%|▏         | 1/54 [00:01<01:43,  1.96s/it]Batches:   4%|▎         | 2/54 [00:04<01:46,  2.04s/it]Batches:   6%|▌         | 3/54 [00:07<02:08,  2.52s/it]Batches:   7%|▋         | 4/54 [00:08<01:52,  2.24s/it]Batches:   9%|▉         | 5/54 [00:13<02:30,  3.07s/it]Batches:  11%|█         | 6/54 [00:15<02:09,  2.70s/it]Batches:  13%|█▎        | 7/54 [00:17<01:49,  2.33s/it]Batches:  15%|█▍        | 8/54 [00:18<01:36,  2.10s/it]Batches:  17%|█▋        | 9/54 [00:19<01:21,  1.81s/it]Batches:  19%|█▊        | 10/54 [00:20<01:09,  1.58s/it]Batches:  20%|██        | 11/54 [00:21<00:58,  1.37s/it]Batches:  22%|██▏       | 12/54 [00:22<00:51,  1.23s/it]Batches:  24%|██▍       | 13/54 [00:23<00:45,  1.10s/it]Batches:  26%|██▌       | 14/54 [00:24<00:40,  1.01s/it]Batches:  28%|██▊       | 15/54 [00:25<00:39,  1.01s/it]Batches:  30%|██▉       | 16/54 [00:26<00:36,  1.04it/s]Batches:  31%|███▏      | 17/54 [00:26<00:30,  1.20it/s]Batches:  33%|███▎      | 18/54 [00:27<00:26,  1.34it/s]Batches:  35%|███▌      | 19/54 [00:27<00:23,  1.52it/s]Batches:  37%|███▋      | 20/54 [00:28<00:20,  1.67it/s]Batches:  39%|███▉      | 21/54 [00:28<00:18,  1.77it/s]Batches:  41%|████      | 22/54 [00:29<00:16,  1.90it/s]Batches:  43%|████▎     | 23/54 [00:29<00:14,  2.07it/s]Batches:  44%|████▍     | 24/54 [00:29<00:13,  2.19it/s]Batches:  46%|████▋     | 25/54 [00:30<00:12,  2.34it/s]Batches:  48%|████▊     | 26/54 [00:30<00:11,  2.45it/s]Batches:  50%|█████     | 27/54 [00:30<00:10,  2.45it/s]Batches:  52%|█████▏    | 28/54 [00:31<00:09,  2.62it/s]Batches:  54%|█████▎    | 29/54 [00:31<00:09,  2.69it/s]Batches:  56%|█████▌    | 30/54 [00:32<00:08,  2.75it/s]Batches:  57%|█████▋    | 31/54 [00:32<00:07,  2.90it/s]Batches:  59%|█████▉    | 32/54 [00:32<00:07,  3.00it/s]Batches:  61%|██████    | 33/54 [00:32<00:06,  3.05it/s]Batches:  63%|██████▎   | 34/54 [00:33<00:06,  3.13it/s]Batches:  65%|██████▍   | 35/54 [00:33<00:05,  3.20it/s]Batches:  67%|██████▋   | 36/54 [00:33<00:05,  3.27it/s]Batches:  69%|██████▊   | 37/54 [00:34<00:05,  3.34it/s]Batches:  70%|███████   | 38/54 [00:34<00:04,  3.52it/s]Batches:  72%|███████▏  | 39/54 [00:34<00:04,  3.64it/s]Batches:  74%|███████▍  | 40/54 [00:34<00:03,  4.10it/s]Batches:  76%|███████▌  | 41/54 [00:34<00:03,  4.25it/s]Batches:  78%|███████▊  | 42/54 [00:35<00:02,  4.25it/s]Batches:  80%|███████▉  | 43/54 [00:35<00:02,  4.43it/s]Batches:  81%|████████▏ | 44/54 [00:35<00:02,  4.38it/s]Batches:  83%|████████▎ | 45/54 [00:35<00:02,  4.45it/s]Batches:  85%|████████▌ | 46/54 [00:36<00:01,  4.63it/s]Batches:  87%|████████▋ | 47/54 [00:36<00:01,  4.72it/s]Batches:  89%|████████▉ | 48/54 [00:36<00:01,  4.97it/s]Batches:  91%|█████████ | 49/54 [00:36<00:00,  5.47it/s]Batches:  93%|█████████▎| 50/54 [00:36<00:00,  6.06it/s]Batches:  94%|█████████▍| 51/54 [00:36<00:00,  6.51it/s]Batches:  96%|█████████▋| 52/54 [00:36<00:00,  6.81it/s]Batches:  98%|█████████▊| 53/54 [00:37<00:00,  7.06it/s]Batches: 100%|██████████| 54/54 [00:37<00:00,  1.45it/s]
+[03/23/26 10:23:53] INFO     [vec vectordb.py:292
+                             tord                
+                             b.py                
+                             :292                
+                             ] >>                
+                             Fini                
+                             sh                  
+                             embe                
+                             ddin                
+                             g &                 
+                             inge                
+                             stin                
+                             g                   
+                             corp                
+                             us                  
+                             data                
+                             with                
+                             hugg                
+                             ingf                
+                             ace                 
+                             mode                
+                             l.                  
+                    INFO     [ev evaluator.py:204
+                             alu                 
+                             ato                 
+                             r.p                 
+                             y:2                 
+                             04]                 
+                              >>                 
+                             Run                 
+                             nin                 
+                             g                   
+                             nod                 
+                             e                   
+                             lin                 
+                             e                   
+                             sem                 
+                             ant                 
+                             ic_                 
+                             che                 
+                             ck.                 
+                             ..                  
+                    INFO     [node.py: node.py:55
+                             55] >>              
+                             Running             
+                             node                
+                             semantic_           
+                             retrieval           
+                             ...                 
+                    INFO     [base.py: base.py:18
+                             18] >>              
+                             Initializ           
+                             e                   
+                             retrieval           
+                             node -              
+                             VectorDB            
+                    INFO     [base.py: base.py:31
+                             31] >>              
+                             Running             
+                             retrieval           
+                             node -              
+                             VectorDB            
+                             module...           
+[03/23/26 10:24:02] INFO     [base.py: base.py:28
+                             28] >>              
+                             Deleting            
+                             retrieval           
+                             node -              
+                             VectorDB            
+                             module...           
+                    INFO     [ev evaluator.py:219
+                             alu                 
+                             ato                 
+                             r.p                 
+                             y:2                 
+                             19]                 
+                              >>                 
+                             Eva                 
+                             lua                 
+                             tio                 
+                             n                   
+                             com                 
+                             ple                 
+                             te.                 

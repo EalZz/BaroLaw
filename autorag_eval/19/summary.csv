@@ -1,0 +1,4 @@
+node_line_name,node_type,best_module_filename,best_module_name,best_module_params,best_execution_time
+hybrid_retrieval_line,lexical_retrieval,0.parquet,BM25,{'bm25_tokenizer': 'ko_kiwi'},3.234753915786744
+hybrid_retrieval_line,semantic_retrieval,0.parquet,VectorDB,"{'top_k': 50, 'vectordb': 'barolaw_vector'}",0.0681884212493896
+hybrid_retrieval_line,hybrid_retrieval,0.parquet,HybridRRF,"{'top_k': 30, 'weight': 4.0}",1.3607424564361572

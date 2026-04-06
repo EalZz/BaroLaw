@@ -1,0 +1,12 @@
+# [BaroLaw] AutoRAG Minimal Integrated Test
+node_lines:
+  - node_line_name: simple_retrieve
+    nodes:
+      - node_type: retrieval
+        strategy:
+          metrics: [retrieval_recall]
+          top_k: 30
+        modules:
+          - module_type: bm25
+          - module_type: vectordb
+            embedding_model: jhgan/ko-sroberta-multitask
