@@ -112,10 +112,8 @@ class LegalPreprocessor:
                 "is_multiturn_continuation": False
             }
 
-    def _purify_keywords(self, keywords: List[str], original_query: str, category: Optional[LegalCategory] = None) -> List[str]:
-        """도메인 실드: 사기 사건에서 교통 키워드 강제 제거."""
-        import re
-        clean_keywords = []
+
+    # [v9.0 Phase 1] 중복 정의된 _purify_keywords 메서드 삭제 (Cleanup)
     def _purify_keywords(self, keywords: List[str], original_query: str, category: Optional[LegalCategory] = None) -> List[str]:
         """도메인 실드: 특정 도메인에서 고스트 키워드 강제 제거."""
         import re
@@ -127,9 +125,16 @@ class LegalPreprocessor:
             kw = str(kw).strip()
             if not kw: continue
             
-            # 도메인 실드 적용
+            # [v9.0 Phase 2] 도메인 실드 양방향 확장: 특정 도메인에서 고스트 키워드 강제 제거
             if category and str(category.value) in targets:
                 if any(ghost in kw for ghost in ghosts):
+                    continue
+            
+            # [v9.0 Phase 2] 역방향 도메인 실드: TRAFFIC/REAL_ESTATE 도메인에서 형법 키워드 필터링
+            criminal_targets = self.shield_config.get('criminal_targets', [])
+            criminal_ghosts = self.shield_config.get('criminal_ghosts', [])
+            if category and str(category.value) in criminal_targets:
+                if any(ghost in kw for ghost in criminal_ghosts):
                     continue
 
             if any(x in kw for x in ["법", "조", "제"]):

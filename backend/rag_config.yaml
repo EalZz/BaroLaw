@@ -26,7 +26,8 @@ limits:
 scoring:
   weights:
     domain_boost: 0.5
-    special_law_boost: 0.3
+    # [v9.0 Phase 2] 특별법 우선순위 강화를 위한 가중치 상향 (0.3 -> 0.6)
+    special_law_boost: 0.6
     history_match_boost: 5.0
     history_name_only_boost: 1.0
     article_num_boost: 1.5
@@ -44,19 +45,21 @@ scoring:
     vector_weight: 0.51
 
 # 2. Domain/Category Law Boosting Weights (v8.53 Stable Baseline)
+# [v9.0 Phase 2] 경범죄 처벌법 보강 및 형법 노이즈 감점 최적화
 category_boost:
   FRAUD:
     "형법": 0.8
     "특정경제범죄 가중처벌 등에 관한 법률": 0.5
     "전자금융거래법": 0.4
-    "도로교통법": -0.6
-    "자동차손해배상 보장법": -0.4
-  CRIMINAL:
-    "형법": 0.6
-    "스토킹범죄의 처벌 등에 관한 법률": 0.6
-    "동물보호법": 0.8
-    "학교폭력예방 및 대책에 관한 법률": 0.8
+    "도로교통법": -2.0
+    "자동차손해배상 보장법": -2.0
     "경범죄 처벌법": 0.5
+  CRIMINAL:
+    "형법": 0.5
+    "스토킹범죄의 처벌 등에 관한 법률": 0.6
+    "동물보호법": 0.9
+    "학교폭력예방 및 대책에 관한 법률": 0.8
+    "경범죄 처벌법": 0.7
     "정보통신망 이용촉진 및 정보보호 등에 관한 법률": 0.5
     "통신비밀보호법": 0.6
   TRAFFIC:
@@ -72,6 +75,7 @@ category_boost:
     "공인중개사법": 0.5
     "공동주택관리법": 0.6
     "집합건물의 소유 및 관리에 관한 법률": 0.7
+    "경범죄 처벌법": 0.6
     "도로교통법": -0.6
   DIGITAL:
     "정보통신망 이용촉진 및 정보보호 등에 관한 법률": 0.6
@@ -113,7 +117,15 @@ refinement:
     "중고차": ["FRAUD", "CRIMINAL"]
     "보험": ["FRAUD", "TRAFFIC"]
 
-  # [v3.9] 도메인 실드 설정 (TRAFFIC_GHOSTS)
+  # [v9.0 Phase 2.2] 도메인 실드 및 결합성 강화 (Substring 매칭 기반)
   domain_shield:
     ghost_keywords: ["교통사고", "도로교통법", "운전", "단속", "면허", "음주운전", "보복운전"]
     target_domains: ["FRAUD", "REAL_ESTATE"]
+    criminal_ghosts: ["형법 제273조", "학대", "사기", "명의"]
+    criminal_targets: ["TRAFFIC", "REAL_ESTATE"]
+    strong_linkage_laws: ["형법", "동물보호법", "특정범죄 가중처벌 등에 관한 법률", "도로교통법", "주택임대차보호법", "경범죄 처벌법"]
+  # [v9.0 Phase 2.3] Sniper Retrieval: 사기죄 등 실종되는 기초 법령 강제 회수 목록
+  baseline_injection:
+    'FRAUD': ['형법 제347조', '형법 제355조']
+    'CRIMINAL': ['형법 제329조', '형법 제260조']
+    'REAL_ESTATE': ['민법 제623조', '주택임대차보호법 제3조']

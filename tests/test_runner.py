@@ -69,42 +69,60 @@ def stream_chat(user_input, session_id):
 def calculate_rag_score(expected_statute, retrieved_text):
     """
     RAG 검색 결과 점수 계산 (1.0 / 0.8 / 0.5)
-    retrieved_text: RAG 엔진이 반환한 원본 텍스트 (조문 번호 포함)
     """
     if not retrieved_text: return 0.0
+    
+    # [v9.0 Phase 1] 법령 약칭 동기화 매핑 (v8.53) 및 정식 명칭 매칭 로직 보강
+    SYNONYMS = {
+        "집합건물법": "집합건물의 소유 및 관리에 관한 법률",
+        "특가법": "특정범죄 가중처벌 등에 관한 법률",
+        "교특법": "교통사고처리 특례법",
+        "주임법": "주택임대차보호법",
+        "상임법": "상가건물 임대차보호법",
+        "도교법": "도로교통법",
+        "정통망법": "정보통신망 이용촉진 및 정보보호 등에 관한 법률",
+        "학폭법": "학교폭력예방 및 대책에 관한 법률"
+    }
     
     # [수정] 조가 없는 경우 (예: "형법", "민법") → law name만 매칭되면 1.0
     if not re.search(r'제?\s*\d+\s*조', expected_statute):
         law_clean = expected_statute.replace(" ", "")
         target_clean = retrieved_text.replace(" ", "")
+        for short, full in SYNONYMS.items():
+            if short in law_clean: law_clean = full.replace(" ", "")
         if law_clean in target_clean:
             return 1.0
         return 0.0
     
-    # 기존 로직: 법률명 + 조문번호 추출
-    # 1. 법률명 추출 (예: "형법 제347조" -> "형법")
-    law_match = re.match(r'^([가-힣\s]+ 법률?|형법|민법|상법|집합건물법|주택임대차보호법|상가건물 임대차보호법)', expected_statute)
+    # 1. 법률명 추출
+    law_match = re.match(r'^([가-힣\s]+ 법률?|형법|민법|상법|집합건물법|주택임대차보호법|상가건물 임대차보호법|경범죄 처벌법)', expected_statute)
     law_name = law_match.group(1).strip() if law_match else expected_statute
     
-    # 2. 조문 번호 추출 (예: "제347조")
+    # 2. 조문 번호 추출
     article_match = re.search(r'제?\s*(\d+)\s*조', expected_statute)
     article_num = article_match.group(1) if article_match else None
 
-    # 가공된 텍스트와 비교 (공백 제거)
+    # 가공된 텍스트와 비교
     target_clean = retrieved_text.replace(" ", "")
     law_clean = law_name.replace(" ", "")
+    
+    # 약칭 치환
+    for short, full in SYNONYMS.items():
+        if short in law_clean:
+            law_clean = full.replace(" ", "")
+            break
 
-    # [1.0] 법률명 + 조문번호 완벽 일치 (Exact Match)
+    # [1.0] Exact Match
     if article_num:
-        pattern = rf"{re.escape(law_clean)}.*제?\s*{article_num}\s*조"
-        if re.search(pattern, target_clean) or (law_clean in target_clean and f"제{article_num}조" in target_clean):
+        if (law_clean in target_clean and f"제{article_num}조" in target_clean) or \
+           (law_clean in target_clean and f"{article_num}조" in target_clean):
             return 1.0
 
-    # [0.8] 법률명 일치 (Law Match) - UI 노출시 유효 범위
+    # [0.8] Law Match
     if law_clean in target_clean:
         return 0.8
 
-    # [0.5] 관련 분야 매칭 (Ambiguous Match)
+    # [0.5] Ambiguous Match
     keywords = [k for k in re.split(r'[\s,]+', law_name) if len(k) >= 2]
     if any(k in target_clean for k in keywords):
         return 0.5

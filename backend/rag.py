@@ -25,7 +25,7 @@ CONFIG_PATH = os.path.join(BASE_DIR, "rag_config.yaml")
 
 # ------------------------------------------------------------
 # 0. Domain Boost Config
-# ------------------------------------------------------------ㅛ
+# ------------------------------------------------------------
 # ------------------------------------------------------------
 # [v8.53 Stable - Dynamic Loading]
 # Note: LEGAL_SYNONYMS, DOMAIN_CROSSOVER_MAP are now loaded from rag_config.yaml
@@ -124,7 +124,7 @@ class ContextBuilder:
     def __init__(self, max_results: int):
         self.max_results = max_results
         
-    def build(self, corpus: List[Dict], rerank_results: List[Tuple[int, float]], category_law_boost: Dict[str, Any], category: str = None, candidate_categories: List[str] = None) -> List[Dict]:
+    def build(self, corpus: List[Dict], rerank_results: List[Tuple[int, float]], category_law_boost: Dict[str, Any], category: str = None, candidate_categories: List[str] = None, legal_keywords: List[str] = None, shield_config: Dict[str, Any] = None) -> List[Dict]:
         all_results = []
         seen = set()
         for idx, rerank_score in rerank_results:
@@ -143,15 +143,31 @@ class ContextBuilder:
                 if cat in category_law_boost:
                     cat_boost = category_law_boost[cat].get(base_law_name, 0.0)
                     boost_score = max(boost_score, cat_boost)
+
+            # [v9.0 Phase 2.2] Exclusive Penalty: Substring 매칭으로 로직 정상화
+            if shield_config and legal_keywords:
+                # 동사/명사 구절 내 핵심 단어(동물, 강아지...) 포착
+                if any(any(x in k for x in ["동물", "강아지", "고양이", "반려"]) for k in legal_keywords):
+                    if "형법" in full_law_name and "학대" in full_law_name:
+                        boost_score -= 1.0
+                
+                # 사기/명의 관련 구절 내 사기성 키워드 포착 시 교통법 차단
+                if any(any(x in k for x in ["사기", "명의", "대출", "편취", "조작", "딜러"]) for k in legal_keywords):
+                    if any(bad in full_law_name for bad in ["도로교통법", "자동차손해배상 보장법"]):
+                        boost_score -= 2.5
             
             final_score = rerank_score + boost_score
             
-            # [v8.65] Strong Linkage Boost: 전처리기 키워드와 법령명이 직접 매칭될 경우 추가 가중치
-            if candidate_categories: # 리스트 형태일 때 (진단 등)
-                keywords = [] 
-            else: # 일반 검색 시 keywords는 상위 레벨에서 관리됨 (필요시 파라미터 확장 가능)
-                # 여기서는 law_name 자체가 키워드로 들어오는 경우를 대비
-                pass
+            # [v9.0 Phase 2.2] Strong Linkage Boost: 리랭킹 이후 정식 명칭 포함 시 상단 견인
+            if shield_config and legal_keywords:
+                strong_laws = shield_config.get('strong_linkage_laws', [])
+                for target_law in strong_laws:
+                    if target_law in full_law_name:
+                        # [Fix] 2글자 법령(형법, 민법) 및 구절 내 매칭 보강
+                        if any(target_law in kw for kw in legal_keywords):
+                            final_score += 1.5 
+                        else:
+                            final_score += 0.5
 
             all_results.append({
                 "id": item.get('doc_id'),
@@ -202,35 +218,61 @@ class LegalRAGPipeline:
         self.bm25_retriever = BM25Retriever(self.corpus, self.preprocessor, top_k=retrieval_k)
         self.vector_retriever = VectorRetriever(self.corpus, top_k=retrieval_k)
         self.rrf_fusion = HybridRRF(weight=rrf_weight, top_k=retrieval_k * 2) 
-        self.reranker = Reranker(model_name=reranker_name, top_k=30)
+        self.reranker = Reranker(model_name=reranker_name, top_k=30) # [v8.53 Baseline] 후보군 30개로 원복하여 누락 방지
         self.context_builder = ContextBuilder(max_results=top_statutes)
         refinement = config.get('refinement', {})
         self.legal_synonyms = refinement.get('legal_synonyms', {})
         self.domain_crossover = refinement.get('domain_crossover', {})
         self.category_law_boost = config.get('category_boost', {})
+        self.domain_shield_config = config.get('refinement', {}).get('domain_shield', {})
         self.initialized = True
 
     def search(self, query: str, category: str = None, original_query: str = None, candidate_categories: List[str] = None, legal_keywords: List[str] = None) -> Dict[str, Any]:
         if not self.initialized: self.initialize()
-        def _get_statutes(q, cats, keywords):
+        def _get_statutes(q, cats, keywords, injection_targets=None):
             bm25_res = self.bm25_retriever.search(q)
             vector_res = self.vector_retriever.search(q)
             fused_indices = self.rrf_fusion.fuse(bm25_res, vector_res)
-            reranked_res = self.reranker.rerank(q, self.corpus, fused_indices)
-            return self.context_builder.build(self.corpus, reranked_res, self.category_law_boost, category, cats)
+            
+            # [v9.0 Phase 2.3] Sniper Retrieval: 실종된 기초 법령 강제 주입
+            if injection_targets:
+                injected_count = 0
+                for target in injection_targets:
+                    # target 형태: "형법 제347조"
+                    for idx, item in enumerate(self.corpus):
+                        meta = item.get('metadata', {})
+                        law = str(meta.get('law_name') or "")
+                        art = str(meta.get('article') or "")
+                        if target in f"{law} {art}":
+                            if idx not in fused_indices:
+                                fused_indices.insert(0, idx) # 최상단 주입하여 리랭킹 기회 보장
+                                injected_count += 1
+                                break
+                if injected_count > 0:
+                    logger.info(f"[Phase 2.3] Sniper Retrieval: {injected_count} statutes injected.")
 
-        # [v8.53 Fix] LLM 키워드가 포함된 쿼리를 우선 사용하도록 수정
-        search_query = query
+            reranked_res = self.reranker.rerank(q, self.corpus, fused_indices)
+            return self.context_builder.build(self.corpus, reranked_res, self.category_law_boost, category, cats, keywords, self.domain_shield_config)
+
+        search_query = query # [v8.53 Fix] 초기화 보장
         
+        # [v9.0 Phase 2.3] Query Expansion: FRAUD 감지 시 핵심 범죄 용어 자동 확장
+        if category == "FRAUD":
+            search_query += " 기망 편취 재산상 이익"
+        
+        # [v9.0 Phase 2.3] Baseline Injection 대상 준비
+        injection_map = self.domain_shield_config.get('baseline_injection', {}) # Note: Added to end of yaml
+        injection_targets = injection_map.get(category, []) if category else []
+
         # 키워드 보정 (약칭 -> 정석 명칭)
         final_keywords = []
         if legal_keywords:
             for kw in legal_keywords:
                 final_keywords.append(self.legal_synonyms.get(kw, kw))
         
-        statutes = _get_statutes(search_query, candidate_categories, final_keywords)
+        statutes = _get_statutes(search_query, candidate_categories, final_keywords, injection_targets)
         if (not statutes or len(statutes) < 2) and original_query and original_query != query:
-            statutes = _get_statutes(original_query, candidate_categories, final_keywords)
+            statutes = _get_statutes(original_query, candidate_categories, final_keywords, injection_targets)
         return {"statutes": statutes}
 
 def search_relevant_context(
