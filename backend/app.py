@@ -266,12 +266,37 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
         if context_data.get("is_new_session"):
             asyncio.create_task(update_session_title_in_background(sid_str, user_text))
 
-        # [Step 2] v6 MVP: LLM이 직접 태그를 생성하므로 백엔드 수동 결합 제외
-        # (단, LLM이 태그 생성을 거부할 경우를 대비한 가이드만 RAG 컨텍스트에 포함)
+        # [Step 2] 앱 UI용 법적 근거 및 테스트용 메타데이터 준비
+        rag_results = context_data["rag_results"]
+        legal_basis_content = ""
+        legal_details_content = ""
         rag_engine_raw_str = ""
-        if context_data["rag_results"].get("statutes"):
-            raw_statutes = [f"{s['law_name']} {s['article']}" for s in context_data["rag_results"]["statutes"]]
+        
+        if rag_results.get("statutes"):
+            # 1. 앱용 태그 조립 (UI 리스트)
+            legal_basis_content = (
+                "\n\n---[LEGAL_BASIS]---\n"
+                "⚖️ **법적 근거 및 참고 문헌**\n" + 
+                "\n".join([f"- {s['law_name']} {s['article']}" for s in rag_results["statutes"]])
+            )
+            
+            # 2. 앱용 태그 조립 (상세 팝업 JSON)
+            details = [
+                {
+                    "title": f"{s['law_name']} {s['article']}", 
+                    "content": s.get('content', '상세 내용이 없습니다.')
+                } for s in rag_results["statutes"]
+            ]
+            legal_details_content = f"\n---[LEGAL_DETAILS]---\n{json.dumps(details, ensure_ascii=False)}"
+            
+            # 3. 테스트 엔진용 태그 조립
+            raw_statutes = [f"{s['law_name']} {s['article']}" for s in rag_results["statutes"]]
             rag_engine_raw_str = f"\n---[RAG_ENGINE_RESULT]---\n" + "|".join(raw_statutes)
+        elif rag_results.get("qa"):
+            legal_basis_content = (
+                "\n\n---[LEGAL_BASIS]---\n"
+                "📌 **참고 자료**\n- 국가 법령 정보 및 생활법률 상담 가이드라인"
+            )
 
         # [Step 3] LLM 스트리밍
         system_msg_full = MAIN_ENGINE_SYSTEM_PROMPT + f"{context_data['rag_context']}\n\n[현재 시각]: {current_time}"
@@ -303,7 +328,11 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
                                 accumulated_resp = re.sub(r'^Thinking\.{0,3}\s*', '', accumulated_resp) or "상담 결과를 생성했습니다."
                                 yield build_sse_payload(accumulated_resp, is_replacement=True)
                             
-                            # v6 MVP: LLM이 생성한 스트림 내에 이미 태그가 포함되어 있음
+                            # [UI 복구] 안드로이드 앱 인식용 태그 전송
+                            if legal_basis_content: yield build_sse_payload(legal_basis_content)
+                            if legal_details_content: yield build_sse_payload(legal_details_content)
+                            
+                            # [테스트 평가] 테스트 엔진용 태그 전송 (앱에서는 무시됨)
                             if rag_engine_raw_str: yield build_sse_payload(rag_engine_raw_str)
                             
                             # [v2.5] RAG 메타데이터(카테고리, 키워드, 요약) 전송
