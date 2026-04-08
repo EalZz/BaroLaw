@@ -6,7 +6,7 @@ import yaml
 import re
 import numpy as np
 import pandas as pd
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, Set
 from collections import defaultdict
 from rank_bm25 import BM25Okapi
 from sentence_transformers import SentenceTransformer, CrossEncoder
@@ -23,26 +23,11 @@ CORPUS_PATH = os.path.join(DATA_DIR, "corpus.parquet")
 CACHE_PATH = os.path.join(DATA_DIR, "corpus_embeddings.pt")
 CONFIG_PATH = os.path.join(BASE_DIR, "rag_config.yaml")
 
-# ------------------------------------------------------------
-# 0. Domain Boost Config
-# ------------------------------------------------------------
-# ------------------------------------------------------------
-# [v8.53 Stable - Dynamic Loading]
-# Note: LEGAL_SYNONYMS, DOMAIN_CROSSOVER_MAP are now loaded from rag_config.yaml
-
-
-# ------------------------------------------------------------
-# 1. Config Loader
-# ------------------------------------------------------------
 def load_rag_config():
     if os.path.exists(CONFIG_PATH):
         with open(CONFIG_PATH, "r", encoding="utf-8") as f:
             return yaml.safe_load(f)
     return {}
-
-# ------------------------------------------------------------
-# 2. Components
-# ------------------------------------------------------------
 
 class QueryPreprocessor:
     def __init__(self):
@@ -124,7 +109,16 @@ class ContextBuilder:
     def __init__(self, max_results: int):
         self.max_results = max_results
         
-    def build(self, corpus: List[Dict], rerank_results: List[Tuple[int, float]], category_law_boost: Dict[str, Any], category: str = None, candidate_categories: List[str] = None, legal_keywords: List[str] = None, shield_config: Dict[str, Any] = None) -> List[Dict]:
+    def build(self, 
+              corpus: List[Dict[str, Any]], 
+              rerank_results: List[Tuple[int, float]], 
+              category_law_boost: Dict[str, Dict[str, float]], 
+              category: str = None, 
+              candidate_categories: List[str] = None, 
+              legal_keywords: List[str] = None, 
+              shield_config: Dict[str, Any] = None, 
+              injected_ids: Set[int] = None) -> List[Dict[str, Any]]:
+        injected_ids = injected_ids or set()
         all_results = []
         seen = set()
         for idx, rerank_score in rerank_results:
@@ -136,34 +130,42 @@ class ContextBuilder:
             if key in seen: continue
             seen.add(key)
             
-            # [v8.1] 하이브리드 부스팅: 후보 도메인 중 하나라도 매칭되면 가중치 부여
             boost_score = 0.0
             search_cats = candidate_categories if candidate_categories else ([category] if category else [])
             for cat in search_cats:
                 if cat in category_law_boost:
-                    cat_boost = category_law_boost[cat].get(base_law_name, 0.0)
-                    boost_score = max(boost_score, cat_boost)
+                    target_boosts = category_law_boost[cat]
+                    boost_val = target_boosts.get(full_law_name) 
+                    if boost_val is None:
+                        boost_val = target_boosts.get(base_law_name, 0.0)
+                    boost_score += boost_val
 
-            # [v9.0 Phase 2.2] Exclusive Penalty: Substring 매칭으로 로직 정상화
+            # [v9.0 Phase 2.8.1] Exclusive Penalty & Traffic Correction
             if shield_config and legal_keywords:
-                # 동사/명사 구절 내 핵심 단어(동물, 강아지...) 포착
+                # 동물학대 시 형법 제273조 페널티
                 if any(any(x in k for x in ["동물", "강아지", "고양이", "반려"]) for k in legal_keywords):
-                    if "형법" in full_law_name and "학대" in full_law_name:
-                        boost_score -= 1.0
-                
-                # 사기/명의 관련 구절 내 사기성 키워드 포착 시 교통법 차단
-                if any(any(x in k for x in ["사기", "명의", "대출", "편취", "조작", "딜러"]) for k in legal_keywords):
-                    if any(bad in full_law_name for bad in ["도로교통법", "자동차손해배상 보장법"]):
-                        boost_score -= 2.5
-            
+                    if "형법" in full_law_name and ("제273조" in full_law_name or "학대" in full_law_name):
+                        boost_score -= 5.0 # 동물보호법 1위 보장 위해 강화
+
+                # 미세 교통 위반 시 특가법 페널티 (도로교통법 정답 보호)
+                if category == "TRAFFIC" or any("TRAFFIC" == c for c in (candidate_categories or [])):
+                    critical_traffic = ["치사", "도주", "음주운전", "어린이보호구역", "위험운전"]
+                    if not any(any(c in k for c in critical_traffic) for k in legal_keywords):
+                        if "특정범죄 가중처벌" in full_law_name:
+                            boost_score -= 2.5 # 단순 법규 위반 시 특가법을 하단으로 밀어냄
+
+            # [v9.0 Phase 2.8.1] Sniper Anchoring Mega-Boost
+            if idx in injected_ids:
+                boost_score += 50.0 
+                logger.info(f"[Sniper] Mega-Boost applied to: {full_law_name}")
+
             final_score = rerank_score + boost_score
             
-            # [v9.0 Phase 2.2] Strong Linkage Boost: 리랭킹 이후 정식 명칭 포함 시 상단 견인
+            # Strong Linkage Boost
             if shield_config and legal_keywords:
                 strong_laws = shield_config.get('strong_linkage_laws', [])
                 for target_law in strong_laws:
                     if target_law in full_law_name:
-                        # [Fix] 2글자 법령(형법, 민법) 및 구절 내 매칭 보강
                         if any(target_law in kw for kw in legal_keywords):
                             final_score += 1.5 
                         else:
@@ -180,17 +182,15 @@ class ContextBuilder:
                 "_boost_score": boost_score,
                 "_final_score": final_score
             })
+        
         all_results.sort(key=lambda x: x["_final_score"], reverse=True)
         statutes = [r for r in all_results if r.get('source') == 'statutes']
         qa = [r for r in all_results if r.get('source') != 'statutes']
+        
         s_count = int(self.max_results * 0.7)
         q_count = self.max_results - s_count
         results = statutes[:s_count] + qa[:q_count]
         return results[:self.max_results]
-
-# ------------------------------------------------------------
-# 3. Main Pipeline
-# ------------------------------------------------------------
 
 class LegalRAGPipeline:
     _instance = None
@@ -218,132 +218,110 @@ class LegalRAGPipeline:
         self.bm25_retriever = BM25Retriever(self.corpus, self.preprocessor, top_k=retrieval_k)
         self.vector_retriever = VectorRetriever(self.corpus, top_k=retrieval_k)
         self.rrf_fusion = HybridRRF(weight=rrf_weight, top_k=retrieval_k * 2) 
-        self.reranker = Reranker(model_name=reranker_name, top_k=30) # [v8.53 Baseline] 후보군 30개로 원복하여 누락 방지
+        self.reranker = Reranker(model_name=reranker_name, top_k=30) 
         self.context_builder = ContextBuilder(max_results=top_statutes)
-        refinement = config.get('refinement', {})
-        self.legal_synonyms = refinement.get('legal_synonyms', {})
-        self.domain_crossover = refinement.get('domain_crossover', {})
         self.category_law_boost = config.get('category_boost', {})
         self.domain_shield_config = config.get('refinement', {}).get('domain_shield', {})
+        self.baseline_injection = config.get('refinement', {}).get('baseline_injection', {})
+        self.triggered_injection = config.get('refinement', {}).get('triggered_injection', [])
+        self.legal_synonyms = config.get('refinement', {}).get('legal_synonyms', {})
+        self.domain_crossover = config.get('refinement', {}).get('domain_crossover', {})
         self.initialized = True
 
     def search(self, query: str, category: str = None, original_query: str = None, candidate_categories: List[str] = None, legal_keywords: List[str] = None) -> Dict[str, Any]:
         if not self.initialized: self.initialize()
-        def _get_statutes(q, cats, keywords, injection_targets=None):
+        def _get_statutes(q, cats, keywords, injection_targets=None, triggered_injection=None):
+            injected_ids = set()
             bm25_res = self.bm25_retriever.search(q)
             vector_res = self.vector_retriever.search(q)
             fused_indices = self.rrf_fusion.fuse(bm25_res, vector_res)
             
-            # [v9.0 Phase 2.3] Sniper Retrieval: 실종된 기초 법령 강제 주입
+            # Baseline Sniper Tow-in
             if injection_targets:
-                injected_count = 0
                 for target in injection_targets:
-                    # target 형태: "형법 제347조"
+                    clean_target = target.replace(" ", "")
                     for idx, item in enumerate(self.corpus):
-                        meta = item.get('metadata', {})
-                        law = str(meta.get('law_name') or "")
-                        art = str(meta.get('article') or "")
-                        if target in f"{law} {art}":
-                            if idx not in fused_indices:
-                                fused_indices.insert(0, idx) # 최상단 주입하여 리랭킹 기회 보장
-                                injected_count += 1
-                                break
-                if injected_count > 0:
-                    logger.info(f"[Phase 2.3] Sniper Retrieval: {injected_count} statutes injected.")
+                        corpus_str = f"{str(item.get('metadata', {}).get('law_name'))}{str(item.get('metadata', {}).get('article'))}".replace(" ", "")
+                        if clean_target in corpus_str:
+                            if idx in fused_indices: fused_indices.remove(idx)
+                            fused_indices.insert(0, idx)
+                            injected_ids.add(idx)
+                            break
+
+            # [v9.0 Phase 2.8.2] Triggered Sniper Tow-in: 리스트 완전 순회 및 강제 견인 (Fixed Mapping)
+            if triggered_injection and isinstance(triggered_injection, list) and keywords:
+                for conf in triggered_injection:
+                    target_cat = conf.get("category")
+                    if any(target_cat == c for c in cats) if cats else (target_cat == category):
+                        trigger_kws = conf.get("keywords", [])
+                        if any(any(tk in k for tk in trigger_kws) for k in keywords):
+                            inject_list = conf.get("inject", [])
+                            for target in inject_list:
+                                clean_target = target.replace(" ", "")
+                                for idx, item in enumerate(self.corpus):
+                                    corpus_str = f"{str(item.get('metadata', {}).get('law_name'))}{str(item.get('metadata', {}).get('article'))}".replace(" ", "")
+                                    if clean_target in corpus_str:
+                                        # 이미 있으면 삭제 후 0번(최상단)으로 이동 (리랭커 노출 보장)
+                                        if idx in fused_indices: fused_indices.remove(idx)
+                                        fused_indices.insert(0, idx)
+                                        injected_ids.add(idx)
+                                        logger.info(f"[Tow-in] Success: {target}")
+                                        break
 
             reranked_res = self.reranker.rerank(q, self.corpus, fused_indices)
-            return self.context_builder.build(self.corpus, reranked_res, self.category_law_boost, category, cats, keywords, self.domain_shield_config)
+            return self.context_builder.build(self.corpus, reranked_res, self.category_law_boost, category, cats, keywords, self.domain_shield_config, injected_ids)
 
-        search_query = query # [v8.53 Fix] 초기화 보장
+        search_query = query
+        if category == "FRAUD": search_query += " 기망 편취 재산상 이익"
+            
+        inj_targets = self.baseline_injection.get(category, []) if category else []
+        final_kws = [self.legal_synonyms.get(kw, kw) for kw in (legal_keywords or [])]
+        trig_map = self.triggered_injection
         
-        # [v9.0 Phase 2.3] Query Expansion: FRAUD 감지 시 핵심 범죄 용어 자동 확장
-        if category == "FRAUD":
-            search_query += " 기망 편취 재산상 이익"
-        
-        # [v9.0 Phase 2.3] Baseline Injection 대상 준비
-        injection_map = self.domain_shield_config.get('baseline_injection', {}) # Note: Added to end of yaml
-        injection_targets = injection_map.get(category, []) if category else []
-
-        # 키워드 보정 (약칭 -> 정석 명칭)
-        final_keywords = []
-        if legal_keywords:
-            for kw in legal_keywords:
-                final_keywords.append(self.legal_synonyms.get(kw, kw))
-        
-        statutes = _get_statutes(search_query, candidate_categories, final_keywords, injection_targets)
-        if (not statutes or len(statutes) < 2) and original_query and original_query != query:
-            statutes = _get_statutes(original_query, candidate_categories, final_keywords, injection_targets)
+        statutes = _get_statutes(search_query, candidate_categories, final_kws, inj_targets, trig_map)
         return {"statutes": statutes}
 
-def search_relevant_context(
-    query: str,
-    original_query: str = None,
-    turn_count: int = 1,
-    llm_keywords: List[str] = None,
-    session_category: str = None,
-    prev_statute_names: List[str] = None
-) -> Dict[str, Any]:
+def search_relevant_context(query, original_query=None, turn_count=1, llm_keywords=None, session_category=None, prev_statute_names=None):
     try:
         pipeline = LegalRAGPipeline()
         search_query = query
-        
-        # [v8.1] 교차 도메인 타겟팅 로직
         candidates = [session_category] if session_category else []
         if llm_keywords:
-            expanded_keywords = []
+            expanded = []
             for kw in llm_keywords:
-                # 약칭 확장
-                if kw in pipeline.legal_synonyms:
-                    expanded_keywords.append(pipeline.legal_synonyms[kw])
-                
-                # 교차 도메인 후보군 추출
+                expanded.append(pipeline.legal_synonyms.get(kw, kw))
                 for trigger, domains in pipeline.domain_crossover.items():
-                    if trigger in kw:
-                        candidates.extend(domains)
-                
-                if len(kw) > 1 and not re.match(r'^(법률|조약|특별법)$', kw):
-                    expanded_keywords.append(kw)
-            
-            # 중복 제거
-            final_keywords = list(dict.fromkeys(expanded_keywords))
-            if final_keywords:
-                search_query += f" {' '.join(final_keywords)}"
-            
-        candidate_categories = list(dict.fromkeys(candidates))
-            
+                    if trigger in kw: candidates.extend(domains)
+            final_keywords = list(dict.fromkeys(expanded))
+            if final_keywords: search_query += f" {' '.join(final_keywords)}"
+        
         if turn_count > 1 and prev_statute_names:
             search_query += f" {' '.join(prev_statute_names)}"
             
-        return pipeline.search(
-            search_query, 
-            category=session_category, 
-            original_query=original_query or query,
-            candidate_categories=candidate_categories,
-            legal_keywords=llm_keywords
-        )
+        return pipeline.search(search_query, category=session_category, original_query=original_query or query, candidate_categories=list(dict.fromkeys(candidates)), legal_keywords=llm_keywords)
     except Exception as e:
         logger.error(f"Search Error: {str(e)}")
-        return {"statutes": [], "keywords": [], "qa": []}
+        return {"statutes": []}
 
-def build_rag_context(rag_results: Dict[str, Any]) -> str:
-    statutes = rag_results.get("statutes", [])
+def build_rag_context(results):
+    statutes = results.get("statutes", [])
     if not statutes: return "관련 법령을 찾을 수 없습니다."
     ctx = "[관련 법령 정보]\n"
     for i, s in enumerate(statutes):
         ctx += f"{i+1}. {s['law_name']} ({s['article']}): {s['content']}\n"
     return ctx
 
-def get_first_referenced_id(rag_results: Dict[str, Any]) -> Tuple[Optional[str], Optional[str]]:
-    statutes = rag_results.get("statutes", [])
+def get_first_referenced_id(results):
+    statutes = results.get("statutes", [])
     if statutes: return statutes[0].get("id"), "statute"
     return None, None
 
 def get_model():
     p = LegalRAGPipeline()
-    if not p.initialized: p.initialize()
-    return p.vector_retriever.model
+    p.initialize()
+    return p
 
 def get_reranker():
     p = LegalRAGPipeline()
-    if not p.initialized: p.initialize()
-    return p.reranker.model
+    p.initialize()
+    return p.reranker
