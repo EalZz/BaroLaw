@@ -1,0 +1,145 @@
+# [BaroLaw] RAG 시스템 통합 설정 파일 (v6.5 - Semantic Crime Sniper)
+
+# 1. 고정 하이퍼파라미터 (RAG 엔진 제어용)
+models:
+  embedding: "jhgan/ko-sroberta-multitask"
+  reranker: "BAAI/bge-reranker-v2-m3"
+
+retrieval:
+  path_a_k: 70
+  path_b_k: 30
+  qa_fetch_k: 15
+  path_gamma_limit: 30
+  path_epsilon_limit: 30
+
+thresholds:
+  t1: 0.18
+  t2: 0.11
+  fallback: 0.05
+
+limits:
+  content_max_len: 1500
+  answer_max_len: 400
+  top_statutes: 10
+  top_qa: 1
+
+scoring:
+  weights:
+    domain_boost: 0.5
+    # [v9.0 Phase 2] 특별법 우선순위 강화를 위한 가중치 상향 (0.3 -> 0.6)
+    special_law_boost: 0.6
+    history_match_boost: 5.0
+    history_name_only_boost: 1.0
+    article_num_boost: 1.5
+    intersection_boost: 0.5
+    llm_kw_boost: 0.2
+    llm_law_name_boost: 0.2
+    article_mapping_boost: 0.05
+    anchor_kw_boost: 0.1
+    path_boost: 0.0
+    
+    # [v6.5 Dynamic Controls - Updated with latest experimental values]
+    rrf_weight: 3.0
+    retrieval_top_k: 50
+    bm25_weight: 0.49
+    vector_weight: 0.51
+
+# 2. Domain/Category Law Boosting Weights (v8.53 Stable Baseline)
+# [v9.0 Phase 2] 경범죄 처벌법 보강 및 형법 노이즈 감점 최적화
+category_boost:
+  FRAUD:
+    "형법": 0.8
+    "특정경제범죄 가중처벌 등에 관한 법률": 0.5
+    "전자금융거래법": 0.4
+    "도로교통법": -2.0
+    "자동차손해배상 보장법": -2.0
+    "경범죄 처벌법": 0.5
+  CRIMINAL:
+    "형법": 0.5
+    "특정범죄 가중처벌 등에 관한 법률": 0.8
+    "교통사고처리 특례법": 0.7
+    "폭력행위 등 처벌에 관한 법률": 0.8
+    "성폭력범죄의 처벌 등에 관한 특례법": 0.8
+    "아동ㆍ청소년의 성보호에 관한 법률": 0.8
+    "정보통신망 이용촉진 및 정보보호 등에 관한 법률": 0.8 # 간섭 배제
+    "동물보호법": 1.5  # [Phase 2.6] 부스팅 사격 강도 증강 (노이즈 대비 정밀도 확보)
+    "경범죄 처벌법": 0.8 # [Phase 2.4] 층간소음 대응
+    "통신비밀보호법": 0.6
+  TRAFFIC:
+    "특정범죄 가중처벌 등에 관한 법률": 0.8
+    "교통사고처리 특례법": 0.7
+    "도로교통법": 0.5
+    "형법": 0.3
+    "자동차손해배상 보장법": 0.4
+  REAL_ESTATE:
+    "주택임대차보호법": 0.6
+    "상가건물 임대차보호법": 0.5
+    "민법": 0.5
+    "민법 제623조": 1.0 # [Phase 2.4] 수선의무 가중치 상향
+    "주택임대차보호법": 0.7
+    "공동주택관리법": 0.6
+    "집합건물의 소유 및 관리에 관한 법률": 0.7
+    "경범죄 처벌법": 0.6
+    "도로교통법": -0.6
+  DIGITAL:
+    "정보통신망 이용촉진 및 정보보호 등에 관한 법률": 0.6
+    "개인정보 보호법": 0.5
+  LABOR:
+    "근로기준법": 0.8
+    "최저임금법": 0.5
+    
+# 3. Refinement & Logic Controls (Refactored from code)
+refinement:
+  # [v8.53] 법령 약칭 매핑 (LEGAL_SYNONYMS)
+  legal_synonyms:
+    "특가법": "특정범죄 가중처벌 등에 관한 법률"
+    "교특법": "교통사고처리 특례법"
+    "주임법": "주택임대차보호법"
+    "상임법": "상가건물 임대차보호법"
+    "도교법": "도로교통법"
+    "동물법": "동물보호법"
+    "정통망법": "정보통신망 이용촉진 및 정보보호 등에 관한 법률"
+    "학폭법": "학교폭력예방 및 대책에 관한 법률"
+    "공동주택법": "공동주택관리법"
+    "집합건물법": "집합건물의 소유 및 관리에 관한 법률"
+    "민법": "민법"
+
+  # [v8.64] 도메인 교차 검색 매핑 (DOMAIN_CROSSOVER_MAP)
+  domain_crossover:
+    "소음": ["REAL_ESTATE", "CRIMINAL"]
+    "층간소음": ["REAL_ESTATE", "CRIMINAL"]
+    "누수": ["REAL_ESTATE", "CRIMINAL"]
+    "관리비": ["REAL_ESTATE", "CRIMINAL"]
+    "수선": ["REAL_ESTATE", "CRIMINAL"]
+    "수리": ["REAL_ESTATE", "CRIMINAL"]
+    "하수": ["REAL_ESTATE", "CRIMINAL"]
+    "주차": ["TRAFFIC", "REAL_ESTATE", "CRIMINAL"]
+    "문콕": ["TRAFFIC", "CRIMINAL"]
+    "교통사고": ["TRAFFIC", "CRIMINAL"]
+    "뺑소니": ["TRAFFIC", "CRIMINAL"]
+    "동물": ["CRIMINAL"]
+    "중고차": ["FRAUD", "CRIMINAL"]
+    "보험": ["FRAUD", "TRAFFIC"]
+
+  # [v9.0 Phase 2.2] 도메인 실드 및 결합성 강화 (Substring 매칭 기반)
+  domain_shield:
+    ghost_keywords: ["교통사고", "도로교통법", "운전", "단속", "면허", "음주운전", "보복운전"]
+    target_domains: ["FRAUD", "REAL_ESTATE"]
+    criminal_ghosts: ["형법 제273조", "학대", "사기", "명의"]
+    criminal_targets: ["TRAFFIC", "REAL_ESTATE"]
+    strong_linkage_laws: ["형법", "동물보호법", "특정범죄 가중처벌 등에 관한 법률", "도로교통법", "주택임대차보호법", "경범죄 처벌법"]
+  # [v9.0 Phase 2.3] Sniper Retrieval: 사기죄 등 실종되는 기초 법령 강제 회수 목록
+  baseline_injection:
+    'FRAUD': ['형법 제347조', '형법 제355조']
+    'CRIMINAL': ['형법 제329조', '형법 제260조']
+  # [v9.0 Phase 2.4] Triggered Sniper Retrieval: 카테고리 + 특정 키워드 조건부 주입 (List 구조로 변경)
+  triggered_injection:
+    - category: "CRIMINAL"
+      keywords: ["동물", "고양이", "강아지", "학대"]
+      inject: ["동물보호법 제10조", "동물보호법"]
+    - category: "REAL_ESTATE"
+      keywords: ["층간소음", "소음", "이웃"]
+      inject: ["경범죄 처벌법 제3조"]
+    - category: "REAL_ESTATE"
+      keywords: ["곰팡이", "누수", "수선", "고장"]
+      inject: ["민법 제623조"]

@@ -3,12 +3,14 @@ from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Dict, Any, List, Optional
 import os
 import logging
 import json
 import pytz
 import httpx
 import sys
+import re
 from sqlalchemy import desc
 import asyncio
 
@@ -18,12 +20,18 @@ from database import (
     SessionUser, get_or_create_profile, create_chat_session, 
     save_chat_message, ChatSession, ChatMessage, get_user_sessions, get_session_history
 )
+from schemas import LegalCategory, LegalIntent
+from preprocessor import LegalPreprocessor
+from prompts import MAIN_ENGINE_SYSTEM_PROMPT, TITLE_GEN_PROMPT
+from legal_synonyms import get_synonyms, guess_category
 
 # 로깅
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("VoiceAI-Server")
 
 app = FastAPI()
+# 전처리기 인스턴스
+preprocessor = LegalPreprocessor()
 
 # CORS 설정
 app.add_middleware(
@@ -34,8 +42,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# AI 설정
-MODEL_NAME = "gemma2"
+# AI 설정 (v6 MVP Optimized)
+MODEL_NAME = "gemma4:5b"
+# MODEL_NAME = "gemma2:latest"
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "ollama-server")
 OLLAMA_CHAT_URL = f"http://{OLLAMA_HOST}:11434/api/chat"
 
@@ -53,236 +62,289 @@ async def startup_event():
 
 @app.get("/sessions/{uid}")
 async def list_user_sessions_api(uid: str):
-    db = SessionUser()
+    db_session = SessionUser()
     try:
-        sessions = get_user_sessions(db, uid)
+        sessions = get_user_sessions(db_session, uid)
         return [{"id": str(s.session_id), "title": s.title if s.title else "새 대화"} for s in sessions]
     finally:
-        db.close()
+        db_session.close()
 
 @app.get("/sessions/{session_id}/history")
 async def get_history_api(session_id: str):
-    db = SessionUser()
+    db_session = SessionUser()
     try:
-        history = get_session_history(db, session_id)
+        history = get_session_history(db_session, session_id)
         return [{"content": m.content, "isUser": (m.role == "user")} for m in history]
     finally:
-        db.close()
+        db_session.close()
 
 @app.delete("/sessions/{session_id}")
 async def delete_session_api(session_id: str):
-    db = SessionUser()
+    db_session = SessionUser()
     try:
         from database import delete_chat_session
-        success = delete_chat_session(db, session_id)
+        success = delete_chat_session(db_session, session_id)
         return {"success": success}
     finally:
-        db.close()
+        db_session.close()
 
 # ------------------------------------------------------------
-# [AI 스트리밍 엔진 - 법적 근거 강화]
+# [AI 응답 도우미]
 # ------------------------------------------------------------
 
-def prepare_chat_context(uid: str, user_text: str, session_id: str = None):
-    db = SessionUser()
+def build_sse_payload(content: str = "", done: bool = False, is_replacement: bool = False):
+    """프론트엔드 통신 규약을 유지하며 SSE 페이로드를 생성합니다."""
+    payload_dict = {'message': content, 'done': done, 'is_replacement': is_replacement}
+    return f"data: {json.dumps(payload_dict, ensure_ascii=False)}\n\n"
+
+# ------------------------------------------------------------
+# [AI 스트리밍 엔진]
+# ------------------------------------------------------------
+
+async def prepare_chat_context(uid: str, user_text: str, session_id: Optional[str] = None) -> Dict[str, Any]:
+    db_session = SessionUser()
     try:
-        profile = get_or_create_profile(db, uid)
-        session = None
-        
+        profile = get_or_create_profile(db_session, uid)
+        chat_session = None
+        sid_uuid = None
         if session_id and session_id not in ["null", "undefined", ""]:
-            session = db.query(ChatSession).filter(ChatSession.session_id == session_id).first()
-            if not session:
-                session = create_chat_session(db, profile.profile_id, first_query=user_text, session_id=session_id)
+            import uuid
+            try:
+                sid_uuid = uuid.UUID(session_id)
+                chat_session = db_session.query(ChatSession).filter(ChatSession.session_id == sid_uuid).first()
+            except ValueError:
+                pass
         
-        if not session:
-            session = create_chat_session(db, profile.profile_id, first_query=user_text)
+        if not chat_session:
+            # Phase 37: Session ID Injection Fix (T2 연결 보존)
+            chat_session = create_chat_session(db_session, profile.profile_id, first_query=user_text, session_id=str(sid_uuid) if sid_uuid else None)
 
-        past_msgs = db.query(ChatMessage)\
-                      .filter(ChatMessage.session_id == session.session_id)\
+        # 1. 히스토리 로드 (최근 6턴)
+        past_msgs_objs = db_session.query(ChatMessage)\
+                      .filter(ChatMessage.session_id == chat_session.session_id)\
                       .order_by(ChatMessage.created_at.desc())\
                       .limit(6).all()
-        past_msgs.reverse()
+        past_msgs_objs.reverse()
 
-        # RAG 검색 (무거운 연산)
-        rag_results = search_relevant_context(user_text)
-        rag_context = build_rag_context(rag_results)
-        ref_id, ref_type = get_first_referenced_id(rag_results)
-
-        save_chat_message(db, str(session.session_id), role="user", content=user_text)
+        # 2. Pydantic AI 기반 의도 분석
+        history_summary = getattr(chat_session, "past_request", "")
+        intent: LegalIntent = await preprocessor.analyze(user_text, history=history_summary)
         
-        past_msg_dicts = [{"role": msg.role, "content": msg.content} for msg in past_msgs]
-        
-        return {
-            "session_id": str(session.session_id),
-            "past_msgs": past_msg_dicts,
-            "rag_results": rag_results,
-            "rag_context": rag_context,
-            "ref_id": ref_id,
-            "ref_type": ref_type,
-            "is_new_session": len(past_msgs) == 0
-        }
-    finally:
-        db.close()
-
-async def update_session_title_in_background(session_id: str, text: str):
-    import uuid
-    # [부하 분산] 메인 LLM이 답변(스트리밍)을 충분히 끝마칠 수 있도록 15초 지연 후 시작
-    await asyncio.sleep(15)
-    logger.info(f"--- [Title Summary] Task Started for SID: {session_id} ---")
-    prompt = f"다음 사용자의 질문을 분석하여 2~3단어의 명사형 제목으로 요약해. 다른 수식어 없이 딱 제목만 말해.\n\n질문: {text}"
-    try:
-        logger.info(f"--- [Title Summary] Requesting Ollama... ---")
-        # [타임아웃 대폭 연장] 긴 답변을 생성하고 있는 중에 큐(Queue)에 대기할 수 있으므로, 120초 여유 부여
-        async with httpx.AsyncClient(timeout=120.0) as client:
-            resp = await client.post(OLLAMA_CHAT_URL, json={
-                "model": MODEL_NAME,
-                "messages": [{"role": "user", "content": prompt}],
-                "stream": False,
-                "options": {"temperature": 0.1}
-            })
-            if resp.status_code == 200:
-                summary = resp.json().get("message", {}).get("content", "").strip()
-                logger.info(f"--- [Title Summary] Ollama Response: {summary} ---")
-                summary = summary.replace('"', '').replace("'", "").replace("**", "").replace("###", "").strip()
-                if summary:
-                    def _update():
-                        db = SessionUser()
-                        try:
-                            try:
-                                uuid_val = uuid.UUID(session_id)
-                            except ValueError:
-                                logger.error(f"--- [Title Summary] Invalid UUID format: {session_id} ---")
-                                return
-                                
-                            s = db.query(ChatSession).filter(ChatSession.session_id == uuid_val).first()
-                            if s:
-                                s.title = summary[:50]
-                                db.commit()
-                                logger.info(f"--- [Title Summary] Successfully updated DB title to: {s.title} ---")
-                            else:
-                                logger.error(f"--- [Title Summary] Session not found in DB: {session_id} ---")
-                        finally:
-                            db.close()
-                    await asyncio.to_thread(_update)
-            else:
-                logger.error(f"--- [Title Summary] Ollama API Error: HTTP {resp.status_code} ---")
-    except Exception as e:
-        import traceback
-        logger.error(f"--- [Title Summary] Fatal Error: {repr(e)} ---")
-        logger.error(traceback.format_exc())
-
-async def generate_ai_stream(request: Request, uid: str, user_text: str, current_time: str, session_id: str = None):
-    try:
-        # [백엔드 병목 해결] 시간이 오래 걸리는 DB 및 RAG 처리를 비동기 스레드 풀에서 실행합니다.
-        ctx = await asyncio.to_thread(prepare_chat_context, uid, user_text, session_id)
-        real_session_id = ctx["session_id"]
-        rag_results = ctx["rag_results"]
-        
-        if ctx.get("is_new_session"):
-            asyncio.create_task(update_session_title_in_background(real_session_id, user_text))
+        # [Phase 42.3] Aggressive Context Inheritance (Fallback Suppression)
+        # 이전 대화 기록이 있고, 현재 질문이 모호하거나(UNCERTAIN) 짧은 경우 기동
+        if getattr(chat_session, "current_category", None) and chat_session.current_category != "UNCERTAIN":
+            is_weak_intent = (intent.category == LegalCategory.UNCERTAIN or len(user_text.strip()) < 15)
             
-        # [핵심] 법적 근거 섹션 및 상세 데이터 구성
-        legal_basis_content = ""
-        legal_details_content = ""
+            if is_weak_intent:
+                try:
+                    old_category = intent.category
+                    # 기존 카테고리 강제 상속
+                    intent.category = LegalCategory(chat_session.current_category)
+                    
+                    # 팩트 요약 보강: 이전 맥락 + 현재 질문
+                    if chat_session.past_request:
+                        intent.factual_summary = f"{chat_session.past_request} {user_text}"
+                    else:
+                        intent.factual_summary = user_text
+                        
+                    # 중대한 변경: UNCERTAIN일 때만 뜨던 폴백 메시지를 상속 성공 시 제거하여 RAG 강제 수행
+                    intent.missing_info_request = "" 
+                    logger.info(f"--- [Context Reinforcement] Inherited: {old_category} -> {intent.category} | Summary: {intent.factual_summary} ---")
+                except Exception as e:
+                    logger.error(f"Context reinforcement failed: {e}")
         
-        if rag_results["statutes"]:
-            # 1. 화면에 표시될 텍스트 리스트
-            legal_basis_content = (
-                "\n\n---[LEGAL_BASIS]---\n"
-                "⚖️ **법적 근거 및 참고 문헌**\n" + 
-                "\n".join([f"- {s['law_name']} {s['article']}" for s in rag_results["statutes"]])
-            )
-            
-            # 2. 클릭 시 보여줄 상세 데이터 (JSON)
-            details = [
-                {
-                    "title": f"{s['law_name']} {s['article']}", 
-                    "content": s.get('content', '상세 내용이 없습니다.')
-                } for s in rag_results["statutes"]
-            ]
-            legal_details_content = f"\n---[LEGAL_DETAILS]---\n{json.dumps(details, ensure_ascii=False)}"
-        elif rag_results["qa"]:
-            legal_basis_content = (
-                "\n\n---[LEGAL_BASIS]---\n"
-                "📌 **참고 자료**\n- 국가 법령 정보 및 생활법률 상담 가이드라인"
-            )
+        # 3. [L2] Fallback Suppression (v3.8) - 레거시 브릿지 삭제 완료
+        # 신규 전처리기가 자신감 있게 분류하도록 조준경을 맡깁니다.
+        
+        if intent.category == LegalCategory.UNCERTAIN and intent.missing_info_request:
+            is_uncertain = True
+            save_chat_message(db_session, str(chat_session.session_id), role="user", content=user_text)
+            return {
+                "session_id": str(chat_session.session_id),
+                "past_msgs": [{"role": m.role, "content": m.content} for m in past_msgs_objs],
+                "rag_results": {"statutes": [], "qa": []},
+                "rag_context": f"[시스템 안내]\n질문이 다소 모호하여 정확한 법률 안내가 어렵습니다.\n{intent.missing_info_request}",
+                "ref_id": None, "ref_type": None,
+                "is_new_session": len(past_msgs_objs) == 0,
+                "is_uncertain": True
+            }
+        
+        # 4. 세션 상태 업데이트 및 쿼리 융합 (Phase 5.2.3: Query Fusion)
+        from database import update_session_state
+        
+        # M-Turn이고 이전 요약이 있다면 현재 요약 앞에 강제 결합 (맥락 단절 방지)
+        if len(past_msgs_objs) > 0 and history_summary:
+            fused_summary = f"[{history_summary}] {intent.factual_summary}"
+            logger.info(f"--- [v5.2.3 Query Fusion] {intent.factual_summary} -> {fused_summary} ---")
+            intent.factual_summary = fused_summary
 
-        # 프롬프트 구성 (환각 제어 및 이모지/마크다운 활용)
-        system_msg = (
-            "너는 서민들의 어려움을 해결해 주는 상냥하고 친절한 법률 상담 AI야. 시작할 때 자기소개는 하지 말고 반드시 '해요체'(~해요, ~하세요)를 사용해."
-
-            "[상담 원칙]"
-            "1. 🎯 상황 파악보다 '행동 요령' 선제 제시 (스무고개 금지): 사용자가 피해 사실을 언급하면, 구체적인 정황을 꼬치꼬치 되묻지 마. 정보가 부족하더라도 질문으로만 답변을 끝내지 말고, \"만약 ~한 상황이라면 이렇게 하세요\"처럼 예상되는 상황을 전제로 즉각적인 행동 요령(증거 수집, 신고 방법 등)을 먼저 상세히 안내해."
-            "2. 📍 상황 파악 및 객관성 유지: 제공된 [참고 법률 정보]는 사용자의 사연이 아니니, 사용자가 말하지 않은 사연을 지어내어 판단하지 마. 정보가 부족하면 자연스럽게 되묻되, 무관한 정황까지 꼬치꼬치 묻지는 마."
-            "3. 🛠️ 단계적이고 현실적인 해결책: 단계적인 해결 방법이 필요하면 1단계, 2단계 등 순차적인 행동 요령(신고 방법, 준비물 등)을 상세히 설명해. 단, 대한민국의 일반적인 상식(예: 블랙박스 확보, 비상등 점등 등)에 기반하여 현실적으로 불가능한 행동(예: 개인이 신호등 조작)은 절대 제안하지 마."
-            "4. ✨ 가독성 극대화: 상황별 조치 단계나 소제목에는 반드시 마크다운 헤딩(### )과 적절한 이모지를 사용하여 크고 진하게 보이도록 구분해. 헤딩 기호(###) 앞뒤에 별표(**)를 붙이는 등 마크다운 문법을 절대 섞어 쓰지 마. (올바른 예: ### 🚨 1단계) 부가 설명은 쉽게 풀어 써. (이모지 남발 금지)"
-            "5. 🚫 중복 및 전문 용어 노출 금지: 답변 본문 안에는 '법적 근거', '관련 법령', '제O조' 등의 문구를 직접 나열하지 마. 시스템이 답변 끝에 알아서 붙일 거야."
-
-            f"{ctx['rag_context']}\n\n"
-            f"[현재 시각]: {current_time}"
+        update_session_state(db_session, chat_session.session_id, category=intent.category.value, past_request=intent.factual_summary)
+        
+        # 5. RAG 검색
+        past_statutes_raw = getattr(chat_session, "past_statutes", "")
+        prev_statutes_list = [s.strip() for s in past_statutes_raw.split(",")] if past_statutes_raw else []
+        
+        # 3. [R2] 쿼리 전처리 (LLM 병목 제거 - 80% 이상의 속도 향상 예상)
+        # preprocessor_result = preprocessor.process(user_text) # 주석 처리
+        preprocessor_result = {"category": "GENERAL", "keywords": [], "summary": user_text}
+        
+        # 3. RAG 기반 관련 법령 검색 (v6.5 시맨틱 쿼리 융합 호출)
+        # LLM이 파악한 죄명 키워드(intent.legal_keywords)를 RAG 엔진에 전달하여 검색 정밀도 향상
+        rag_results_dict = await asyncio.to_thread(
+            search_relevant_context,
+            query=user_text,
+            original_query=user_text,
+            turn_count=len(past_msgs_objs) // 2 + 1,
+            llm_keywords=intent.legal_keywords, # LLM 분석 죄명(Keywords)을 검색어 보강에 사용
+            session_category=intent.category.value if intent.category else "UNCERTAIN"
         )
         
-        messages = [{"role": "system", "content": system_msg}]
-        for msg in ctx["past_msgs"]:
-            messages.append({"role": "user" if msg["role"] == "user" else "assistant", "content": msg["content"]})
-        messages.append({"role": "user", "content": user_text})
+        # 6. 인용 데이터 후처리 (Hint 추출)
+        current_statutes_names = []
+        for s_item in rag_results_dict.get("statutes", []):
+            raw_n = str(s_item.get('law_name') or "").split(" 제")[0].split("(")[0].strip()
+            if len(raw_n) >= 2: current_statutes_names.append(raw_n)
+            
+        if current_statutes_names:
+            # Phase 32/38: 이전 법령 히스토리 업데이트 (최근 10개 유지)
+            unique_statutes = list(set(prev_statutes_list + current_statutes_names))
+            new_past_str = ",".join(unique_statutes[:10])
+            update_session_state(db_session, chat_session.session_id, past_statutes=new_past_str)
 
-        logger.info(f"--- [AI 요청] SID: {real_session_id} ---")
+        save_chat_message(db_session, str(chat_session.session_id), role="user", content=user_text)
+        
+        found_ref_id, found_ref_type = get_first_referenced_id(rag_results_dict)
 
-        full_resp = ""
-        async with httpx.AsyncClient(timeout=180.0) as client:
-            async with client.stream("POST", OLLAMA_CHAT_URL, json={
-                "model": MODEL_NAME, "messages": messages, "stream": True,
-                "options": {"temperature": 0.3}
-            }) as response:
-                
-                async for line in response.aiter_lines():
-                    if await request.is_disconnected():
-                        break
+        return {
+            "session_id": str(chat_session.session_id),
+            "past_msgs": [{"role": m.role, "content": m.content} for m in past_msgs_objs],
+            "rag_results": rag_results_dict,
+            "rag_context": build_rag_context(rag_results_dict),
+            "ref_id": found_ref_id,
+            "ref_type": found_ref_type,
+            "is_new_session": len(past_msgs_objs) == 0,
+            "category": intent.category.value if intent.category else "UNCERTAIN",
+            "keywords": intent.legal_keywords,
+            "summary": intent.factual_summary
+        }
+    finally:
+        db_session.close()
 
-                    if line:
+async def update_session_title_in_background(session_id: str, text: str):
+    await asyncio.sleep(15)
+    prompt_text = TITLE_GEN_PROMPT.format(text=text)
+    try:
+        async with httpx.AsyncClient(timeout=300.0) as client:
+            resp = await client.post(OLLAMA_CHAT_URL, json={
+                "model": "gemma4:5b", "messages": [{"role": "user", "content": prompt_text}], "stream": False, "think": False
+            })
+            if resp.status_code == 200:
+                summary_text = resp.json().get("message", {}).get("content", "").strip()
+                summary_text = re.sub(r'["\'*#]', '', summary_text).strip()
+                if summary_text:
+                    def _update_db():
+                        db_conn = SessionUser()
+                        import uuid
                         try:
-                            chunk = json.loads(line)
-                            token = chunk.get("message", {}).get("content", "")
-                            
-                            if token:
-                                full_resp += token
-                                sys.stdout.write(token)
-                                sys.stdout.flush()
-                                yield f"data: {json.dumps({'message': token, 'done': False}, ensure_ascii=False)}\n\n"
-
-                            if chunk.get("done"):
-                                # [순서 원복] 답변 종료 후 법률 정보 전송
-                                if legal_basis_content:
-                                    basis_data = json.dumps({'message': legal_basis_content, 'done': False}, ensure_ascii=False)
-                                    yield f"data: {basis_data}\n\n"
-                                    
-                                    if legal_details_content:
-                                        details_data = json.dumps({'message': legal_details_content, 'done': False}, ensure_ascii=False)
-                                        yield f"data: {details_data}\n\n"
-                                    
-                                    full_resp += (legal_basis_content + legal_details_content)
-
-                                def _save_answer():
-                                    db = SessionUser()
-                                    try:
-                                        save_chat_message(db, real_session_id, role="ai", content=full_resp, ref_type=ctx["ref_type"], ref_id=ctx["ref_id"])
-                                    finally:
-                                        db.close()
-                                await asyncio.to_thread(_save_answer)
-                                
-                                logger.info("\n--- [완성] 답변 저장 완료 ---")
-                                yield f"data: {json.dumps({'message': '', 'done': True}, ensure_ascii=False)}\n\n"
-                                break
-                        except Exception as e:
-                            logger.error(f"Error in stream loop: {e}")
-                            continue
+                            s_obj = db_conn.query(ChatSession).filter(ChatSession.session_id == uuid.UUID(session_id)).first()
+                            if s_obj: s_obj.title = summary_text[:50]; db_conn.commit()
+                        finally: db_conn.close()
+                    await asyncio.to_thread(_update_db)
     except Exception as e:
-        logger.error(f"Fatal error in generate_ai_stream: {e}")
+        logger.error(f"[Title Update Error] {e}")
 
+async def generate_ai_stream(request: Request, uid: str, user_text: str, current_time: str, session_id: Optional[str] = None):
+    try:
+        # [Step 1] 컨텍스트 준비
+        context_data = await prepare_chat_context(uid, user_text, session_id)
+        sid_str = context_data["session_id"]
+        
+        if context_data.get("is_uncertain"):
+            yield build_sse_payload(context_data["rag_context"], done=True)
+            return
+
+        if context_data.get("is_new_session"):
+            asyncio.create_task(update_session_title_in_background(sid_str, user_text))
+
+        # [Step 2] v6 MVP: LLM이 직접 태그를 생성하므로 백엔드 수동 결합 제외
+        # (단, LLM이 태그 생성을 거부할 경우를 대비한 가이드만 RAG 컨텍스트에 포함)
+        rag_engine_raw_str = ""
+        if context_data["rag_results"].get("statutes"):
+            raw_statutes = [f"{s['law_name']} {s['article']}" for s in context_data["rag_results"]["statutes"]]
+            rag_engine_raw_str = f"\n---[RAG_ENGINE_RESULT]---\n" + "|".join(raw_statutes)
+
+        # [Step 3] LLM 스트리밍
+        system_msg_full = MAIN_ENGINE_SYSTEM_PROMPT + f"{context_data['rag_context']}\n\n[현재 시각]: {current_time}"
+        chat_history_msgs = [{"role": "system", "content": system_msg_full}]
+        for m_hist in context_data["past_msgs"]:
+            chat_history_msgs.append({"role": "user" if m_hist["role"] == "user" else "assistant", "content": m_hist["content"]})
+        chat_history_msgs.append({"role": "user", "content": user_text})
+
+        accumulated_resp = ""
+        async with httpx.AsyncClient(timeout=300.0) as client:
+            async with client.stream("POST", OLLAMA_CHAT_URL, json={
+                "model": MODEL_NAME, "messages": chat_history_msgs, "stream": True, "think": False, "options": {"temperature": 0.3}
+            }) as response:
+                async for line_raw in response.aiter_lines():
+                    if await request.is_disconnected(): break
+                    if not line_raw: continue
+                    try:
+                        chunk_json = json.loads(line_raw)
+                        token_str = chunk_json.get("message", {}).get("content", "")
+                        if token_str:
+                            accumulated_resp += token_str
+                            yield build_sse_payload(token_str)
+                        
+                        if chunk_json.get("done"):
+                            # [Step 4] 후처리 및 태그 전송
+                            await asyncio.sleep(0.05)
+                            
+                            if accumulated_resp.startswith("Thinking"):
+                                accumulated_resp = re.sub(r'^Thinking\.{0,3}\s*', '', accumulated_resp) or "상담 결과를 생성했습니다."
+                                yield build_sse_payload(accumulated_resp, is_replacement=True)
+                            
+                            # v6 MVP: LLM이 생성한 스트림 내에 이미 태그가 포함되어 있음
+                            if rag_engine_raw_str: yield build_sse_payload(rag_engine_raw_str)
+                            
+                            # [v2.5] RAG 메타데이터(카테고리, 키워드, 요약) 전송
+                            rag_meta_json = json.dumps({
+                                "category": context_data.get("category", "UNCERTAIN"),
+                                "keywords": context_data.get("keywords", []), # LLM 시맨틱 키워드 강제 고정
+                                "summary": context_data.get("summary", ""),
+                            }, ensure_ascii=False)
+                            yield build_sse_payload(f"\n---[RAG_METADATA]---\n{rag_meta_json}")
+
+                            yield build_sse_payload("", done=True)
+                            
+                            def _save_to_db():
+                                db_final = SessionUser()
+                                try:
+                                    # [v2.5 Fix] 'statute_313'와 같은 문자열 ID에서 숫자만 추출하여 DB Integer 타입 불일치 해결
+                                    import re
+                                    clean_ref_id = None
+                                    if context_data.get("ref_id"):
+                                        numeric_match = re.search(r'\d+', str(context_data["ref_id"]))
+                                        if numeric_match:
+                                            clean_ref_id = int(numeric_match.group())
+                                            
+                                    save_chat_message(
+                                        db_final, sid_str, role="ai", 
+                                        content=accumulated_resp, 
+                                        ref_type=context_data["ref_type"], 
+                                        ref_id=clean_ref_id
+                                    )
+                                finally:
+                                    db_final.close()
+                            await asyncio.to_thread(_save_to_db)
+                            break
+                    except json.JSONDecodeError:
+                        continue
+
+    except Exception as e:
+        logger.error(f"[Stream Error] {e}")
 
 @app.get("/chat-stream")
-async def chat_stream(request: Request, text: str, uid: str, session_id: str = None):
+async def chat_stream(request: Request, text: str, uid: str, session_id: Optional[str] = None):
     return StreamingResponse(
         generate_ai_stream(request, uid, text, datetime.now(pytz.timezone('Asia/Seoul')).isoformat(), session_id),
         media_type="text/event-stream",
@@ -293,11 +355,12 @@ async def chat_stream(request: Request, text: str, uid: str, session_id: str = N
         }
     )
 
-@app.get("/metrics")
-@app.get("/metrics/")
-@app.get("/api/metrics")
-async def metrics():
-    return {"status": "ok"}
+class EndpointFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        msg = record.getMessage()
+        return msg.find("/metrics") == -1 and msg.find("/health") == -1
+
+logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
 
 if __name__ == "__main__":
     import uvicorn

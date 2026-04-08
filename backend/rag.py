@@ -1,229 +1,327 @@
-"""
-rag.py
-========
-Knowledge DB(pgvector)에서 관련 법령 및 Q&A를 검색하여
-LLM 프롬프트에 삽입할 컨텍스트를 생성하는 RAG 모듈.
-
-설계 원칙:
-  - 임베딩 모델은 서버 기동 시 1회만 로딩 (싱글톤)
-  - 유사도 임계값(0.6) 미달 시 해당 결과를 프롬프트에서 생략
-  - statutes Top 2 + official_qa Top 1 = 최대 3건
-"""
-
 import os
+import json
+import torch
 import logging
-import psycopg2
+import yaml
+import re
+import numpy as np
+import pandas as pd
+from typing import List, Dict, Any, Optional, Tuple, Set
+from collections import defaultdict
+from rank_bm25 import BM25Okapi
 from sentence_transformers import SentenceTransformer, CrossEncoder
+from kiwipiepy import Kiwi
 
-logger = logging.getLogger("RAG")
+# 로깅
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("BaroLaw-RAG-Hybrid")
 
-# ================================================
-# 설정값
-# ================================================
-MODEL_NAME = "jhgan/ko-sroberta-multitask"
-RERANKER_NAME = "Dongjin-kr/ko-reranker"
-FETCH_K = 10                 # 1차 저인망 검색 후보 수 (법령 10건, QA 10건)
-FINAL_TOP_K = 3              # 최종 선발 컨텍스트 수
-MIN_RERANK_SCORE = 0.0       # 거짓 정보(환각) 차단을 위한 최소 리랭크 점수
-CONTENT_MAX_LEN = 1500        # 법령 조문 최대 길이 (토큰 절약)
-ANSWER_MAX_LEN = 400         # Q&A 답변 최대 길이
+# 경로
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "autorag_data")
+CORPUS_PATH = os.path.join(DATA_DIR, "corpus.parquet")
+CACHE_PATH = os.path.join(DATA_DIR, "corpus_embeddings.pt")
+CONFIG_PATH = os.path.join(BASE_DIR, "rag_config.yaml")
 
-_KNOWLEDGE_DB_URL = os.getenv(
-    "KNOWLEDGE_DB_URL",
-    "postgresql://user:password@db:5432/knowledge_db"
-)
+def load_rag_config():
+    if os.path.exists(CONFIG_PATH):
+        with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+            return yaml.safe_load(f)
+    return {}
 
-# Docker 외부(WSL/Host) 환경에서 실행 시 'db' → 'localhost' 자동 치환
-if not os.getenv("KNOWLEDGE_DB_URL") and not os.path.exists("/.dockerenv"):
-    _KNOWLEDGE_DB_URL = _KNOWLEDGE_DB_URL.replace("@db:", "@localhost:")
+class QueryPreprocessor:
+    def __init__(self):
+        self.kiwi = Kiwi()
+        self.target_tags = ('NNG', 'NNP', 'VV', 'VA', 'XR')
+        self.stopwords = {'제', '조', '항', '호', '및', '등', '경우', '사항', '기준', '방법', '내용', '확인'}
+        
+    def tokenize(self, text: str) -> List[str]:
+        if not text: return []
+        tokens = self.kiwi.tokenize(text)
+        return [t.form for t in tokens if t.tag in self.target_tags and t.form not in self.stopwords]
 
-# ================================================
-# 임베딩 모델 싱글톤 (서버 기동 시 최초 1회만 로딩)
-# ================================================
-_model: SentenceTransformer = None
+class BM25Retriever:
+    def __init__(self, corpus: List[Dict], preprocessor: QueryPreprocessor, top_k: int):
+        self.preprocessor = preprocessor
+        self.top_k = top_k
+        self.corpus = corpus
+        logger.info(f"[BM25] Indexing {len(corpus)} records...")
+        self.corpus_tokens = [
+            self.preprocessor.tokenize(f"{str(item.get('metadata', {}).get('law_name') or '')} {str(item.get('contents') or '')}") 
+            for item in corpus
+        ]
+        self.bm25 = BM25Okapi(self.corpus_tokens)
+        
+    def search(self, query: str) -> List[Tuple[int, float]]:
+        query_tokens = self.preprocessor.tokenize(query)
+        if not query_tokens: return []
+        scores = self.bm25.get_scores(query_tokens)
+        top_indices = np.argsort(scores)[::-1][:self.top_k]
+        return [(int(idx), float(scores[idx])) for idx in top_indices]
 
-def get_model() -> SentenceTransformer:
-    global _model
-    if _model is None:
-        logger.info(f"RAG: 임베딩 모델 로딩 중... ({MODEL_NAME})")
-        # GPU(CUDA)가 사용 가능하면 할당 (속도 개선)
-        import torch
+class VectorRetriever:
+    def __init__(self, corpus: List[Dict], top_k: int):
+        self.corpus = corpus
+        self.top_k = top_k
+        device = "cpu"
+        self.model = SentenceTransformer("jhgan/ko-sroberta-multitask", device=device)
+        if os.path.exists(CACHE_PATH):
+            self.embeddings = torch.load(CACHE_PATH, map_location="cpu")
+        else:
+            texts = [str(item.get('contents') or '') for item in self.corpus]
+            self.embeddings = self.model.encode(texts, convert_to_tensor=True)
+            torch.save(self.embeddings.cpu(), CACHE_PATH)
+
+    def search(self, query: str) -> List[Tuple[int, float]]:
+        query_emb = self.model.encode(query, convert_to_tensor=True)
+        cos_scores = torch.nn.functional.cosine_similarity(query_emb, self.embeddings).cpu().numpy()
+        top_indices = np.argsort(cos_scores)[::-1][:self.top_k]
+        return [(int(idx), float(cos_scores[idx])) for idx in top_indices]
+
+class Reranker:
+    def __init__(self, model_name: str, top_k: int):
+        self.top_k = top_k
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        _model = SentenceTransformer(MODEL_NAME, device=device)
-        logger.info(f"RAG: 임베딩 모델 로딩 완료. (Device: {device})")
-    return _model
+        self.model = CrossEncoder(model_name, device=device)
+        
+    def rerank(self, query: str, corpus: List[Dict], indices: List[int]) -> List[Tuple[int, float]]:
+        if not indices: return []
+        target_indices = indices[:self.top_k]
+        pairs = [[query, f"{str(corpus[idx].get('metadata', {}).get('law_name') or '')} {str(corpus[idx].get('contents') or '')}"] for idx in target_indices]
+        scores = self.model.predict(pairs, batch_size=8)
+        return [(int(idx), float(score)) for idx, score in zip(target_indices, scores)]
 
-_reranker: CrossEncoder = None
+class HybridRRF:
+    def __init__(self, weight: float, top_k: int):
+        self.weight = weight
+        self.top_k = top_k
+        
+    def fuse(self, bm25_results: List[Tuple[int, float]], vector_results: List[Tuple[int, float]]) -> List[int]:
+        rrf_scores = defaultdict(float)
+        for rank, (idx, _) in enumerate(bm25_results, 1):
+            rrf_scores[idx] += 1.0 / (rank ** self.weight)
+        for rank, (idx, _) in enumerate(vector_results, 1):
+            rrf_scores[idx] += 1.0 / (rank ** self.weight)
+        ranked = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
+        return [idx for idx, _ in ranked[:self.top_k]]
 
-def get_reranker() -> CrossEncoder:
-    global _reranker
-    if _reranker is None:
-        logger.info(f"RAG: 리랭커 모델 로딩 중... ({RERANKER_NAME})")
-        import torch
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        _reranker = CrossEncoder(RERANKER_NAME, max_length=512, device=device)
-        logger.info(f"RAG: 리랭커 모델 로딩 완료. (Device: {device})")
-    return _reranker
+class ContextBuilder:
+    def __init__(self, max_results: int):
+        self.max_results = max_results
+        
+    def build(self, 
+              corpus: List[Dict[str, Any]], 
+              rerank_results: List[Tuple[int, float]], 
+              category_law_boost: Dict[str, Dict[str, float]], 
+              category: str = None, 
+              candidate_categories: List[str] = None, 
+              legal_keywords: List[str] = None, 
+              shield_config: Dict[str, Any] = None, 
+              injected_ids: Set[int] = None) -> List[Dict[str, Any]]:
+        injected_ids = injected_ids or set()
+        all_results = []
+        seen = set()
+        for idx, rerank_score in rerank_results:
+            item = corpus[idx]
+            meta = item.get('metadata', {})
+            full_law_name = str(meta.get('law_name') or "")
+            base_law_name = full_law_name.split(" 제")[0].split("(")[0].strip()
+            key = f"{full_law_name}_{str(meta.get('article') or '')}"
+            if key in seen: continue
+            seen.add(key)
+            
+            boost_score = 0.0
+            search_cats = candidate_categories if candidate_categories else ([category] if category else [])
+            for cat in search_cats:
+                if cat in category_law_boost:
+                    target_boosts = category_law_boost[cat]
+                    boost_val = target_boosts.get(full_law_name) 
+                    if boost_val is None:
+                        boost_val = target_boosts.get(base_law_name, 0.0)
+                    boost_score += boost_val
 
+            # [v9.0 Phase 2.8.1] Exclusive Penalty & Traffic Correction
+            if shield_config and legal_keywords:
+                # 동물학대 시 형법 제273조 페널티
+                if any(any(x in k for x in ["동물", "강아지", "고양이", "반려"]) for k in legal_keywords):
+                    if "형법" in full_law_name and ("제273조" in full_law_name or "학대" in full_law_name):
+                        boost_score -= 5.0 # 동물보호법 1위 보장 위해 강화
 
-# ================================================
-# 핵심 검색 함수
-# ================================================
-def search_relevant_context(query: str) -> dict:
-    """
-    사용자 질문을 벡터화하여 knowledge_db에서 관련 법령/Q&A를 검색합니다.
+                # 미세 교통 위반 시 특가법 페널티 (도로교통법 정답 보호)
+                if category == "TRAFFIC" or any("TRAFFIC" == c for c in (candidate_categories or [])):
+                    critical_traffic = ["치사", "도주", "음주운전", "어린이보호구역", "위험운전"]
+                    if not any(any(c in k for c in critical_traffic) for k in legal_keywords):
+                        if "특정범죄 가중처벌" in full_law_name:
+                            boost_score -= 2.5 # 단순 법규 위반 시 특가법을 하단으로 밀어냄
 
-    Returns:
-        {
-            "statutes": [{"id", "law_name", "article", "content", "similarity"}],
-            "qa":       [{"id", "question", "answer", "similarity"}]
-        }
-    """
-    model = get_model()
-    query_vector = model.encode(query).tolist()
+            # [v9.0 Phase 2.8.1] Sniper Anchoring Mega-Boost
+            if idx in injected_ids:
+                boost_score += 50.0 
+                logger.info(f"[Sniper] Mega-Boost applied to: {full_law_name}")
 
-    results = {"statutes": [], "qa": []}
+            final_score = rerank_score + boost_score
+            
+            # Strong Linkage Boost
+            if shield_config and legal_keywords:
+                strong_laws = shield_config.get('strong_linkage_laws', [])
+                for target_law in strong_laws:
+                    if target_law in full_law_name:
+                        if any(target_law in kw for kw in legal_keywords):
+                            final_score += 1.5 
+                        else:
+                            final_score += 0.5
 
+            all_results.append({
+                "id": item.get('doc_id'),
+                "law_name": full_law_name,
+                "article": str(meta.get('article') or ""),
+                "content": str(item.get('contents') or ""),
+                "metadata": meta,
+                "source": str(meta.get('source', '')),
+                "_rerank_score": rerank_score,
+                "_boost_score": boost_score,
+                "_final_score": final_score
+            })
+        
+        all_results.sort(key=lambda x: x["_final_score"], reverse=True)
+        statutes = [r for r in all_results if r.get('source') == 'statutes']
+        qa = [r for r in all_results if r.get('source') != 'statutes']
+        
+        s_count = int(self.max_results * 0.7)
+        q_count = self.max_results - s_count
+        results = statutes[:s_count] + qa[:q_count]
+        return results[:self.max_results]
+
+class LegalRAGPipeline:
+    _instance = None
+    initialized: bool
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(LegalRAGPipeline, cls).__new__(cls)
+            cls._instance.initialized = False
+        return cls._instance
+
+    def initialize(self):
+        if self.initialized: return
+        config = load_rag_config()
+        scoring = config.get('scoring', {}).get('weights', {})
+        limits = config.get('limits', {})
+        rrf_weight = float(scoring.get('rrf_weight', 3.0))
+        retrieval_k = int(scoring.get('retrieval_top_k', 50))
+        top_statutes = int(limits.get('top_statutes', 10))
+        reranker_name = config.get('models', {}).get('reranker', "BAAI/bge-reranker-v2-m3")
+        
+        df = pd.read_parquet(CORPUS_PATH)
+        self.corpus = df.to_dict('records')
+        self.preprocessor = QueryPreprocessor()
+        self.bm25_retriever = BM25Retriever(self.corpus, self.preprocessor, top_k=retrieval_k)
+        self.vector_retriever = VectorRetriever(self.corpus, top_k=retrieval_k)
+        self.rrf_fusion = HybridRRF(weight=rrf_weight, top_k=retrieval_k * 2) 
+        self.reranker = Reranker(model_name=reranker_name, top_k=30) 
+        self.context_builder = ContextBuilder(max_results=top_statutes)
+        self.category_law_boost = config.get('category_boost', {})
+        self.domain_shield_config = config.get('refinement', {}).get('domain_shield', {})
+        self.baseline_injection = config.get('refinement', {}).get('baseline_injection', {})
+        self.triggered_injection = config.get('refinement', {}).get('triggered_injection', [])
+        self.legal_synonyms = config.get('refinement', {}).get('legal_synonyms', {})
+        self.domain_crossover = config.get('refinement', {}).get('domain_crossover', {})
+        self.initialized = True
+
+    def search(self, query: str, category: str = None, original_query: str = None, candidate_categories: List[str] = None, legal_keywords: List[str] = None) -> Dict[str, Any]:
+        if not self.initialized: self.initialize()
+        def _get_statutes(q, cats, keywords, injection_targets=None, triggered_injection=None):
+            injected_ids = set()
+            bm25_res = self.bm25_retriever.search(q)
+            vector_res = self.vector_retriever.search(q)
+            fused_indices = self.rrf_fusion.fuse(bm25_res, vector_res)
+            
+            # Baseline Sniper Tow-in
+            if injection_targets:
+                for target in injection_targets:
+                    clean_target = target.replace(" ", "")
+                    for idx, item in enumerate(self.corpus):
+                        corpus_str = f"{str(item.get('metadata', {}).get('law_name'))}{str(item.get('metadata', {}).get('article'))}".replace(" ", "")
+                        if clean_target in corpus_str:
+                            if idx in fused_indices: fused_indices.remove(idx)
+                            fused_indices.insert(0, idx)
+                            injected_ids.add(idx)
+                            break
+
+            # [v9.0 Phase 2.8.2] Triggered Sniper Tow-in: 리스트 완전 순회 및 강제 견인 (Fixed Mapping)
+            if triggered_injection and isinstance(triggered_injection, list) and keywords:
+                for conf in triggered_injection:
+                    target_cat = conf.get("category")
+                    if any(target_cat == c for c in cats) if cats else (target_cat == category):
+                        trigger_kws = conf.get("keywords", [])
+                        if any(any(tk in k for tk in trigger_kws) for k in keywords):
+                            inject_list = conf.get("inject", [])
+                            for target in inject_list:
+                                clean_target = target.replace(" ", "")
+                                for idx, item in enumerate(self.corpus):
+                                    corpus_str = f"{str(item.get('metadata', {}).get('law_name'))}{str(item.get('metadata', {}).get('article'))}".replace(" ", "")
+                                    if clean_target in corpus_str:
+                                        # 이미 있으면 삭제 후 0번(최상단)으로 이동 (리랭커 노출 보장)
+                                        if idx in fused_indices: fused_indices.remove(idx)
+                                        fused_indices.insert(0, idx)
+                                        injected_ids.add(idx)
+                                        logger.info(f"[Tow-in] Success: {target}")
+                                        break
+
+            reranked_res = self.reranker.rerank(q, self.corpus, fused_indices)
+            return self.context_builder.build(self.corpus, reranked_res, self.category_law_boost, category, cats, keywords, self.domain_shield_config, injected_ids)
+
+        search_query = query
+        if category == "FRAUD": search_query += " 기망 편취 재산상 이익"
+            
+        inj_targets = self.baseline_injection.get(category, []) if category else []
+        final_kws = [self.legal_synonyms.get(kw, kw) for kw in (legal_keywords or [])]
+        trig_map = self.triggered_injection
+        
+        statutes = _get_statutes(search_query, candidate_categories, final_kws, inj_targets, trig_map)
+        return {"statutes": statutes}
+
+def search_relevant_context(query, original_query=None, turn_count=1, llm_keywords=None, session_category=None, prev_statute_names=None):
     try:
-        conn = psycopg2.connect(_KNOWLEDGE_DB_URL)
-        cur = conn.cursor()
-
-        candidates = []
-
-        # 1. 1차 저인망 검색 (법령 Top 10)
-        cur.execute("""
-            SELECT id, law_name, article, content
-            FROM statutes
-            ORDER BY embedding <=> %s::vector
-            LIMIT %s;
-        """, (query_vector, FETCH_K))
-
-        for row in cur.fetchall():
-            candidates.append({
-                "type": "statute",
-                "id": row[0],
-                "law_name": row[1],
-                "article": row[2],
-                "content": row[3][:CONTENT_MAX_LEN]
-            })
-
-        # 2. 1차 저인망 검색 (Q&A Top 10)
-        cur.execute("""
-            SELECT id, question, answer
-            FROM official_qa
-            ORDER BY embedding <=> %s::vector
-            LIMIT %s;
-        """, (query_vector, FETCH_K))
-
-        for row in cur.fetchall():
-            candidates.append({
-                "type": "qa",
-                "id": row[0],
-                "question": row[1],
-                "answer": row[2][:ANSWER_MAX_LEN]
-            })
-
-        cur.close()
-        conn.close()
-
-        if not candidates:
-            return results
-
-        # 3. 리랭킹 수행 (Ko-Reranker)
-        reranker = get_reranker()
-        pairs = []
-        for c in candidates:
-            if c["type"] == "statute":
-                text = f"{c['law_name']} {c['article']} {c['content']}"
-            else:
-                text = f"Q: {c['question']} A: {c['answer']}"
-            pairs.append([query, text])
-            
-        scores = reranker.predict(pairs)
+        pipeline = LegalRAGPipeline()
+        search_query = query
+        candidates = [session_category] if session_category else []
+        if llm_keywords:
+            expanded = []
+            for kw in llm_keywords:
+                expanded.append(pipeline.legal_synonyms.get(kw, kw))
+                for trigger, domains in pipeline.domain_crossover.items():
+                    if trigger in kw: candidates.extend(domains)
+            final_keywords = list(dict.fromkeys(expanded))
+            if final_keywords: search_query += f" {' '.join(final_keywords)}"
         
-        for i, c in enumerate(candidates):
-            c["score"] = float(scores[i])
+        if turn_count > 1 and prev_statute_names:
+            search_query += f" {' '.join(prev_statute_names)}"
             
-        # 4. 법적 근거 보장형 통합 선발 (Top-3)
-        candidates.sort(key=lambda x: x["score"], reverse=True)
-        final_selection = []
-        
-        # 조건 1: 가장 점수가 높은 법령 1개 무조건 선발
-        best_statute = next((c for c in candidates if c["type"] == "statute"), None)
-        if best_statute:
-            final_selection.append(best_statute)
-            candidates.remove(best_statute)
-            
-        # 조건 2: 남은 후보 중 최고 득점자 2개 추가 (단, 점수가 0을 초과할 때만)
-        for c in candidates:
-            if len(final_selection) >= FINAL_TOP_K:
-                break
-            if c["score"] > MIN_RERANK_SCORE:
-                final_selection.append(c)
-
-        # 5. 최종 결과를 기존 형식으로 분배
-        logger.info("=== RAG 리랭킹 최종 선발 결과 (Top 3) ===")
-        for i, c in enumerate(final_selection):
-            title = f"{c['law_name']} {c['article']}" if c['type'] == 'statute' else f"Q: {c['question']}"
-            logger.info(f"[{i+1}위] 점수: {c['score']:.4f} | 타입: {c['type'].upper():<7} | 제목: {title[:40]}...")
-
-        for c in final_selection:
-            if c["type"] == "statute":
-                results["statutes"].append({
-                    "id": c["id"],
-                    "law_name": c["law_name"],
-                    "article": c["article"],
-                    "content": c["content"],
-                    "similarity": round(c["score"], 3)
-                })
-            else:
-                results["qa"].append({
-                    "id": c["id"],
-                    "question": c["question"],
-                    "answer": c["answer"],
-                    "similarity": round(c["score"], 3)
-                })
-
-        total = len(results["statutes"]) + len(results["qa"])
-        logger.info(f"RAG 검색 완료: 1차(20건) -> 리랭킹 -> 최종 {total}건 발탁 (법령 {len(results['statutes'])}, QA {len(results['qa'])})")
-
+        return pipeline.search(search_query, category=session_category, original_query=original_query or query, candidate_categories=list(dict.fromkeys(candidates)), legal_keywords=llm_keywords)
     except Exception as e:
-        logger.error(f"RAG 검색 오류: {e}")
-        # 검색 실패 시 빈 결과 반환 → 일반 응답으로 폴백
+        logger.error(f"Search Error: {str(e)}")
+        return {"statutes": []}
 
-    return results
+def build_rag_context(results):
+    statutes = results.get("statutes", [])
+    if not statutes: return "관련 법령을 찾을 수 없습니다."
+    ctx = "[관련 법령 정보]\n"
+    for i, s in enumerate(statutes):
+        ctx += f"{i+1}. {s['law_name']} ({s['article']}): {s['content']}\n"
+    return ctx
 
-
-def build_rag_context(rag_results: dict) -> str:
-    """
-    검색 결과를 LLM 프롬프트에 삽입할 컨텍스트 문자열로 변환합니다.
-
-    Returns:
-        - 결과가 없으면 빈 문자열 반환 (프롬프트에 아무것도 추가 안 함)
-        - 결과가 있으면 '[참고 법률 정보]' 블록 반환
-    """
-    if not rag_results["statutes"] and not rag_results["qa"]:
-        return ""
-
-    parts = ["[참고 법률 정보] (아래 내용을 근거로 답변하세요. 원문 그대로 인용하지 말고 쉽게 풀어서 설명하세요.)"]
-
-    for s in rag_results["statutes"]:
-        parts.append(f"▶ {s['law_name']} {s['article']}\n{s['content']}")
-
-    for q in rag_results["qa"]:
-        parts.append(f"▶ 생활법률 안내\nQ: {q['question']}\nA: {q['answer']}")
-
-    return "\n\n".join(parts)
-
-
-def get_first_referenced_id(rag_results: dict):
-    """
-    AI 답변 저장 시 사용할 주요 참조 ID 및 타입을 반환합니다.
-    우선순위: statutes > qa
-    Returns: (id: int|None, type: str|None)
-    """
-    if rag_results["statutes"]:
-        return rag_results["statutes"][0]["id"], "STATUTE"
-    if rag_results["qa"]:
-        return rag_results["qa"][0]["id"], "OFFICIAL_GUIDE"
+def get_first_referenced_id(results):
+    statutes = results.get("statutes", [])
+    if statutes: return statutes[0].get("id"), "statute"
     return None, None
+
+def get_model():
+    p = LegalRAGPipeline()
+    p.initialize()
+    return p
+
+def get_reranker():
+    p = LegalRAGPipeline()
+    p.initialize()
+    return p.reranker
