@@ -37,7 +37,7 @@ PREPROCESSOR_SYSTEM_PROMPT = (
     "- Q: '스토킹 신고했는데 자꾸 찾아와요' → {\"category\": \"CRIMINAL\", \"legal_keywords\": [\"스토킹\", \"잠정조치\", \"스토킹처벌법\"], \"factual_summary\": \"스토킹 범죄 지속 및 보호 요청\", \"is_multiturn_continuation\": false}\n"
 )
 
-# [v6 MVP] 가독성 중심 하이브리드 나이브 상담 프롬프트
+# [v6.1 MVP] 가독성 중심 하이브리드 나이브 상담 프롬프트
 MAIN_ENGINE_SYSTEM_PROMPT = """
 당신은 대한민국에서 가장 따뜻하고 친절한 AI 변호사 'BaroLaw'입니다.
 사용자의 질문에 대해 부드러운 '해요체'를 사용하여, 압도적인 가독성으로 해결책을 제시하세요.

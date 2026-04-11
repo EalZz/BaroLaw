@@ -11,6 +11,7 @@ import pytz
 import httpx
 import sys
 import re
+import time
 from sqlalchemy import desc
 import asyncio
 
@@ -184,20 +185,20 @@ async def prepare_chat_context(uid: str, user_text: str, session_id: Optional[st
         past_statutes_raw = getattr(chat_session, "past_statutes", "")
         prev_statutes_list = [s.strip() for s in past_statutes_raw.split(",")] if past_statutes_raw else []
         
-        # 3. [R2] 쿼리 전처리 (LLM 병목 제거 - 80% 이상의 속도 향상 예상)
-        # preprocessor_result = preprocessor.process(user_text) # 주석 처리
-        preprocessor_result = {"category": "GENERAL", "keywords": [], "summary": user_text}
-        
-        # 3. RAG 기반 관련 법령 검색 (v6.5 시맨틱 쿼리 융합 호출)
-        # LLM이 파악한 죄명 키워드(intent.legal_keywords)를 RAG 엔진에 전달하여 검색 정밀도 향상
+        # 3. RAG 기반 관련 법령 검색 (v6.6 지연 시간 측정 추가)
+        rag_start = time.time()
         rag_results_dict = await asyncio.to_thread(
             search_relevant_context,
             query=user_text,
             original_query=user_text,
             turn_count=len(past_msgs_objs) // 2 + 1,
-            llm_keywords=intent.legal_keywords, # LLM 분석 죄명(Keywords)을 검색어 보강에 사용
+            llm_keywords=intent.legal_keywords,
             session_category=intent.category.value if intent.category else "UNCERTAIN"
         )
+        rag_duration = time.time() - rag_start
+        logger.info(f"--- [Performance] RAG Search took {rag_duration:.2f}s ---")
+        
+        # 6. 인용 데이터 후처리 (Hint 추출)
         
         # 6. 인용 데이터 후처리 (Hint 추출)
         current_statutes_names = []
@@ -225,7 +226,8 @@ async def prepare_chat_context(uid: str, user_text: str, session_id: Optional[st
             "is_new_session": len(past_msgs_objs) == 0,
             "category": intent.category.value if intent.category else "UNCERTAIN",
             "keywords": intent.legal_keywords,
-            "summary": intent.factual_summary
+            "summary": intent.factual_summary,
+            "rag_duration": rag_duration # v6.6
         }
     finally:
         db_session.close()
@@ -254,6 +256,7 @@ async def update_session_title_in_background(session_id: str, text: str):
         logger.error(f"[Title Update Error] {e}")
 
 async def generate_ai_stream(request: Request, uid: str, user_text: str, current_time: str, session_id: Optional[str] = None):
+    start_time = time.time()
     try:
         # [Step 1] 컨텍스트 준비
         context_data = await prepare_chat_context(uid, user_text, session_id)
@@ -273,14 +276,14 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
         rag_engine_raw_str = ""
         
         if rag_results.get("statutes"):
-            # 1. 앱용 태그 조립 (UI 리스트)
+            # 1. 앱용 태그 조집 (UI 리스트) - Legacy Format
             legal_basis_content = (
                 "\n\n---[LEGAL_BASIS]---\n"
                 "⚖️ **법적 근거 및 참고 문헌**\n" + 
                 "\n".join([f"- {s['law_name']} {s['article']}" for s in rag_results["statutes"]])
             )
             
-            # 2. 앱용 태그 조립 (상세 팝업 JSON)
+            # 2. 앱용 태그 조립 (상세 팝업 JSON) - Legacy Format
             details = [
                 {
                     "title": f"{s['law_name']} {s['article']}", 
@@ -335,13 +338,17 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
                             # [테스트 평가] 테스트 엔진용 태그 전송 (앱에서는 무시됨)
                             if rag_engine_raw_str: yield build_sse_payload(rag_engine_raw_str)
                             
-                            # [v2.5] RAG 메타데이터(카테고리, 키워드, 요약) 전송
-                            rag_meta_json = json.dumps({
+                            # [v6.6] 성능 요약 로그 및 메타데이터 전송 (Performance Maintenance)
+                            full_duration = time.time() - start_time
+                            perf_meta = {
                                 "category": context_data.get("category", "UNCERTAIN"),
-                                "keywords": context_data.get("keywords", []), # LLM 시맨틱 키워드 강제 고정
+                                "keywords": context_data.get("keywords", []),
                                 "summary": context_data.get("summary", ""),
-                            }, ensure_ascii=False)
-                            yield build_sse_payload(f"\n---[RAG_METADATA]---\n{rag_meta_json}")
+                                "rag_s": round(context_data.get("rag_duration", 0), 2),
+                                "total_s": round(full_duration, 2)
+                            }
+                            yield build_sse_payload(f"\n---[RAG_METADATA]---\n{json.dumps(perf_meta, ensure_ascii=False)}")
+                            logger.info(f"--- [Performance Final] Total: {full_duration:.2f}s (RAG: {context_data.get('rag_duration', 0):.2f}s) ---")
 
                             yield build_sse_payload("", done=True)
                             
@@ -358,7 +365,7 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
                                             
                                     save_chat_message(
                                         db_final, sid_str, role="ai", 
-                                        content=accumulated_resp, 
+                                        content=f"{accumulated_resp}{legal_basis_content}{legal_details_content}", 
                                         ref_type=context_data["ref_type"], 
                                         ref_id=clean_ref_id
                                     )

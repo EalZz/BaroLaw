@@ -1,0 +1,2169 @@
+[
+    {
+        "test_id": "FRAUD_01_S",
+        "category": "FRAUD",
+        "description": "당근마켓에서 노트북 샀는데 돈만 받고",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "당근마켓에서 노트북 샀는데 돈만 받고 탈퇴했어요. 사기인 것 같은데 어떡하죠?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_02_S",
+        "category": "FRAUD",
+        "description": "친구한테 생활비라고 500 빌려줬는데",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "친구한테 생활비라고 500 빌려줬는데 알고보니 도박에 다 썼대요. 고소 되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_03_S",
+        "category": "FRAUD",
+        "description": "로또 분석 사이트에서 당첨 보장한다고",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "로또 분석 사이트에서 당첨 보장한다고 300 받아갔는데 다 가짜였어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_04_S",
+        "category": "FRAUD",
+        "description": "직원이 포스기에서 고의로 현금 취소하",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "직원이 포스기에서 고의로 현금 취소하고 돈을 챙긴 걸 CCTV로 확인했습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제356조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_05_S",
+        "category": "FRAUD",
+        "description": "회삿돈을 개인 주식 투자에 썼다가 반",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "회삿돈을 개인 주식 투자에 썼다가 반 이상 날린 경리 직원을 어떻게 처벌하나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제356조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_06_S",
+        "category": "FRAUD",
+        "description": "검사 사칭 전화를 받고 계좌번호랑 비",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "검사 사칭 전화를 받고 계좌번호랑 비번을 알려줬는데 1000만원이 인출됐어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_07_S",
+        "category": "FRAUD",
+        "description": "보험금을 타내려고 고의로 교통사고를 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "보험금을 타내려고 고의로 교통사고를 낸 사람을 신고하고 싶습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_08_S",
+        "category": "FRAUD",
+        "description": "기획부동산에 속아서 쓸모없는 땅을 비",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "기획부동산에 속아서 쓸모없는 땅을 비싼 값에 샀는데 사기죄 성립되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_09_S",
+        "category": "FRAUD",
+        "description": "투자 리딩방에서 원금 보장한다고 해서",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "투자 리딩방에서 원금 보장한다고 해서 입금했는데 단톡방이 없어졌어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_10_S",
+        "category": "FRAUD",
+        "description": "중고차 주행거리 조작해서 판 딜러를 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "중고차 주행거리 조작해서 판 딜러를 상대로 환불받고 싶어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_11_S",
+        "category": "FRAUD",
+        "description": "취업 시켜준다고 수수료 명목으로 돈을",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "취업 시켜준다고 수수료 명목으로 돈을 받아 가더니 연락이 안 됩니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_12_S",
+        "category": "FRAUD",
+        "description": "명의 빌려주면 돈 준다고 해서 빌려줬",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "명의 빌려주면 돈 준다고 해서 빌려줬는데 제 명의로 대출이 잔뜩 생겼어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_13_S",
+        "category": "FRAUD",
+        "description": "임금 체불하고 사장이 야반도주했는데 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "임금 체불하고 사장이 야반도주했는데 이건 사기죄인가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "근로기준법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_14_S",
+        "category": "FRAUD",
+        "description": "가짜 명품을 진짜라고 속여서 번개장터",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "가짜 명품을 진짜라고 속여서 번개장터에서 팔았는데 처벌 수위가 어떻게 되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_15_S",
+        "category": "FRAUD",
+        "description": "경리 직원이 법인카드를 백화점에서 개",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "경리 직원이 법인카드를 백화점에서 개인 용도로 쇼핑했는데 횡령인가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제356조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_16_M",
+        "category": "FRAUD",
+        "description": "돈을 빌려줬는데 친구가 안 갚아요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "돈을 빌려줬는데 친구가 안 갚아요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "알고보니 처음부터 도박 빚 갚으려 했던 거래요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_17_M",
+        "category": "FRAUD",
+        "description": "중고거래 입금을 했는데 물건이 안 와",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "중고거래 입금을 했는데 물건이 안 와요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "거래내역이랑 송금확인증은 다 뽑아놨어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_18_M",
+        "category": "FRAUD",
+        "description": "회사 장부가 좀 이상한 것 같습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "회사 장부가 좀 이상한 것 같습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "CCTV에 직원이 돈을 챙기는 모습이 찍혔어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제356조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_19_M",
+        "category": "FRAUD",
+        "description": "검사라고 전화가 와서 이상한 앱을 깔",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "검사라고 전화가 와서 이상한 앱을 깔았어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "내 명의 계좌에서 돈이 다 빠져나갔습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_20_M",
+        "category": "FRAUD",
+        "description": "코인 투자방에 돈을 넣었습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "코인 투자방에 돈을 넣었습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "운영자가 잠적했고 피해자가 수십 명이에요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_21_M",
+        "category": "FRAUD",
+        "description": "집주인이 보증금을 안 줘요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "집주인이 보증금을 안 줘요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "나중에 보니 제 보증금으로 다른 빚을 갚았더라구요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법",
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_22_M",
+        "category": "FRAUD",
+        "description": "휴대폰 개통해 주면 현금 준다는 광고",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "휴대폰 개통해 주면 현금 준다는 광고를 봤어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "제 명의로 폰이 4대 개통됐고 요금이 폭탄으로 나왔어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_23_M",
+        "category": "FRAUD",
+        "description": "보험금을 청구했는데 거절당했어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "보험금을 청구했는데 거절당했어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "알고보니 병원장이랑 짜고 허위 진단서를 낸 사람이 많대요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_24_M",
+        "category": "FRAUD",
+        "description": "친구랑 동업을 시작했는데 돈이 자꾸 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "친구랑 동업을 시작했는데 돈이 자꾸 빕니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "친구가 회삿돈을 자기 생활비로 쓴 걸 확인했어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제356조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_25_M",
+        "category": "FRAUD",
+        "description": "쇼핑몰에서 결제했는데 배송이 한 달째",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "쇼핑몰에서 결제했는데 배송이 한 달째 안 돼요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "사이트는 폐쇄됐고 사장도 연락 두절입니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_26_M",
+        "category": "FRAUD",
+        "description": "빌려준 명품 가방을 친구가 팔아버렸어",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "빌려준 명품 가방을 친구가 팔아버렸어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "자기가 돈이 급해서 어쩔 수 없었다네요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제355조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_27_M",
+        "category": "FRAUD",
+        "description": "부동산 분양 대행업체에 속았습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "부동산 분양 대행업체에 속았습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "허위 광고로 투자금을 모으고 잠적했습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조",
+                    "공인중개사법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_28_M",
+        "category": "FRAUD",
+        "description": "계보증금 사기를 당한 것 같습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "계보증금 사기를 당한 것 같습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "계주가 곗돈을 들고 야반도주했어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제355조",
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_29_M",
+        "category": "FRAUD",
+        "description": "중고차 살 때 성능 기록부가 가짜였어",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "중고차 살 때 성능 기록부가 가짜였어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "사고 차량을 무사고라고 속여서 비싸게 팔았습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "FRAUD_30_M",
+        "category": "FRAUD",
+        "description": "전화로 카드 보안카드 번호를 알려줬어",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전화로 카드 보안카드 번호를 알려줬어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "카드 한도가 다 차도록 상품권 결제가 됐습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_01_S",
+        "category": "CRIMINAL",
+        "description": "밤길에 모르는 사람이 갑자기 때리고 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "밤길에 모르는 사람이 갑자기 때리고 도망갔어요. 코뼈가 부러졌습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제257조",
+                    "형법 제260조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_02_S",
+        "category": "CRIMINAL",
+        "description": "술집에서 옆 테이블이랑 싸우다 뺨을 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "술집에서 옆 테이블이랑 싸우다 뺨을 한 대 맞았는데 고소하고 싶어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제260조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_03_S",
+        "category": "CRIMINAL",
+        "description": "게임 하다가 부모님 욕을 심하게 들었",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "게임 하다가 부모님 욕을 심하게 들었는데 화면 캡처 해놨습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제311조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_04_S",
+        "category": "CRIMINAL",
+        "description": "전 남친이 계속 집 앞에 찾아오고 초",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전 남친이 계속 집 앞에 찾아오고 초인종을 눌러서 무서워요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "스토킹범죄의 처벌 등에 관한 법률"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_05_S",
+        "category": "CRIMINAL",
+        "description": "인터넷에 제 사진을 올리고 성적인 비",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "인터넷에 제 사진을 올리고 성적인 비하 발언을 한 사람을 처벌하고 싶어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제298조",
+                    "형법 제311조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_06_S",
+        "category": "CRIMINAL",
+        "description": "가게에서 손님이 술 마시고 행패 부리",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "가게에서 손님이 술 마시고 행패 부리며 집기를 다 부쉈어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제366조",
+                    "형법 제314조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_07_S",
+        "category": "CRIMINAL",
+        "description": "지하철에서 누군가 제 몸을 일부러 만",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "지하철에서 누군가 제 몸을 일부러 만진 것 같습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제298조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_08_S",
+        "category": "CRIMINAL",
+        "description": "모르는 사람이 소셜 미디어에 제 허위",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "모르는 사람이 소셜 미디어에 제 허위 사실을 유포해서 회사에 항의 전화가 와요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "정보통신망 이용촉진 및 정보보호 등에 관한 법률",
+                    "형법 제307조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_09_S",
+        "category": "CRIMINAL",
+        "description": "돈 안 갚으면 가족들 가만 안 두겠다",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "돈 안 갚으면 가족들 가만 안 두겠다고 문자를 보냈는데 협박죄인가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제283조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_10_S",
+        "category": "CRIMINAL",
+        "description": "집 앞에 주차 중인 제 오토바이를 누",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "집 앞에 주차 중인 제 오토바이를 누가 훔쳐갔습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제329조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_11_S",
+        "category": "CRIMINAL",
+        "description": "공공장소에서 제가 하는 말을 누군가 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "공공장소에서 제가 하는 말을 누군가 동의 없이 녹음하고 있습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "통신비밀보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_12_S",
+        "category": "CRIMINAL",
+        "description": "카페에서 노트북 잠시 자리 비운 사이",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "카페에서 노트북 잠시 자리 비운 사이 없어졌는데 처벌되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제329조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_13_S",
+        "category": "CRIMINAL",
+        "description": "벽에 낙서하고 공공 기물을 파손한 학",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "벽에 낙서하고 공공 기물을 파손한 학생들을 신고하고 싶어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제366조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_14_S",
+        "category": "CRIMINAL",
+        "description": "누가 고의로 제 택배를 가져가서 뜯어",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "누가 고의로 제 택배를 가져가서 뜯어본 것 같습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제329조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_15_S",
+        "category": "CRIMINAL",
+        "description": "학교 폭력을 당하고 있는데 보복이 두",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "학교 폭력을 당하고 있는데 보복이 두려워 신고를 못하겠어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "학교폭력 예방 및 대책에 관한 법률",
+                    "형법 제260조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_16_M",
+        "category": "CRIMINAL",
+        "description": "술자리에서 시비가 붙었습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "술자리에서 시비가 붙었습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "서로 때렸는데 저만 진단서 2주 나왔어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제260조",
+                    "형법 제257조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_17_M",
+        "category": "CRIMINAL",
+        "description": "누가 인터넷에 제 험담을 올렸어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "누가 인터넷에 제 험담을 올렸어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "제 이름이랑 사진이 다 나와있어서 사람들이 다 알아봐요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "정보통신망 이용촉진 및 정보보호 등에 관한 법률",
+                    "형법 제307조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_18_M",
+        "category": "CRIMINAL",
+        "description": "전 애인이 자꾸 연락을 합니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전 애인이 자꾸 연락을 합니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "차단해도 번호를 바꿔서 문자 수백 통을 보내요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "스토킹범죄의 처벌 등에 관한 법률"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_19_M",
+        "category": "CRIMINAL",
+        "description": "엘리베이터에서 성추행을 당했습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "엘리베이터에서 성추행을 당했습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "내부 CCTV 녹화본 확보했고 범인 얼굴도 찍혔어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제298조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_20_M",
+        "category": "CRIMINAL",
+        "description": "층간소음 문제로 위층 남자랑 싸웠어요",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "층간소음 문제로 위층 남자랑 싸웠어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "그 사람이 칼을 들고 위협하며 문을 두드렸습니다.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_21_M",
+        "category": "CRIMINAL",
+        "description": "가게에서 손님이 난동을 부립니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "가게에서 손님이 난동을 부립니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "영업을 못 할 정도로 소리 지르고 테이블을 엎었어요.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_22_M",
+        "category": "CRIMINAL",
+        "description": "누가 제 가방을 가져갔어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "누가 제 가방을 가져갔어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "CCTV 보니 제가 깜빡 두고 나온 가방을 들고 나가는 게 찍혔네요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제329조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_23_M",
+        "category": "CRIMINAL",
+        "description": "단톡방에서 제 욕을 하는 걸 봤어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "단톡방에서 제 욕을 하는 걸 봤어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "동호회 사람 수십 명이 있는 방에서 대놓고 저를 비하했습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제311조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_24_M",
+        "category": "CRIMINAL",
+        "description": "길에서 모르는 사람이 발을 걸었어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "길에서 모르는 사람이 발을 걸었어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "그대로 넘어져서 무릎을 심하게 다쳤는데 그냥 가버렸습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제257조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_25_M",
+        "category": "CRIMINAL",
+        "description": "집 비밀번호가 바뀐 것 같아요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "집 비밀번호가 바뀐 것 같아요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "누가 제 집에 몰래 들어온 흔적이 있고 속옷이 없어졌어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제329조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_26_M",
+        "category": "CRIMINAL",
+        "description": "스토킹 신고했는데 계속 찾아와요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "스토킹 신고했는데 계속 찾아와서 초인종을 눌러요. 너무 공포스러운데 당장 못 오게 할 수 있나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "스토킹범죄의 처벌 등에 관한 법률"
+                ]
+            },
+            {
+                "turn_id": 2,
+                "user_input": "경찰에 신변보호랑 잠정조치 같은 거 신청하고 싶은데 방법 알려주세요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "스토킹범죄의 처벌 등에 관한 법률"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_27_M",
+        "category": "CRIMINAL",
+        "description": "회사 사람 대화 내용을 몰래 들었습니",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "회사 사람 대화 내용을 몰래 들었습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "휴게실에 녹음기를 설치해서 저를 욕하는 내용을 수집했어요.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_28_M",
+        "category": "CRIMINAL",
+        "description": "길가다 고양이를 학대하는 사람을 봤어",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "길가다 고양이를 학대하는 사람을 봤어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "몽둥이로 때리고 길에 버리는 장면을 찍었습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "동물보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_29_M",
+        "category": "CRIMINAL",
+        "description": "중고차 매장에 갇혔습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "중고차 매장에 갇혔습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "계약 안 하면 못 나간다며 문을 잠그고 위협했어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제283조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "CRIMINAL_30_M",
+        "category": "CRIMINAL",
+        "description": "남의 택배를 계속 몰래 가져가요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "남의 택배를 계속 몰래 가져가요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "복도에 둔 택배 3개를 일주일 사이 다 훔쳐갔습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제329조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_01_S",
+        "category": "REAL_ESTATE",
+        "description": "집 보러 가서 가계약금 200 넣었는",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "집 보러 가서 가계약금 200 넣었는데, 변심해서 취소하면 돌려받나요?",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_02_S",
+        "category": "REAL_ESTATE",
+        "description": "윗집 애들이 하루종일 뛰어서 미치겠어",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "윗집 애들이 하루종일 뛰어서 미치겠어요. 손해배상 소송 가능한가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "경범죄 처벌법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_03_S",
+        "category": "REAL_ESTATE",
+        "description": "전세 만기가 지났는데 집주인이 다음 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전세 만기가 지났는데 집주인이 다음 세입자 들어올 때까지 못 준대요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_04_S",
+        "category": "REAL_ESTATE",
+        "description": "비만 오면 천장에서 물이 새는데 집주",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "비만 오면 천장에서 물이 새는데 집주인이 나몰라라 합니다.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_05_S",
+        "category": "REAL_ESTATE",
+        "description": "상가 권리금 회수하고 싶은데 건물주가",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "상가 권리금 회수하고 싶은데 건물주가 자기 아들이 장사한다고 나가래요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "상가건물 임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_06_S",
+        "category": "REAL_ESTATE",
+        "description": "세입자가 월세를 벌써 4달째 안 내고",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "세입자가 월세를 벌써 4달째 안 내고 연락도 안 통합니다.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_07_S",
+        "category": "REAL_ESTATE",
+        "description": "전입신고랑 확정일자 당일에 집주인이 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전입신고랑 확정일자 당일에 집주인이 대출을 받았어요. 제 순위가 밀리나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_08_S",
+        "category": "REAL_ESTATE",
+        "description": "공인중개사가 수수료를 법정 한도보다 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "공인중개사가 수수료를 법정 한도보다 훨씬 많이 요구합니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "공인중개사법",
+                    "형법 제347조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_09_S",
+        "category": "REAL_ESTATE",
+        "description": "아파트 아래층에서 화장실 담배 냄새가",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "아파트 아래층에서 화장실 담배 냄새가 너무 심하게 올라와요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "공동주택관리법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_10_S",
+        "category": "REAL_ESTATE",
+        "description": "매매 계약했는데 집값이 오르니 매도인",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "매매 계약했는데 집값이 오르니 매도인이 계약금 두 배 주고 해제한대요.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_11_S",
+        "category": "REAL_ESTATE",
+        "description": "전세 계약 갱신 요구했는데 거절",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전세 만기가 다가와서 갱신을 요구했는데 집주인이 본인이 직접 들어와 산다며 거절해요. 무조건 나가야 하나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_12_S",
+        "category": "REAL_ESTATE",
+        "description": "집주인이 보증금을 안 줘요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "이사를 가야 하는데 집주인이 보증금을 안 줍니다. 임차권등기명령 신청하면 제 보증금이 보호되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_13_S",
+        "category": "REAL_ESTATE",
+        "description": "관리비가 갑자기 두 배 넘게 올랐는데",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "관리비가 갑자기 두 배 넘게 올랐는데 상세 내역 공개 요청 가능한가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "집합건물의 소유 및 관리에 관한 법률",
+                    "공동주택관리법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_14_S",
+        "category": "REAL_ESTATE",
+        "description": "계약 만료 전인데 집주인이 갑자기 집",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "계약 만료 전인데 집주인이 갑자기 집 비워달라고 하면 어떡하죠?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_15_S",
+        "category": "REAL_ESTATE",
+        "description": "전세 집이 경매에 넘어갔다는 통지서를",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전세 집이 경매에 넘어갔다는 통지서를 받았습니다. 보증금 어떡하죠?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_16_M",
+        "category": "REAL_ESTATE",
+        "description": "층간소음 때문에 윗집이랑 말다툼을 했",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "층간소음 때문에 윗집이랑 말다툼을 했어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "너무 시끄러워서 그런데 경찰 신고나 민사 소송이 실익이 있을까요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "경범죄 처벌법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_17_M",
+        "category": "REAL_ESTATE",
+        "description": "방을 보러 갔다가 마음에 들어서 돈을",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "방을 보러 갔다가 마음에 들어서 돈을 좀 걸었습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "정식 계약 전인데 사정이 생겨 취소하려니 집주인이 돈을 못 준다네요.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_18_M",
+        "category": "REAL_ESTATE",
+        "description": "전세 만기가 한 달 남았습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전세 만기가 한 달 남았습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "집주인한테 내용증명 보내고 임차권 등기 하려는데 절차 좀 알려주세요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_19_M",
+        "category": "REAL_ESTATE",
+        "description": "상가 임대 중인데 월세가 계속 밀려요",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "상가 임대 중인데 월세가 계속 밀려요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "벌써 3기분 넘게 밀렸는데 바로 계약 해지 가능한가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "상가건물 임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_20_M",
+        "category": "REAL_ESTATE",
+        "description": "집에 누수가 생겨서 도배가 망가졌어요",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "집에 누수가 생겨서 도배가 망가졌어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "집주인이 세입자 과실이라며 수리를 거부하는데 제 과실이 아니거든요.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_21_M",
+        "category": "REAL_ESTATE",
+        "description": "계약금만 낸 상태에서 집주인이 바뀌었",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "계약금만 낸 상태에서 집주인이 바뀌었습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "새 주인은 실거주한다며 저보고 나가라는데 전 계약 유지하고 싶어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "주택임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_22_M",
+        "category": "REAL_ESTATE",
+        "description": "주차 금지 구역에 누가 자꾸 차를 대",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "주차 금지 구역에 누가 자꾸 차를 대요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "빌라 주차장 입구를 막아버려서 차가 못 나가고 있습니다.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_23_M",
+        "category": "REAL_ESTATE",
+        "description": "집에 누수가 생겨서 벽지가 엉망이에요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "집에 누수가 생겨서 벽지가 다 젖고 엉망이 됐습니다. 집주인에게 수선 요청 가능할까요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "민법"
+                ]
+            },
+            {
+                "turn_id": 2,
+                "user_input": "집주인이 세입자 과실이라며 수리를 거부하는데, 이거 법적으로 강제할 수 있나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "민법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_24_M",
+        "category": "REAL_ESTATE",
+        "description": "오피스텔 옥상을 특정인이 자물쇠로 잠갔어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "오피스텔 옥상을 특정 호수가 자물쇠로 잠가버리고 혼자 개인 테라스처럼 쓰고 있습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "집합건물법"
+                ]
+            },
+            {
+                "turn_id": 2,
+                "user_input": "공용 부분인데 무단 점유로 신고하거나 방해 배제 청구가 가능한가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "집합건물법",
+                    "민법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_25_M",
+        "category": "REAL_ESTATE",
+        "description": "방에 곰팡이가 피어서 수리하고 싶어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "방에 곰팡이가 심하게 피어서 도저히 살 수가 없습니다. 집주인에게 수리해달라고 할 수 있나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "민법"
+                ]
+            },
+            {
+                "turn_id": 2,
+                "user_input": "집주인이 제 과실이라며 수리를 거부하는데, 이거 법적으로 강제할 수 있는 조문이 있을까요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "민법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_26_M",
+        "category": "REAL_ESTATE",
+        "description": "건물주가 상가 입구에 펜스를 쳐서 장사를 못해요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "건물주가 상가 입구에 갑자기 펜스를 쳐서 손님들이 못 들어오고 있습니다. 이거 불법 아닌가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "상가건물 임대차보호법",
+                    "민법"
+                ]
+            },
+            {
+                "turn_id": 2,
+                "user_input": "정당한 이유 없이 장사를 방해받고 있는데, 손해배상이나 방해 배제 청구가 가능한가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "상가건물 임대차보호법",
+                    "민법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_27_M",
+        "category": "REAL_ESTATE",
+        "description": "상가 권리금 회수 방해",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "상가 권리금 받고 나가려는데 건물주가 신규 세입자와의 계약을 정당한 이유 없이 안 해줍니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "상가건물 임대차보호법"
+                ]
+            },
+            {
+                "turn_id": 2,
+                "user_input": "건물주의 방해로 권리금을 못 받게 됐다면 손해배상 청구가 가능할까요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "상가건물 임대차보호법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_28_M",
+        "category": "REAL_ESTATE",
+        "description": "윗집 소음 때문에 일상 생활이 불가능해요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "윗집에서 새벽마다 운동 기구 소리가 나서 잠을 못 잡니다. 관리사무소에 중재 요청할 수 있나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "공동주택관리법"
+                ]
+            },
+            {
+                "turn_id": 2,
+                "user_input": "관리소에 말해도 해결이 안 되면 법적으로 층간소음 기준이나 처벌 규정이 있는지 궁금합니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "공동주택관리법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_29_M",
+        "category": "REAL_ESTATE",
+        "description": "이사 왔는데 전 세입자 미납 관리비가",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "이사 왔는데 전 세입자 미납 관리비가 100만 원 있네요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "관리실에서는 무조건 저보고 내라는데 이거 제가 내야 하나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "집합건물법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "REAL_ESTATE_30_M",
+        "category": "REAL_ESTATE",
+        "description": "토지 매매를 했습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "토지 매매를 했습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "알고보니 땅 밑에 쓰레기가 엄청나게 묻혀있었는데 이거 계약 해제 되죠?",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_01_S",
+        "category": "TRAFFIC",
+        "description": "음주운전 차량에 치였는데 범인이 현장",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "음주운전 차량에 치였는데 범인이 현장에서 도망갔어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "특정범죄 가중처벌 등에 관한 법률"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_02_S",
+        "category": "TRAFFIC",
+        "description": "주차장에 세워둔 제 차 문을 누가 세",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "주차장에 세워둔 제 차 문을 누가 세게 열어서 '문콕' 하고 그냥 갔습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법 제156조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_03_S",
+        "category": "TRAFFIC",
+        "description": "어린이 보호구역에서 규정 속도 지켰는",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "어린이 보호구역에서 규정 속도 지켰는데 아이가 갑자기 튀어나와 부딪혔어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "특정범죄 가중처벌 등에 관한 법률"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_04_S",
+        "category": "TRAFFIC",
+        "description": "앞차가 갑자기 제 앞으로 끼어들더니 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "앞차가 갑자기 제 앞으로 끼어들더니 급브레이크를 세 번이나 밟았어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법 제46조의3"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_05_S",
+        "category": "TRAFFIC",
+        "description": "횡단보도 초록불에 건너가는데 우회전 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "횡단보도 초록불에 건너가는데 우회전 차가 저를 치고 지나갔습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "교통사고처리 특례법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_06_S",
+        "category": "TRAFFIC",
+        "description": "전동 킥보드 음주운전도 면허 정지나 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "전동 킥보드 음주운전도 면허 정지나 취소 사유가 되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_07_S",
+        "category": "TRAFFIC",
+        "description": "고속도로에서 1차로로 계속 정속 주행",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "고속도로에서 1차로로 계속 정속 주행하는 차를 신고하고 싶어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_08_S",
+        "category": "TRAFFIC",
+        "description": "버스 전용 차로를 실수로 탔는데 과태",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "버스 전용 차로를 실수로 탔는데 과태료 얼마나 나오나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_09_S",
+        "category": "TRAFFIC",
+        "description": "무면허로 전동 킥보드 빌려서 타다가 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "무면허로 전동 킥보드 빌려서 타다가 사고 났는데 보험 처리가 되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_10_S",
+        "category": "TRAFFIC",
+        "description": "밤에 전조등 안 켜고 달리는 '스텔스",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "밤에 전조등 안 켜고 달리는 '스텔스 차량' 과 사고 나면 과실 비율 어떻게 될까요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_11_S",
+        "category": "TRAFFIC",
+        "description": "터널 안에서 차로 변경하다가 사고 났",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "터널 안에서 차로 변경하다가 사고 났는데 제가 가해자인가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_12_S",
+        "category": "TRAFFIC",
+        "description": "상대방이 제 블랙박스를 억지로 떼서 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "상대방이 제 블랙박스를 억지로 떼서 가져갔는데 처벌 가능한가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제329조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_13_S",
+        "category": "TRAFFIC",
+        "description": "앞 트럭에서 화물이 떨어져 제 차가 파손",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "앞 트럭에서 화물이 떨어져 제 차가 파손됐습니다. 적재물 불량으로 신고 가능하나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_14_S",
+        "category": "TRAFFIC",
+        "description": "자전거 타고 가다가 사람이랑 부딪혔는",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "자전거 타고 가다가 사람이랑 부딪혔는데 이거 교통사고인가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법",
+                    "교통사고처리특례법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_15_S",
+        "category": "TRAFFIC",
+        "description": "불법 유턴하는 오토바이랑 부딪혀서 제",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "불법 유턴하는 오토바이랑 부딪혀서 제가 다쳤는데 합의금 얼마나 받을까요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_16_M",
+        "category": "TRAFFIC",
+        "description": "아침에 주차장에 가보니 차가 긁혀있어",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "아침에 주차장에 가보니 차가 긁혀있어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "블랙박스 확인하니 어젯밤 옆집 차가 긁고 그냥 올라가는 게 찍혔네요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법 제156조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_17_M",
+        "category": "TRAFFIC",
+        "description": "운전 중에 앞차랑 시비가 붙었습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "운전 중에 앞차랑 시비가 붙었습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "상대방이 차에서 내려 제 차 창문을 두드리며 욕설과 협박을 했어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "형법 제311조"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_18_M",
+        "category": "TRAFFIC",
+        "description": "배달 오토바이가 제 차 사이드미러를 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "배달 오토바이가 제 차 사이드미러를 치고 도망갔습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "번호판을 찍어서 신고했는데, 경찰에서는 사람 안 다쳐서 형사 처벌 안 된다네요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법 제156조",
+                    "사고후미조치"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_19_M",
+        "category": "TRAFFIC",
+        "description": "음주운전하고 주차장에서 잠이 들었습니",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "음주운전하고 주차장에서 잠이 들었습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "누가 신고해서 경찰이 왔는데 주차장 내 주행도 처벌되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_20_M",
+        "category": "TRAFFIC",
+        "description": "어린이 보호구역 사고입니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "어린이 보호구역 사고입니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "시속 20km로 천천히 갔는데 애가 자전거 타고 횡단보도로 갑자기 들어왔어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "특정범죄 가중처벌 등에 관한 법률"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_21_M",
+        "category": "TRAFFIC",
+        "description": "고속도로 갓길로 주행했습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "고속도로 갓길로 주행했습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "차가 너무 막혀서 잠시 갓길 탔는데 암행 순찰차한테 걸렸네요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_22_M",
+        "category": "TRAFFIC",
+        "description": "비접촉 사고로 사람이 넘어졌어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "비접촉 사고로 사람이 넘어졌어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "제 차랑 부딪히진 않았는데 제 차 때문에 놀라서 넘어졌다며 신고했대요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "특정범죄 가중처벌 등에 관한 법률"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_23_M",
+        "category": "TRAFFIC",
+        "description": "렌터카로 사고를 냈습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "렌터카로 사고를 냈습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "자차 보험 가입 안 했는데 수리비랑 휴차료가 너무 무섭게 나왔어요.",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_24_M",
+        "category": "TRAFFIC",
+        "description": "중앙선 침범 사고입니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "중앙선 침범 사고입니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "불법 주차된 차 피하려다 중앙선을 살짝 넘었는데 맞은편 오토바이랑 부딪혔어요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법",
+                    "교통사고처리특례법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_25_M",
+        "category": "TRAFFIC",
+        "description": "역주행 차량이랑 부딪칠 뻔했어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "역주행 차량이랑 부딪칠 뻔했어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "다행히 사고는 안 났지만 너무 놀라고 화가 나서 신고하려고요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_26_M",
+        "category": "TRAFFIC",
+        "description": "면허 정지 기간에 운전했습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "면허 정지 기간에 운전했습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "급한 일이라 어쩔 수 없었는데 단속 카메라에 찍힌 것 같아요.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_27_M",
+        "category": "TRAFFIC",
+        "description": "무보험 차랑 사고가 났어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "무보험 차랑 사고가 났어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "상대방이 돈 없다며 배째라고 하는데 제 보험사의 무보험차 상해로 처리 되나요?",
+                "expected_action": "answer",
+                "expected_statutes": []
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_28_M",
+        "category": "TRAFFIC",
+        "description": "급브레이크로 뒷 사람이 다쳤어요.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "급브레이크로 뒷 사람이 다쳤어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "앞차가 보복운전해서 어쩔 수 없이 밟은 건데 제 책임인가요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법 제46조의3"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_29_M",
+        "category": "TRAFFIC",
+        "description": "횡단보도 근처 불법주차 때문에 사고 ",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "횡단보도 근처 불법주차 때문에 사고 났어요.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "주차된 차 때문에 시야가 가려져서 보행자를 못 보고 치었습니다.",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법"
+                ]
+            }
+        ]
+    },
+    {
+        "test_id": "TRAFFIC_30_M",
+        "category": "TRAFFIC",
+        "description": "졸음운전으로 가드레일을 박았습니다.",
+        "turns": [
+            {
+                "turn_id": 1,
+                "user_input": "졸음운전으로 가드레일을 박았습니다.",
+                "expected_action": "fallback",
+                "expected_statutes": []
+            },
+            {
+                "turn_id": 2,
+                "user_input": "다행히 다른 차는 없는데 가드레일 파손 신고 안 하고 그냥 가도 되나요?",
+                "expected_action": "answer",
+                "expected_statutes": [
+                    "도로교통법 제54조",
+                    "사고후미조치"
+                ]
+            }
+        ]
+    }
+]
