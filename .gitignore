@@ -15,6 +15,9 @@ hf_cache/
 legacy/
 *.bak
 
+# Local editor/tooling
+.cursorrules
+
 # Builds
 build/
 bin/
@@ -33,9 +36,28 @@ tests/results/*.md
 # Local-only tests
 tests/
 
+# Local scratch
+tmp_*.py
+
+# Local model build files
+models/Modelfile*
+
 # OS specific
 .DS_Store
 Thumbs.db
 
 # Windows alternate data stream artifacts materialized as filenames
 *Zone.Identifier
+
+# Backend local maintenance artifacts (do not publish)
+backend/add_missing_laws*.py
+backend/diag_*.py
+backend/emergency_restore*.py
+backend/rebuild_corpus_*.py
+backend/sync_db_to_corpus.py
+backend/verify_*.py
+backend/investigate_data.py
+backend/generate_auto_cmap.py
+backend/auto_cmap.json
+backend/autorag_data/*.old
+backend/autorag_data/*.pt.old
