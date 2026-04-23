@@ -1,15 +1,12 @@
 package com.example.barolaw
 
-import android.net.Uri
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import org.json.JSONArray
 import java.net.URLEncoder
@@ -29,20 +26,11 @@ class ChatStreamManager(private val context: Context) {
 
     // 함수의 반환 타입을 Flow로 명시하고, 내부에서 suspend 기능을 사용합니다.
     fun fetchChatStream(userText: String, sessionId: String, lat: Double? = null, lon: Double? = null): Flow<StreamResponse> = flow {
-        val json = JSONObject().put("text", userText).toString()
-        val requestBody = json.toRequestBody("application/json".toMediaType())
-        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-        val encodedText = URLEncoder.encode(userText, "UTF-8")
-
-        var finalUrl = "$BASE_URL/chat-stream?text=$encodedText&uid=$androidId&session_id=$sessionId&client_type=app"
-
-        if (lat != null && lon != null) {
-            finalUrl += "&lat=$lat&lon=$lon"
-        }
+        val finalUrl = buildChatStreamUrl(userText, sessionId, lat, lon)
 
         val request = Request.Builder()
             .url(finalUrl)
-            .addHeader("ngrok-skip-browser-warning", "true") // ngrok 우회 헤더
+            .addNgrokHeader()
             .build()
 
         // 콜백 방식이 아닌 동기 실행 후 response를 받아 처리합니다.
@@ -84,7 +72,7 @@ class ChatStreamManager(private val context: Context) {
         return withContext(Dispatchers.IO) {
             val request = Request.Builder()
                 .url("$BASE_URL/sessions/$uid")
-                .addHeader("ngrok-skip-browser-warning", "true")
+                .addNgrokHeader()
                 .build()
             
             client.newCall(request).execute().use { response ->
@@ -104,7 +92,7 @@ class ChatStreamManager(private val context: Context) {
         return withContext(Dispatchers.IO) {
             val request = Request.Builder()
                 .url("$BASE_URL/sessions/$sessionId/history")
-                .addHeader("ngrok-skip-browser-warning", "true")
+                .addNgrokHeader()
                 .build()
             
             client.newCall(request).execute().use { response ->
@@ -125,7 +113,7 @@ class ChatStreamManager(private val context: Context) {
             val request = Request.Builder()
                 .url("$BASE_URL/sessions/$sessionId")
                 .delete()
-                .addHeader("ngrok-skip-browser-warning", "true")
+                .addNgrokHeader()
                 .build()
             
             client.newCall(request).execute().use { response ->
@@ -133,6 +121,19 @@ class ChatStreamManager(private val context: Context) {
             }
         }
     }
+
+    private fun buildChatStreamUrl(userText: String, sessionId: String, lat: Double?, lon: Double?): String {
+        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val encodedText = URLEncoder.encode(userText, "UTF-8")
+        
+        var url = "$BASE_URL/chat-stream?text=$encodedText&uid=$androidId&session_id=$sessionId&client_type=app"
+        if (lat != null && lon != null) {
+            url += "&lat=$lat&lon=$lon"
+        }
+        return url
+    }
+
+    private fun Request.Builder.addNgrokHeader() = this.addHeader("ngrok-skip-browser-warning", "true")
 }
 
 data class StreamResponse(

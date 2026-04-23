@@ -37,6 +37,9 @@ tests/results/*.md
 # Local-only tests
 tests/
 
+# Local planning notes
+docs/android_usage_stability_plan.md
+
 # Local scratch
 tmp_*.py
 
