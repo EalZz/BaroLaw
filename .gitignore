@@ -17,6 +17,7 @@ legacy/
 
 # Local editor/tooling
 .cursorrules
+AGENT.MD
 
 # Builds
 build/
