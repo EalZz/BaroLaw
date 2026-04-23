@@ -30,6 +30,9 @@ postgres_data/
 tests/results/*.log
 tests/results/*.md
 
+# Local-only tests
+tests/
+
 # OS specific
 .DS_Store
 Thumbs.db
