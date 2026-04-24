@@ -93,6 +93,12 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     private var showDeleteDialog by mutableStateOf(false)
     private var sessionToDelete by mutableStateOf<ChatSession?>(null)
 
+    // Generation states
+    private var activeGenerationSessionId by mutableStateOf<String?>(null)
+    private var activeGenerationMessageId by mutableStateOf<String?>(null)
+    private var generationJob: Job? = null
+    private var lastSpokenText: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -279,13 +285,15 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                         ChatScreen(
                             currentSession = currentSession,
                             isListening = isListening,
+                            isGenerating = activeGenerationSessionId == currentSession.id,
                             onSendMessage = { text -> sendMessage(text) },
+                            onStopGeneration = { stopGeneration() },
                             onVoiceClick = { toggleVoiceRecognition() },
                             onMenuClick = { 
                                 refreshSessionTitles()
                                 scope.launch { drawerState.open() } 
                             },
-                            onPlayVoice = { text -> speak(text) },
+                            onPlayVoice = { text -> toggleSpeech(text) },
                             onLawClick = { details -> selectedLawDetails = details }
                         )
                     }
@@ -477,14 +485,19 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             if (idx != -1) sessions[idx] = session.copy(title = title)
         }
 
+        if (generationJob?.isActive == true) return // 중복 전송 방지
+
         addMessage(activeSessionId, text, isUser = true)
         val aiMsgId = addMessage(activeSessionId, "Thinking", isUser = false)
         startLoadingAnimation(activeSessionId, aiMsgId)
 
+        activeGenerationSessionId = activeSessionId
+        activeGenerationMessageId = aiMsgId
+
         var fullResponse = ""
         val currentLawDetails = mutableListOf<LawDetail>()
 
-        lifecycleScope.launch {
+        generationJob = lifecycleScope.launch {
             try {
                 streamManager.fetchChatStream(text, activeSessionId, null, null).collect { response ->
                     val token = response.token
@@ -516,7 +529,8 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                     if (response.isDone) {
                         stopLoadingAnimation(aiMsgId)
                         if (fullResponse.isNotBlank() && isAutoVoiceEnabled) {
-                            speak(fullResponse)
+                            val cleanBody = LegalResponseParser.extractDisplaySections(fullResponse).mainBody
+                            speak(cleanBody)
                         }
                         
                         // [최종 확정] 파서 호출로 스트리밍 종료 시점 데이터 누락 방지
@@ -538,13 +552,23 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
                         }
                     }
                 }
+            } catch (e: CancellationException) {
+                // 사용자가 정지 버튼을 누른 경우이므로 무시 (오류 메시지로 덮어쓰지 않음)
+                stopLoadingAnimation(aiMsgId)
             } catch (e: Exception) {
                 stopLoadingAnimation(aiMsgId)
-                val targetSession = sessions.find { it.id == activeSessionId } ?: return@launch
-                val msgIndex = targetSession.messages.indexOfFirst { it.id == aiMsgId }
+                val targetSession = sessions.find { it.id == activeSessionId }
+                val msgIndex = targetSession?.messages?.indexOfFirst { it.id == aiMsgId } ?: -1
                 if (msgIndex >= 0) {
-                    val currentMsg = targetSession.messages[msgIndex]
+                    val currentMsg = targetSession!!.messages[msgIndex]
                     targetSession.messages[msgIndex] = currentMsg.copy(content = "오류 발생: ${e.localizedMessage}")
+                }
+            } finally {
+                // 어떤 경우에도 상태 초기화
+                if (activeGenerationSessionId == activeSessionId && activeGenerationMessageId == aiMsgId) {
+                    activeGenerationSessionId = null
+                    activeGenerationMessageId = null
+                    generationJob = null
                 }
             }
         }
@@ -584,8 +608,56 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun speak(text: String) {
-        val cleanText = text.replace(Regex("[^\\p{L}\\p{N}\\s]"), "")
+        val cleanBody = try {
+            LegalResponseParser.extractDisplaySections(text).mainBody.ifBlank { text }
+        } catch (e: Exception) { text }
+        
+        val cleanText = cleanBody.replace(Regex("[^\\p{L}\\p{N}\\s]"), "")
+        lastSpokenText = text // 원문 기준으로 추적
         tts.speak(cleanText, TextToSpeech.QUEUE_FLUSH, null, null)
+    }
+
+    private fun toggleSpeech(text: String) {
+        if (tts.isSpeaking && text == lastSpokenText) {
+            tts.stop()
+            lastSpokenText = null
+        } else {
+            speak(text)
+        }
+    }
+
+    private fun stopGeneration() {
+        generationJob?.cancel()
+        generationJob = null
+
+        activeGenerationMessageId?.let { msgId ->
+            stopLoadingAnimation(msgId)
+            
+            activeGenerationSessionId?.let { sid ->
+                val session = sessions.find { it.id == sid }
+                val msgIndex = session?.messages?.indexOfFirst { it.id == msgId } ?: -1
+                if (msgIndex >= 0) {
+                    val msg = session!!.messages[msgIndex]
+                    // Thinking 상태면 중단 메시지로 교체
+                    if (msg.content.contains("Thinking")) {
+                        session.messages[msgIndex] = msg.copy(content = "생성이 중단되었습니다")
+                    }
+                }
+            }
+        }
+
+        if (tts.isSpeaking) {
+            tts.stop()
+            lastSpokenText = null
+        }
+        
+        if (isListening) {
+            speechRecognizer.stopListening()
+            isListening = false
+        }
+
+        activeGenerationSessionId = null
+        activeGenerationMessageId = null
     }
 
     override fun onDestroy() {
@@ -609,7 +681,9 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
 fun ChatScreen(
     currentSession: ChatSession,
     isListening: Boolean,
+    isGenerating: Boolean,
     onSendMessage: (String) -> Unit,
+    onStopGeneration: () -> Unit,
     onVoiceClick: () -> Unit,
     onMenuClick: () -> Unit,
     onPlayVoice: (String) -> Unit,
@@ -668,20 +742,31 @@ fun ChatScreen(
                     val hasText = textState.text.trim().isNotEmpty()
                     IconButton(
                         onClick = {
-                            val trimmed = textState.text.trim()
-                            if (trimmed.isNotEmpty()) {
-                                onSendMessage(trimmed)
-                                textState = TextFieldValue("")
+                            if (isGenerating) {
+                                onStopGeneration()
+                            } else {
+                                val trimmed = textState.text.trim()
+                                if (trimmed.isNotEmpty()) {
+                                    onSendMessage(trimmed)
+                                    textState = TextFieldValue("")
+                                }
                             }
                         },
                         modifier = Modifier
                             .size(40.dp)
-                            .background(if (hasText) Color.White else Color.DarkGray, CircleShape)
+                            .background(
+                                if (isGenerating) Color.DarkGray // 회색 배경
+                                else if (hasText) Color.White 
+                                else Color.DarkGray, 
+                                CircleShape
+                            )
                     ) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.Send, 
-                            contentDescription = "Send", 
-                            tint = if (hasText) Color.Black else Color.Gray,
+                            imageVector = if (isGenerating) Icons.Default.Stop else Icons.AutoMirrored.Filled.Send, 
+                            contentDescription = if (isGenerating) "Stop" else "Send", 
+                            tint = if (isGenerating) Color.LightGray // 좀 더 밝은 회색
+                                   else if (hasText) Color.Black 
+                                   else Color.Gray,
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -830,7 +915,7 @@ fun ChatBubble(
     onLawClick: (List<LawDetail>) -> Unit
 ) {
     val isUser = message.isUser
-    val isThinking = !isUser && message.content.startsWith("Thinking")
+    val isThinking = !isUser && (message.content.startsWith("Thinking") || message.content == "생성이 중단되었습니다")
     val bubbleColor = if (isUser) Color(0xFF2F2F2F) else Color.Transparent
     val shape = if (isUser) RoundedCornerShape(20.dp, 20.dp, 4.dp, 20.dp) else RoundedCornerShape(0.dp)
     val clipboardManager = LocalClipboardManager.current
@@ -897,7 +982,7 @@ fun ChatBubble(
                                     if (sections.mainBody.isNotEmpty()) {
                                         MarkdownText(
                                             markdown = sections.mainBody,
-                                            color = Color.White,
+                                            color = if (isThinking) Color.Gray else Color.White,
                                             style = MaterialTheme.typography.bodyLarge,
                                             isTextSelectable = true
                                         )
@@ -928,9 +1013,9 @@ fun ChatBubble(
                                     }
                                 }
                         } else {
-                            // 아직 아무것도 파싱되지 않았을 때 (스트리밍 극초기 대응)
+                            // 아직 아무것도 파싱되지 않았거나 Thinking/중단 상태일 때
                             MarkdownText(
-                                markdown = if (isThinking) "" else sections.mainBody.ifBlank { message.content.trim() },
+                                markdown = sections.mainBody.ifBlank { message.content.trim() },
                                 color = if (isThinking) Color.Gray else Color.White,
                                 style = MaterialTheme.typography.bodyLarge,
                                 isTextSelectable = true
