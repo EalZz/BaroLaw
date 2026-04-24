@@ -65,3 +65,13 @@ backend/generate_auto_cmap.py
 backend/auto_cmap.json
 backend/autorag_data/*.old
 backend/autorag_data/*.pt.old
+
+# Corpus recovery scratch (local-only)
+backend/autorag_data/backup_before_*/
+backend/autorag_data/recovered_official_qna.json
+backend/autorag_data/recovered_official_qna.parquet
+backend/autorag_data/corpus_embeddings.before_*.pt
+backend/scripts/recover_official_qna.py
+backend/scripts/merge_recovered_qna.py
+backend/scripts/repair_corpus_ids.py
+_personal_backup/

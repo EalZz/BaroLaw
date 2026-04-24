@@ -423,6 +423,9 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun loadHistory(sessionId: String) {
+        // Task 4: 생성 중인 세션은 히스토리 로드를 건너뛰어 로컬 상태(Thinking/Streaming)를 보존한다.
+        if (sessionId == activeGenerationSessionId) return
+
         lifecycleScope.launch {
             try {
                 val history = streamManager.fetchHistory(sessionId)
