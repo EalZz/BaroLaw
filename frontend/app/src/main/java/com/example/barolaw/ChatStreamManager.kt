@@ -2,9 +2,12 @@ package com.example.barolaw
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.job
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
@@ -33,38 +36,47 @@ class ChatStreamManager(private val context: Context) {
             .addNgrokHeader()
             .build()
 
-        // 콜백 방식이 아닌 동기 실행 후 response를 받아 처리합니다.
-        // 이 블록 전체가 flow 내부(코루틴 환경)이므로 emit 호출이 가능해집니다.
-        val response = client.newCall(request).execute()
+        val call = client.newCall(request)
+        
+        // Task 5: 코루틴 취소 시 네트워크 호출도 함께 취소되도록 리스너 등록
+        val job = currentCoroutineContext().job
+        val completionHandler = job.invokeOnCompletion { call.cancel() }
 
-        if (!response.isSuccessful) {
-            throw Exception("서비 응답 에러: ${response.code}")
-        }
+        try {
+            val response = call.execute()
 
-        val reader = response.body?.source()?.inputStream()?.bufferedReader()
+            if (!response.isSuccessful) {
+                throw Exception("서버 응답 에러: ${response.code}")
+            }
 
-        // 중요: use를 사용하여 스트림을 안전하게 닫습니다.
-        reader?.use { br ->
-            var line: String? = br.readLine()
-            while (line != null) {
-                if (line.startsWith("data: ")) {
-                    val data = line.substring(6)
-                    try {
-                        val jsonObject = JSONObject(data)
-                        val token = jsonObject.optString("message", "")
-                        val isDone = jsonObject.optBoolean("done", false)
-                        val audioUrl = jsonObject.optString("audio_url", null)
+            val reader = response.body?.source()?.inputStream()?.bufferedReader()
 
-                        // token이 있거나, 혹은 token이 없더라도 isDone이 true라면 emit해야 합니다.
-                        if (token.isNotEmpty() || isDone) {
-                            emit(StreamResponse(token, isDone, audioUrl))
+            // 중요: use를 사용하여 스트림을 안전하게 닫습니다.
+            reader?.use { br ->
+                while (currentCoroutineContext().isActive) {
+                    val line = br.readLine() ?: break
+                    if (line.startsWith("data: ")) {
+                        val data = line.substring(6)
+                        try {
+                            val jsonObject = JSONObject(data)
+                            val token = jsonObject.optString("message", "")
+                            val isDone = jsonObject.optBoolean("done", false)
+                            val audioUrl = jsonObject.optString("audio_url").ifBlank { null }
+
+                            // token이 있거나, 혹은 token이 없더라도 isDone이 true라면 emit해야 합니다.
+                            if (token.isNotEmpty() || isDone) {
+                                emit(StreamResponse(token, isDone, audioUrl))
+                            }
+                            if (isDone) break
+                        } catch (e: Exception) {
+                            Log.e("ChatStream", "JSON 파싱 에러: ${e.message}")
                         }
-                    } catch (e: Exception) {
-                        Log.e("ChatStream", "JSON 파싱 에러: ${e.message}")
                     }
                 }
-                line = br.readLine()
             }
+        } finally {
+            completionHandler.dispose()
+            call.cancel() // 정상 종료든 취소든 네트워크 연결 확실히 해제
         }
     }.flowOn(Dispatchers.IO) // 이 부분이 핵심: 네트워크 작업은 전용 스레드에서 수행
 

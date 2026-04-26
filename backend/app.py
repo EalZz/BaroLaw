@@ -257,11 +257,20 @@ async def update_session_title_in_background(session_id: str, text: str):
 
 async def generate_ai_stream(request: Request, uid: str, user_text: str, current_time: str, session_id: Optional[str] = None):
     start_time = time.time()
+    sid_for_log = session_id or "unknown"
     try:
         # [Step 1] 컨텍스트 준비
         context_data = await prepare_chat_context(uid, user_text, session_id)
         sid_str = context_data["session_id"]
+        sid_for_log = sid_str
         
+        # Task 5-4: RAG 준비 완료 로그
+        logger.info(f"--- [RAG Ready] Category: {context_data.get('category')}, Keywords: {len(context_data.get('keywords', []))}, RAG Duration: {context_data.get('rag_duration', 0):.2f}s ---")
+
+        if await request.is_disconnected():
+            logger.info(f"--- [Stream Cancelled] Client disconnected after RAG: {sid_str} ---")
+            return
+
         if context_data.get("is_uncertain"):
             yield build_sse_payload(context_data["rag_context"], done=True)
             return
@@ -308,13 +317,18 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
             chat_history_msgs.append({"role": "user" if m_hist["role"] == "user" else "assistant", "content": m_hist["content"]})
         chat_history_msgs.append({"role": "user", "content": user_text})
 
+        # Task 5-4: Ollama 스트리밍 시작 로그
+        logger.info(f"--- [LLM Start] Entering Ollama streaming stage for session: {sid_str} ---")
+
         accumulated_resp = ""
         async with httpx.AsyncClient(timeout=300.0) as client:
             async with client.stream("POST", OLLAMA_CHAT_URL, json={
                 "model": MODEL_NAME, "messages": chat_history_msgs, "stream": True, "think": False, "options": {"temperature": 0.3}
             }) as response:
                 async for line_raw in response.aiter_lines():
-                    if await request.is_disconnected(): break
+                    if await request.is_disconnected(): 
+                        logger.info(f"--- [Stream Cancelled] Client disconnected: {sid_str} ---")
+                        break
                     if not line_raw: continue
                     try:
                         chunk_json = json.loads(line_raw)
@@ -372,15 +386,22 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
                                 finally:
                                     db_final.close()
                             await asyncio.to_thread(_save_to_db)
+                            full_duration = time.time() - start_time
+                            logger.info(f"--- [Stream Completed] Session: {sid_str}, Total: {full_duration:.2f}s, DB Saved ---")
                             break
                     except json.JSONDecodeError:
                         continue
 
+    except asyncio.CancelledError:
+        logger.info(f"--- [Stream Cancelled] Streaming task cancelled: {sid_for_log} ---")
+        return
     except Exception as e:
         logger.error(f"[Stream Error] {e}")
 
 @app.get("/chat-stream")
 async def chat_stream(request: Request, text: str, uid: str, session_id: Optional[str] = None):
+    # Task 5-4: 요청 시작 로그
+    logger.info(f"--- [Stream Start] Session: {session_id}, UID: {uid[:8]}..., Text length: {len(text)} ---")
     return StreamingResponse(
         generate_ai_stream(request, uid, text, datetime.now(pytz.timezone('Asia/Seoul')).isoformat(), session_id),
         media_type="text/event-stream",

@@ -97,6 +97,7 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     private var activeGenerationSessionId by mutableStateOf<String?>(null)
     private var activeGenerationMessageId by mutableStateOf<String?>(null)
     private var generationJob: Job? = null
+    private val locallyStoppedSessionIds = mutableSetOf<String>()
     private var lastSpokenText: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -425,6 +426,7 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     private fun loadHistory(sessionId: String) {
         // Task 4: 생성 중인 세션은 히스토리 로드를 건너뛰어 로컬 상태(Thinking/Streaming)를 보존한다.
         if (sessionId == activeGenerationSessionId) return
+        if (sessionId in locallyStoppedSessionIds) return
 
         lifecycleScope.launch {
             try {
@@ -481,6 +483,7 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
         
         val activeSessionId = currentSessionId // !!핵심!! 현재 세션 ID 캡처
         val session = sessions.find { it.id == activeSessionId } ?: return
+        locallyStoppedSessionIds.remove(activeSessionId)
         
         if (session.messages.isEmpty()) {
             val title = if (text.length > 20) text.take(17) + "..." else text
@@ -637,13 +640,14 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             stopLoadingAnimation(msgId)
             
             activeGenerationSessionId?.let { sid ->
+                locallyStoppedSessionIds.add(sid)
                 val session = sessions.find { it.id == sid }
                 val msgIndex = session?.messages?.indexOfFirst { it.id == msgId } ?: -1
                 if (msgIndex >= 0) {
                     val msg = session!!.messages[msgIndex]
                     // Thinking 상태면 중단 메시지로 교체
                     if (msg.content.contains("Thinking")) {
-                        session.messages[msgIndex] = msg.copy(content = "생성이 중단되었습니다")
+                        session.messages[msgIndex] = msg.copy(content = "응답을 종료했습니다.")
                     }
                 }
             }
@@ -659,8 +663,6 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
             isListening = false
         }
 
-        activeGenerationSessionId = null
-        activeGenerationMessageId = null
     }
 
     override fun onDestroy() {
@@ -918,7 +920,7 @@ fun ChatBubble(
     onLawClick: (List<LawDetail>) -> Unit
 ) {
     val isUser = message.isUser
-    val isThinking = !isUser && (message.content.startsWith("Thinking") || message.content == "생성이 중단되었습니다")
+    val isThinking = !isUser && (message.content.startsWith("Thinking") || message.content == "응답을 종료했습니다.")
     val bubbleColor = if (isUser) Color(0xFF2F2F2F) else Color.Transparent
     val shape = if (isUser) RoundedCornerShape(20.dp, 20.dp, 4.dp, 20.dp) else RoundedCornerShape(0.dp)
     val clipboardManager = LocalClipboardManager.current
