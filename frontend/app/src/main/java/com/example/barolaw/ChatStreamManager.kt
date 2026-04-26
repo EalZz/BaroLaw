@@ -134,6 +134,21 @@ class ChatStreamManager(private val context: Context) {
         }
     }
 
+    suspend fun cancelChat(sessionId: String) {
+        try {
+            val request = Request.Builder()
+                .url("$BASE_URL/chat-cancel/$sessionId")
+                .delete()
+                .addNgrokHeader()
+                .build()
+            withContext(Dispatchers.IO) {
+                client.newCall(request).execute().close()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     private fun buildChatStreamUrl(userText: String, sessionId: String, lat: Double?, lon: Double?): String {
         val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         val encodedText = URLEncoder.encode(userText, "UTF-8")

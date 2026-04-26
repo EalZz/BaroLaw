@@ -633,23 +633,31 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun stopGeneration() {
-        generationJob?.cancel()
-        generationJob = null
+        val sid = activeGenerationSessionId
+        val msgId = activeGenerationMessageId
+        val jobToCancel = generationJob
 
-        activeGenerationMessageId?.let { msgId ->
-            stopLoadingAnimation(msgId)
-            
-            activeGenerationSessionId?.let { sid ->
-                locallyStoppedSessionIds.add(sid)
-                val session = sessions.find { it.id == sid }
-                val msgIndex = session?.messages?.indexOfFirst { it.id == msgId } ?: -1
-                if (msgIndex >= 0) {
-                    val msg = session!!.messages[msgIndex]
-                    // Thinking 상태면 중단 메시지로 교체
-                    if (msg.content.contains("Thinking")) {
-                        session.messages[msgIndex] = msg.copy(content = "응답을 종료했습니다.")
-                    }
+        msgId?.let { stopLoadingAnimation(it) }
+
+        if (sid != null) {
+            locallyStoppedSessionIds.add(sid)
+            val session = sessions.find { it.id == sid }
+            val msgIndex = session?.messages?.indexOfFirst { it.id == msgId } ?: -1
+            if (msgIndex >= 0) {
+                val msg = session!!.messages[msgIndex]
+                if (msg.content.contains("Thinking")) {
+                    session.messages[msgIndex] = msg.copy(content = "응답을 종료했습니다.")
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            if (sid != null) {
+                streamManager.cancelChat(sid)
+            }
+            jobToCancel?.cancel()
+            if (generationJob == jobToCancel) {
+                generationJob = null
             }
         }
 

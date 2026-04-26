@@ -31,6 +31,10 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("VoiceAI-Server")
 
 app = FastAPI()
+
+# Task 5-x: 명시적 취소 감지용 세션 상태 집합
+cancelled_sessions: set[str] = set()
+
 # 전처리기 인스턴스
 preprocessor = LegalPreprocessor()
 
@@ -88,6 +92,12 @@ async def delete_session_api(session_id: str):
         return {"success": success}
     finally:
         db_session.close()
+
+@app.delete("/chat-cancel/{session_id}")
+async def cancel_chat(session_id: str):
+    cancelled_sessions.add(session_id)
+    logger.info(f"--- [Cancel Requested] Session: {session_id} ---")
+    return {"cancelled": session_id}
 
 # ------------------------------------------------------------
 # [AI 응답 도우미]
@@ -256,6 +266,42 @@ async def update_session_title_in_background(session_id: str, text: str):
         logger.error(f"[Title Update Error] {e}")
 
 async def generate_ai_stream(request: Request, uid: str, user_text: str, current_time: str, session_id: Optional[str] = None):
+    # --- Task 5: 취소 저장을 위한 상태 변수 (함수 최상단) ---
+    accumulated_resp = ""
+    context_data = None
+    sid_str = session_id or "unknown"
+    cancel_saved = False
+
+    def save_cancelled_ai_message(content: str):
+        nonlocal cancel_saved
+        if cancel_saved or context_data is None:
+            return
+
+        content_to_save = content.strip()
+        if not content_to_save:
+            content_to_save = "응답을 종료했습니다."
+
+        cancel_saved = True
+        logger.info(f"--- [Cancel Saved] Session: {sid_str}, Content Length: {len(content_to_save)} ---")
+
+        db_final = SessionUser()
+        try:
+            clean_ref_id = None
+            if context_data.get("ref_id"):
+                import re
+                numeric_match = re.search(r'\d+', str(context_data["ref_id"]))
+                if numeric_match:
+                    clean_ref_id = int(numeric_match.group())
+
+            save_chat_message(
+                db_final, sid_str, role="ai",
+                content=content_to_save,
+                ref_type=context_data.get("ref_type"),
+                ref_id=clean_ref_id
+            )
+        finally:
+            db_final.close()
+
     start_time = time.time()
     sid_for_log = session_id or "unknown"
     try:
@@ -267,8 +313,10 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
         # Task 5-4: RAG 준비 완료 로그
         logger.info(f"--- [RAG Ready] Category: {context_data.get('category')}, Keywords: {len(context_data.get('keywords', []))}, RAG Duration: {context_data.get('rag_duration', 0):.2f}s ---")
 
-        if await request.is_disconnected():
-            logger.info(f"--- [Stream Cancelled] Client disconnected after RAG: {sid_str} ---")
+        if await request.is_disconnected() or sid_str in cancelled_sessions:
+            logger.info(f"--- [Stream Cancelled] Client disconnected or cancelled after RAG: {sid_str} ---")
+            cancelled_sessions.discard(sid_str)
+            save_cancelled_ai_message("응답을 종료했습니다.")
             return
 
         if context_data.get("is_uncertain"):
@@ -320,7 +368,6 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
         # Task 5-4: Ollama 스트리밍 시작 로그
         logger.info(f"--- [LLM Start] Entering Ollama streaming stage for session: {sid_str} ---")
 
-        accumulated_resp = ""
         async with httpx.AsyncClient(timeout=300.0) as client:
             async with client.stream("POST", OLLAMA_CHAT_URL, json={
                 "model": MODEL_NAME, "messages": chat_history_msgs, "stream": True, "think": False, "options": {"temperature": 0.3}
@@ -328,7 +375,8 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
                 async for line_raw in response.aiter_lines():
                     if await request.is_disconnected(): 
                         logger.info(f"--- [Stream Cancelled] Client disconnected: {sid_str} ---")
-                        break
+                        save_cancelled_ai_message(accumulated_resp)
+                        return
                     if not line_raw: continue
                     try:
                         chunk_json = json.loads(line_raw)
@@ -394,6 +442,7 @@ async def generate_ai_stream(request: Request, uid: str, user_text: str, current
 
     except asyncio.CancelledError:
         logger.info(f"--- [Stream Cancelled] Streaming task cancelled: {sid_for_log} ---")
+        save_cancelled_ai_message(accumulated_resp)
         return
     except Exception as e:
         logger.error(f"[Stream Error] {e}")
