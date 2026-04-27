@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit
 import android.content.Context
 import android.provider.Settings
 import kotlinx.coroutines.withContext
+import com.example.barolaw.model.*
+
 
 class ChatStreamManager(private val context: Context) {
     private val client = OkHttpClient.Builder()

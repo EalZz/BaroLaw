@@ -36,12 +36,15 @@ tests/results/*.md
 
 # Local-only tests
 tests/
+frontend/app/src/test/
+frontend/app/src/androidTest/
 
 # Local planning notes
 docs/android_usage_stability_plan.md
 
 # Local scratch
 tmp_*.py
+frontend/build_result*.txt
 
 # Local model build files
 models/Modelfile*

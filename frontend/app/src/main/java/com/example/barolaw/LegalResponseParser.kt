@@ -2,6 +2,8 @@ package com.example.barolaw
 
 import org.json.JSONArray
 import org.json.JSONObject
+import com.example.barolaw.model.*
+
 
 /**
  * 응답 섹션별 데이터를 담는 데이터 클래스
